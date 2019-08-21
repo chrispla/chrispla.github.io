@@ -1167,7 +1167,7 @@ function draw() {
     textStyle(BOLD);
     textSize(14);
     text(omr_title, windowWidth/2 + 125, windowHeight/4 + 500, windowWidth/3, 2*windowHeight/3);
-    textStyle(ITALIC);
+    textStyle(NORMAL);
     text(omr_description, windowWidth/2 + 125, windowHeight/4 + 520, windowWidth/3, 2*windowHeight/3);
     image(omr_img, windowWidth/2 + 25, windowHeight/4 + 500, 75, 75);
   }
@@ -1214,7 +1214,7 @@ function draw() {
     textStyle(BOLD);
     textSize(14);
     text(omr_title, windowWidth/2 + 125, windowHeight/4 + 500, windowWidth/3, 2*windowHeight/3);
-    textStyle(ITALIC);
+    textStyle(NORMAL);
     text(omr_description, windowWidth/2 + 125, windowHeight/4 + 520, windowWidth/3, 2*windowHeight/3);
     image(omr_img, windowWidth/2 + 25, windowHeight/4 + 500, 75, 75);
   }
@@ -1270,7 +1270,7 @@ function draw() {
     textStyle(BOLD);
     textSize(14);
     text(omr_title, windowWidth/2 + 125, windowHeight/4 + 500, windowWidth/3, 2*windowHeight/3);
-    textStyle(ITALIC);
+    textStyle(NORMAL);
     text(omr_description, windowWidth/2 + 125, windowHeight/4 + 520, windowWidth/3, 2*windowHeight/3);
     image(omr_img, windowWidth/2 + 25, windowHeight/4 + 500, 75, 75);
   }
