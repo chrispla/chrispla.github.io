@@ -274,26 +274,25 @@ function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set tim
   //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
   // }
 
-  //TOP RIGHT QUADRANT
-  for (var i = 10; i < 20; i++) {
+
+  for (var i = 0; i < 10; i++) {
+    //TOP RIGHT QUADRANT
     //without x/yposupdate, so ignoring mousepoisition
-    perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
+    particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255*timer);
     strokeWeight(3);
-    if (i<14) {
+    if (i<4) {
       fill(r1, g1, b1, 255*timer);
-    } else if (i<17) {
+    } else if (i<7) {
         fill(r2, g2, b2, 255*timer);
     } else {
         fill(r3, g3, b3, 255*timer);
     }
-    ellipse(particleXpos[i], particleYpos[i], 10, 10);
-  }
+    ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
 
-  //BOTTOM RIGHT QUADRANT
-  for (var i = 0; i < 10; i++) {
+    //BOTTOM RIGHT QUADRANT
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
     particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
@@ -309,7 +308,6 @@ function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set tim
     }
     ellipse(particleXpos[i], particleYpos[i], 10, 10);
   }
-
 }
 
 
@@ -321,9 +319,7 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
       particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
       particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
-
       //Lines
-
       strokeWeight(1.5);
       //varying line colors based on particle index
       //state012per makes them reach the specified alpha value when fade-in is done
@@ -369,7 +365,6 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
         }
       }
       ellipse(particleXpos[i], particleYpos[i], 11, 11);
-      strokeWeight(1);
     }
 
 
@@ -398,6 +393,7 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
     }
 
+    //description
     fill(0, 255*(1-transitionCounterper));
     noStroke();
     textFont('Verdana');
@@ -416,6 +412,7 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
     text(other_projects, (windowWidth/2 + 33), windowHeight/2 + 83);
     text(contact, (windowWidth/2 + 33), windowHeight/2 + 105);
   }
+
   if (state==currentState+1) {
     //---picture---//
     image(profile, (windowWidth/2 - 180)+((transitionCounterper)*180), windowHeight/2 - 86, 180, 180);
@@ -488,10 +485,10 @@ function draw() {
   //---background---//
   background(255);
 
-  //get framerate
-  if (frameCount%15==0) {
-    fps = frameRate();
-  }
+  // //get framerate
+  // if (frameCount%15==0) {
+  //   fps = frameRate();
+  // }
 
   //---TAB TRANSITION COUNTER---//
   if (state==2 || state==3 || state==4 || state==6 || state==7 || state==8 || state==9 || state==11 || state==12 || state==13 || state==14 || state==16 || state==17 || state==18 || state==19 || state==21 || state==22 || state==23 || state==24 || state==26 || state==27 || state==28 || state==29 || state==31) {
@@ -883,7 +880,7 @@ function draw() {
     textSize(12);
     text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
     textStyle(NORMAL);
-    text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
+    text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
     image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
 
     //String Quartet
