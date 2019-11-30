@@ -1,3 +1,9 @@
+//DISCLAIMER - If you stumble uppon this code...
+//I wrote this website/p5.js sketch in 3 days in a remote location with no WIFI.
+//The code is messy, unstructured, and lacks documentation. I am devoting the few minutes
+//of free time I can find to organizing and optimizing it.
+
+
 //-----STATES-----//
 
 //state 0: Opening slide and fade transition to home screen
@@ -50,6 +56,9 @@ var state010 = 0;
 var state011 = 0;
 var state012 = 0;
 
+//build text
+var alpha = "alpha version"
+
 //homepage text
 var hi = "Hi!";
 var description = "My name is Christos Plachouras, and I'm working on some cool stuff in music, computer science, mathematics, and engineering. You can find some of them on this website!";
@@ -62,7 +71,7 @@ var string_quartet_title = "Piece for String Quartet";
 var string_quartet_performance = "Omer Quartet, Live at NYUAD Blue Hall, 14th of March, 2019";
 var string_quartet_img;
 var preludes_title = "12 Preludes of Tonal Resolution for Piano";
-var preludes_performance = "Christos Plachouras, 26th of August, 2019 (Coming Soon)";
+var preludes_performance = "Christos Plachouras, 26th of August, 2019";
 var preludes_img;
 var mapinmusic_title = "Map in Music - A Sonification Project";
 var mapinmusic_performance = "Eunsu Choi (violin), Christos Plachouras (piano), Live at NYUAD Blue Hall, 14th of December, 2017";
@@ -82,7 +91,9 @@ var bach_title = "Bach - Partita No. 2 in C minor, I. Simfonia";
 var bach_performance = "Christos Plachouras, Live at NYUAD Blue Hall, 3rd of May, 2018";
 
 //publications page
-var placeholder = "soon...";
+var dlfm2019_title = "Mapping the Sounds of the Swahili coast and the Arab Mashriq: Music research at the intersection of computational analysis and cultural heritage preservation";
+var dlfm2019_description = "TROMPA Poster presentation at the 6th Digital Libraries for Musicology event of ISMIR 2019"
+var dlfm2019_img;
 
 //other_projects page
 var koechlin_title = "Charles Koechlin - Computational Musicology (active)";
@@ -157,6 +168,7 @@ function preload() {
   messiaen_img = loadImage('messiaen.png');
   bach_img = loadImage('bach.png');
   koechlin_img = loadImage('koechlin.png');
+  dlfm2019_img = loadImage('dlfm2019.png');
   tool_img = loadImage('tool.png');
   masc_img = loadImage('masc.png');
   omr_img = loadImage('omr.png');
@@ -379,6 +391,7 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
     contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, 255*(1-transitionCounterper));
     noStroke();
     fill(0);
+    textStyle(BOLD);
     text(tabvar, (windowWidth/2 + 33)-((1-state011per)*300), currentY);
     image(profile, (windowWidth/2 - 180), windowHeight/2 - 86, 180, 180);
 
@@ -482,8 +495,17 @@ function Particles() {
 //-----DRAW-----// see p5js documentation for draw() function
 function draw() {
 
+
   //---background---//
   background(255);
+
+  //version
+  fill(0);
+  noStroke();
+  textFont('Verdana');
+  textStyle(NORMAL);
+  textSize(12);
+  text('alpha version', 5, 15)
 
   // //get framerate
   // if (frameCount%15==0) {
@@ -1077,9 +1099,23 @@ function draw() {
     fill(0, 255*(transitionCounterper));
     noStroke();
     textFont('Verdana');
+    tint(255, 255*(transitionCounterper));
+
+    //---frames---//
+    stroke(0, 255*(transitionCounterper));
+    fill(0, 0);
+    strokeWeight(2);
+    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+    //dlfm2019
+    textStyle(BOLD);
+    textSize(12);
+    noStroke();
+    fill(0, 255*transitionCounterper);
+    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
     textStyle(NORMAL);
-    textSize(14);
-    text(placeholder, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/4, 2*windowHeight/3);
+    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
   }
 
   if (state==20) { //static publications page
@@ -1094,9 +1130,23 @@ function draw() {
     fill(0, 255);
     noStroke();
     textFont('Verdana');
+    tint(255, 255);
+
+    //---frames---//
+    stroke(0, 255);
+    fill(0, 0);
+    strokeWeight(2);
+    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+    //dlfm2019
+    textStyle(BOLD);
+    textSize(12);
+    noStroke();
+    fill(0);
+    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
     textStyle(NORMAL);
-    textSize(14);
-    text(placeholder, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/4, 2*windowHeight/3);
+    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
   }
 
   if (state==21) { //fade-out of publications tab
@@ -1120,9 +1170,23 @@ function draw() {
     fill(0, 255*(1-transitionCounterper));
     noStroke();
     textFont('Verdana');
+    tint(255, 255*(1-transitionCounterper));
+
+    //---frames---//
+    stroke(0, 255*(1-transitionCounterper));
+    fill(0, 0);
+    strokeWeight(2);
+    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+    //dlfm2019
+    textStyle(BOLD);
+    noStroke();
+    fill(0, 255*(1-transitionCounterper));
+    textSize(12);
+    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
     textStyle(NORMAL);
-    textSize(14);
-    text(placeholder, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/4, 2*windowHeight/3);
+    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
   }
 
 
@@ -1469,7 +1533,7 @@ function mousePressed() {
   if (state==10) {
     //Preludes
     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-      //window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
+      window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
     }
     //Quartet
     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
@@ -1498,4 +1562,11 @@ function mousePressed() {
       window.open("https://www.youtube.com/watch?v=kMOaC0guYuw");
     }
   }
+  if (state==20) {
+    //dlfm2019
+    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+      window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
+    }
+  }
+
 }
