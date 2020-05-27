@@ -45,19 +45,26 @@
 //state 30: contact tab
 //state 31: contact tab fade-out
 
-//FPS
-var fps = 0;
+//-----VARIABLES-----//
 
-//State
-var state = 0;
+var fps = 0; //FPS used to measure sketch performance
+var state = 0; //Website pages and animations loaded based on states
+var state010 = 0; //substate used to indicate loading transition of homepage
+var state011 = 0; //substate used to indicate the no-transition "static" state of the homepage
+var state012 = 0; //substate used to indiate exiting transition of homepage
 
-//Substates 0
-var state010 = 0;
-var state011 = 0;
-var state012 = 0;
+//---TEXT & IMAGES---//
 
 //build text
-var alpha = "alpha version"
+var alpha = "alpha version" 
+
+//TABS
+var about = "about";
+var compositions = "compositions";
+var performances = "performances";
+var publications = "publications";
+var other_projects = "other projects";
+var contact = "contact";
 
 //homepage text
 var hi = "Hi!";
@@ -112,7 +119,7 @@ var omr_img;
 //contact
 var contact_linkedin = "My LinkedIn: Christos Plachouras";
 var contact_email = "My email: cplachouras -αt- nyu.edu";
-var current_location = "I am currently in: New York City!";
+var current_location = "I am currently in: Athens!";
 var current_location_img;
 
 //homepage and about images
@@ -122,13 +129,7 @@ var profile1;
 //home button
 var homebutton = "<";
 
-//tabs
-var about = "about";
-var compositions = "compositions";
-var performances = "performances";
-var publications = "publications";
-var other_projects = "other projects";
-var contact = "contact";
+//-----COUNTERS-----//
 
 //tabs
 var aboutCounter = 0;
@@ -138,6 +139,13 @@ var publicationsCounter = 0;
 var other_projectsCounter = 0;
 var contactCounter = 0;
 
+//tab transition counter
+var transitionCounter = 0;
+var transitionCounterper = 0;
+
+//----FRAME WIDTHS----//
+
+//define width of background boxes for tabs
 var aboutFrameWidth = 53;
 var compositionsFrameWidth = 103;
 var performancesFrameWidth = 106;
@@ -145,19 +153,19 @@ var publicationsFrameWidth = 97;
 var other_projectsFrameWidth = 110;
 var contactFrameWidth = 65;
 
-//tab transition counter
-var transitionCounter = 0;
-var transitionCounterper = 0;
+//-----PARTICLES-----//
 
-//particles
-var particles = [];
-var particleXpos = [];
-var particleYpos = [];
-var perlinTimers = [];
-var particleNumber = 40; //if below 20, you'll need to redefine the generalParticles function
+//initializations for particles
+var particles = []; //array storing particle objects
+var particleXpos = []; //array holding particle X positions
+var particleYpos = []; //array holding particle Y positions
+var perlinTimers = []; //array holding noise seeds
+var particleNumber = 40; //if below 20, you'll need to redefine generalParticles()
 
 //-----PRELOAD-----// see p5js documentation for preload() function
 function preload() {
+
+  //preload images
   profile = loadImage('profile.png');
   profile1 = loadImage('profile1.png');
   string_quartet_img = loadImage('string_quartet.png');
@@ -184,15 +192,17 @@ function setup() {
   //create specified number of instances of the particle class
   for (var i = 0; i < particleNumber; i++) {
     particles[i] = new Particles();
-    //initialize a different value of the perlin parameter for each particle
+    //initialize a different perlin noise seed for each particle
     perlinTimers[i] = (i*100);
   }
 }
 
-//-----Tab Animations-----//
+//----TAB ANIMATIONS----// 
+//create a background box for tabs using consecutive vertical lines with changing stroke to create gradient
 function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR, dropG, dropB, alpha) {
   //xpos value of moving tab box relative to middle width
   //upper ypos value relative to middle height
+  //lCounter = counter of current animation?
   //frameWidth = width of the moving tab box
   //startRGB = starting values of the fade
   //dropRGB = the amount of reduction of each value at the end of the fade
@@ -200,27 +210,37 @@ function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB,
   lines = round(sin(lCounter)*frameWidth);
   strokeWeight(1.2);
   stroke(startR-dropR, startG-dropG, startB-dropB, alpha);
+
+  //draw 3 lines at the start (left) of each box, regardless of mouse positions
   for (var i = 0; i < 3; i++) {
     line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
   }
 
+  //draw lines based on lines variable
   for (var i = 0; i < lines; i++) {
     //The color transition bases the stroke on the amount of lines that will be generated
     stroke((startR-(1-(i/frameWidth))*dropR), startG-((1-(i/frameWidth))*dropG), startB-((1-(i/frameWidth))*dropB), alpha);
     line(((windowWidth/2)+xpos+3+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+3+i), ((windowHeight/2)+ypos+20));
   }
 
+  //return value by which to increment/decrement lCoutner
   if ((mouseX>((windowWidth/2)+xpos)) && (mouseX<((windowWidth/2)+xpos+3+frameWidth)) && (mouseY<((windowHeight/2)+ypos+20)) && (mouseY>((windowHeight/2)+ypos))) {
+    //if mouse inside box
     if (lCounter < HALF_PI) {
+      //if box still not fully drawn
       return (HALF_PI/30);
     } else {
+      //if box fully drawn
       return 0;
     }
   } else {
-      if (lCounter > 0) {
-        return (-HALF_PI/20);
-      } else {
+    //if mouse outside
+      if (lCounter <= 0) {
+        //if box 0
         return 0;
+      } else {
+        //if box not 0
+        return (-HALF_PI/20);
       }
   }
 }
@@ -393,6 +413,8 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
     fill(0);
     textStyle(BOLD);
     text(tabvar, (windowWidth/2 + 33)-((1-state011per)*300), currentY);
+
+    //---image---//
     image(profile, (windowWidth/2 - 180), windowHeight/2 - 86, 180, 180);
 
     //---eyes---//
