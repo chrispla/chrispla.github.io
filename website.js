@@ -189,6 +189,10 @@ function setup() {
   //creating canvas equal to the width and height available by the browser
   createCanvas(windowWidth, windowHeight);
 
+  //create Tab info
+  var Tabs = {};
+  tabs['']
+
   //create specified number of instances of the particle class
   for (var i = 0; i < particleNumber; i++) {
     particles[i] = new Particles();
@@ -242,6 +246,13 @@ function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB,
         //if box not 0
         return (-HALF_PI/20);
       }
+  }
+}
+
+//draw static box on the left of specified tab
+function static_box() {
+  for (var i = 0; i < 3; i++) {
+    line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
   }
 }
 
@@ -424,7 +435,7 @@ function tabTransition (currentState, tabvar, currentY, desiredY) {
       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
     } else if (mouseX>(windowWidth/2)) {
-      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2)  - 9 + (mouseY/windowHeight)*3, 8, 8);
       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
     }
 
@@ -513,6 +524,169 @@ function Particles() {
     return this.y;
   }
 }
+
+//-----Tab Class-----//
+function Tab(title, x, y, width, startR, startG, startB, dropR, dropG, dropB) {
+  this.title = title;
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.startR = startR;
+  this.startG = startG;
+  this.startB = startB;
+  this.dropR = dropR;
+  this.dropG = dropG;
+  this.dropB = dropB;
+}
+
+function picture_slidein() {
+  if (state010 <= HALF_PI) { //check until that value
+    state010 += (HALF_PI/60); //linear counter //divisor determines the duration // for a 1sec animation, divide by 60=p5js default update rate
+    state010per = sin(state010); //translates linear counter to sinusodial animation
+    // state010 += (1/60);
+    // state010per = (state010)**2;
+  } else if (state011 <= HALF_PI) { //when picture animation done, text and tab animation
+    state011 += (HALF_PI/60);
+    state011per = sin(state011);
+  } else if (state012 <= HALF_PI) { //when picture and tab animation done, particle fade in
+    state012 += (HALF_PI/60);
+    state012per = sin(state012);
+  } else {
+    state = 1;
+  }
+}
+
+function picture_static() {
+
+}
+
+function picture_slideout() {
+
+}
+
+
+
+//---------------------NEW DRAW----------------------//
+var STATE = 0;
+var animation_timer = 0;
+var animation_substate = 0;
+
+function draw() {
+
+  //-----STATE AGNOSTIC-----//
+
+  //---background---//
+  background(255);
+
+  //---version---//
+  fill(0);
+  noStroke();
+  textStyle(NORMAL);
+  textSize(12);
+  text('alpha version', 5, 15)
+
+  //-----STATE DEPENDANT-----//
+
+  //STATE 0: HOMEPAGE FADE-IN
+  if (STATE == 0) {
+
+    //SUBSTATE 0: PAGE FADE-OUT
+    if (animation_substate == 0) {
+      if (!first_time) {
+        if (animation_timer <= HALF_PI) {
+          //call general particle fade-out
+          //call content fade-out
+          animation_timer += (HALF_PI/60);
+        } else {
+          animation_substate = 1;
+          animation_timer = 0;
+        }   
+      } else {
+        first_time = 0;
+        animation_substate = 1;
+      } 
+    }
+
+    //SUBSTATE 1: IMAGE SLIDE
+    if (animation_substate == 1) {
+      if (animation_timer <= HALF_PI) {
+        //call image slide
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 2;
+        animation_timer = 0;
+      }
+    }
+
+    //SUBSTATE 2: CONTENT SLIDE
+    if (animation_substate == 2) {
+      if (animation_timer <= HALF_PI) {
+        //call image static
+        //call content slide
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 3;
+        animation_timer = 0;
+      }
+    }
+
+    //SUBSTATE 3: PARTICLE FADE-IN
+    if (animation_substate == 3) {
+      if (animation_timer <= HALF_PI) {
+        //call image static
+        //call content static
+        //call particle fade-in
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 0;
+        animation_timer = 0;
+        STATE = 1;
+      } 
+    }
+
+  }
+
+  //STATE 1: HOMEPAGE STATIC
+  if (STATE == 1) {
+
+    //call image static
+    //call content static
+    //call particle static
+
+  }
+
+  //STATE 2: HOMEPAGE TO PAGE
+  if (STATE == 2) {
+
+    //SUBSTATE 1: HOMEPAGE CONTENT FADE-OUT
+    //call image static
+    //call content fadeout
+    //call particle fadeout
+
+    //SUBSTATE 2: IMAGE SLIDE AND TAB2TITLE
+    //call image slide
+    //call tab2title
+
+    //SUBSTATE 3: PAGE FADE-IN
+    //call general particles fade-in
+    //call content fade-in
+
+  }
+
+  //STATE 3: PAGE STATIC
+  if (STATE == 3) {
+
+    //call general particles static
+    //call content static
+
+  }
+}
+
+
+
+
+
+
 
 //-----DRAW-----// see p5js documentation for draw() function
 function draw() {
