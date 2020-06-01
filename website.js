@@ -189,17 +189,22 @@ function setup() {
   //creating canvas equal to the width and height available by the browser
   createCanvas(windowWidth, windowHeight);
 
-  //create Tab info
-  var Tabs = {};
-  tabs['']
-
   //create specified number of instances of the particle class
   for (var i = 0; i < particleNumber; i++) {
     particles[i] = new Particles();
     //initialize a different perlin noise seed for each particle
     perlinTimers[i] = (i*100);
   }
+
+
 }
+
+// //draw static box on the left of specified tab THIS IS NOT FINISHED
+// function static_box() {
+//   for (var i = 0; i < 3; i++) {
+//     line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
+//   }
+// }
 
 //----TAB ANIMATIONS----// 
 //create a background box for tabs using consecutive vertical lines with changing stroke to create gradient
@@ -249,246 +254,277 @@ function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB,
   }
 }
 
-//draw static box on the left of specified tab
-function static_box() {
-  for (var i = 0; i < 3; i++) {
-    line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
-  }
-}
+// function tab2title(textvar, currentY, desiredY) {
+//   textStyle(BOLD);
+//   fill(0);
+//   noStroke();
+//   textSize(12*(1+transitionCounterper));
+//   text(textvar, (windowWidth/2 + 33), (currentY - ((currentY-desiredY)*transitionCounterper)));
+// }
 
-function tab2title(textvar, currentY, desiredY) {
-  textStyle(BOLD);
+// function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set timer to 1 if no timer for opacity, set 1-transitionCounterper for fade-out
+
+//   //---LINES---// drawn before particles using a different loop so that lines don't overlay any particles
+//   if (timer==1) { //prevent drawing a huge amount of lines before particle position is summed
+//     for (var i = 0; i < 20; i++) {
+//       stroke(100, 150*timer);
+//       strokeWeight(1);
+//       for (var j=0; j<20; j++) {
+//         if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
+//           line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+//         }
+//       }
+//     }
+//   }
+
+//   //---PARTICLES---//
+
+//   // //TOP LEFT QUADRANT
+//   // for (var i = 30; i < 40; i++) {
+//   //   //without x/yposupdate, so ignoring mousepoisition
+//   //   perlinTimers[i] += (0.0001*i)+(0.0001);
+//   //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+//   //   particleYpos[i] = windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+//   //   stroke(50, 255*timer);
+//   //   strokeWeight(3);
+//   //   if (i<34) {
+//   //     fill(r1, g1, b1, 255*timer);
+//   //   } else if (i<37) {
+//   //       fill(r2, g2, b2, 255*timer);
+//   //   } else {
+//   //       fill(r3 ,g3 ,b3 , 255*timer);
+//   //   }
+//   //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
+//   // }
+//   //
+//   // //BOTTOM LEFT QUADRANT
+//   // for (var i = 20; i < 30; i++) {
+//   //   //without x/yposupdate, so ignoring mousepoisition
+//   //   perlinTimers[i] += (0.0001*i)+(0.0001);
+//   //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+//   //   particleYpos[i] = 3*windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+//   //   stroke(50, 255*timer);
+//   //   strokeWeight(3);
+//   //   if (i<24) {
+//   //     fill(r1, g1, b1, 255*timer);
+//   //   } else if (i<27) {
+//   //       fill(r2, g2, b2, 255*timer);
+//   //   } else {
+//   //       fill(r3 ,g3 ,b3 , 255*timer);
+//   //   }
+//   //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
+//   // }
+
+
+//   for (var i = 0; i < 10; i++) {
+//     //TOP RIGHT QUADRANT
+//     //without x/yposupdate, so ignoring mousepoisition
+//     perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
+//     particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
+//     particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
+//     stroke(50, 255*timer);
+//     strokeWeight(3);
+//     if (i<4) {
+//       fill(r1, g1, b1, 255*timer);
+//     } else if (i<7) {
+//         fill(r2, g2, b2, 255*timer);
+//     } else {
+//         fill(r3, g3, b3, 255*timer);
+//     }
+//     ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
+
+//     //BOTTOM RIGHT QUADRANT
+//     //without x/yposupdate, so ignoring mousepoisition
+//     perlinTimers[i] += (0.0001*i)+(0.0001);
+//     particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+//     particleYpos[i] = 3*windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+//     stroke(50, 255*timer);
+//     strokeWeight(3);
+//     if (i<4) {
+//       fill(r1, g1, b1, 255*timer);
+//     } else if (i<7) {
+//         fill(r2, g2, b2, 255*timer);
+//     } else {
+//         fill(r3, g3, b3, 255*timer);
+//     }
+//     ellipse(particleXpos[i], particleYpos[i], 10, 10);
+//   }
+// }
+
+
+// function tabTransition (currentState, tabvar, currentY, desiredY) {
+//   //---particles---//
+//   if (state==currentState) {
+//     for (var i = 0; i < particleNumber; i++) {
+//       perlinTimers[i] += (0.0001*i)+(0.0001);
+//       particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+//       particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+//       //Lines
+//       strokeWeight(1.5);
+//       //varying line colors based on particle index
+//       //state012per makes them reach the specified alpha value when fade-in is done
+//       if (i%3==0) {
+//         stroke(200, 255*(1-transitionCounterper));
+//       } else {
+//         if (i%5==0) {
+//           stroke(185, 255*(1-transitionCounterper));
+//         } else {
+//           if (i%7==0) {
+//             stroke(170, 255*(1-transitionCounterper));
+//           } else {
+//             stroke(155, 255*(1-transitionCounterper));
+//           }
+//         }
+//       }
+//       //line connecting particles with middle of picture
+//       line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+
+//       // // line connecting particles with other particles
+//       // if (i<particleNumber-2) {
+//       //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+//       // }
+
+//       //Particles
+//       strokeWeight(2);
+//       stroke(0, (1-transitionCounterper)*255);
+//       if (i%3==0) {
+//         //stroke(213,126,42, (state012per)*255);
+//         fill(179, 157, 219, (1-transitionCounterper)*255);
+//       } else {
+//         if (i%5==0) {
+//           //stroke(0,151,167, (state012per)*255);
+//           fill(239, 108, 0, (1-transitionCounterper)*255);
+//         } else {
+//           if (i%7==0) {
+//             //stroke(183,11,104, (state012per)*255);
+//             fill(128, 203, 196, (1-transitionCounterper)*255);
+//           } else {
+//             //stroke(100, (state012per)*255);
+//             fill(100, (1-transitionCounterper)*255);
+//           }
+//         }
+//       }
+//       ellipse(particleXpos[i], particleYpos[i], 11, 11);
+//     }
+
+
+
+//     //---tabs---//
+//     strokeWeight(1.2);
+//     aboutCounter += tabAnimations(25-((1-state011per)*300), -20, aboutCounter, aboutFrameWidth, 179, 157, 219, 20, 20, 20, 255*(1-transitionCounterper));
+//     compositionsCounter += tabAnimations(25-((1-state011per)*300), 2, compositionsCounter, compositionsFrameWidth, 159, 168, 218, 20, 20, 20, 255*(1-transitionCounterper));
+//     performancesCounter += tabAnimations(25-((1-state011per)*300), 24, performancesCounter, performancesFrameWidth, 144, 202, 249, 20, 20, 0, 255*(1-transitionCounterper));
+//     publicationsCounter += tabAnimations(25-((1-state011per)*300), 46, publicationsCounter, publicationsFrameWidth, 129, 212, 250, 20, 20, 20, 255*(1-transitionCounterper));
+//     other_projectsCounter += tabAnimations(25-((1-state011per)*300), 68, other_projectsCounter, other_projectsFrameWidth, 128, 222, 234, 20, 20, 20, 255*(1-transitionCounterper));
+//     contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, 255*(1-transitionCounterper));
+//     noStroke();
+//     fill(0);
+//     textStyle(BOLD);
+//     text(tabvar, (windowWidth/2 + 33)-((1-state011per)*300), currentY);
+
+//     //---image---//
+//     image(profile, (windowWidth/2 - 180), windowHeight/2 - 86, 180, 180);
+
+//     //---eyes---//
+//     fill(50, 255*(1-transitionCounterper));
+//     noStroke();
+//     if (mouseX<=(windowWidth/2)) {
+//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+//     } else if (mouseX>(windowWidth/2)) {
+//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2)  - 9 + (mouseY/windowHeight)*3, 8, 8);
+//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+//     }
+
+//     //description
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(15);
+//     text(hi, (windowWidth/2 + 25), windowHeight/2 - 95);
+//     textSize(12);
+//     text(description, (windowWidth/2 + 25), windowHeight/2 - 86, 300, 300);
+
+//     //-tab text-//
+//     textStyle(BOLD);
+//     text(about, (windowWidth/2 + 33), windowHeight/2 -5);
+//     text(compositions, (windowWidth/2 + 33), windowHeight/2 + 17);
+//     text(performances, (windowWidth/2 + 33), windowHeight/2 + 39);
+//     text(publications, (windowWidth/2 + 33), windowHeight/2 + 61);
+//     text(other_projects, (windowWidth/2 + 33), windowHeight/2 + 83);
+//     text(contact, (windowWidth/2 + 33), windowHeight/2 + 105);
+//   }
+
+//   if (state==currentState+1) {
+//     //---picture---//
+//     image(profile, (windowWidth/2 - 180)+((transitionCounterper)*180), windowHeight/2 - 86, 180, 180);
+//     //rect to hide image
+//     noStroke();
+//     fill(255);
+//     rect((windowWidth/2), (windowHeight/2)-106, 200, 217);
+//     //tab text transition from tab to title position
+//     textStyle(BOLD);
+//     tab2title(tabvar, currentY, desiredY);
+
+//   }
+//   //last part of the function manages title and homebutton, the page's content is handled seperately
+//   if (state==currentState+2) {
+//     noStroke();
+//     fill(0);
+//     textSize(24);
+//     textStyle(BOLD);
+//     text(tabvar, (windowWidth/2) + 33, desiredY);
+
+//     if (state!=24) {
+//       fill(0, 255*(transitionCounterper))
+//       textSize(24);
+//       text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+//     } else {
+//       fill(0, 255*(transitionCounterper))
+//       textSize(24);
+//       text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
+//     }
+//   }
+// }
+
+function state_agnostic() {
+
+  //---background---//
+  background(255);
+
+  //---version---//
   fill(0);
   noStroke();
-  textSize(12*(1+transitionCounterper));
-  text(textvar, (windowWidth/2 + 33), (currentY - ((currentY-desiredY)*transitionCounterper)));
+  textStyle(NORMAL);
+  textSize(12);
+  text('alpha version', 5, 15)
+
 }
 
-function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set timer to 1 if no timer for opacity, set 1-transitionCounterper for fade-out
+function line_fadein() {
+  
+  stroke(0, sin(animation_timer)*255);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
 
-  //---LINES---// drawn before particles using a different loop so that lines don't overlay any particles
-  if (timer==1) { //prevent drawing a huge amount of lines before particle position is summed
-    for (var i = 0; i < 20; i++) {
-      stroke(100, 150*timer);
-      strokeWeight(1);
-      for (var j=0; j<20; j++) {
-        if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
-          line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-        }
-      }
-    }
-  }
-
-  //---PARTICLES---//
-
-  // //TOP LEFT QUADRANT
-  // for (var i = 30; i < 40; i++) {
-  //   //without x/yposupdate, so ignoring mousepoisition
-  //   perlinTimers[i] += (0.0001*i)+(0.0001);
-  //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-  //   particleYpos[i] = windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-  //   stroke(50, 255*timer);
-  //   strokeWeight(3);
-  //   if (i<34) {
-  //     fill(r1, g1, b1, 255*timer);
-  //   } else if (i<37) {
-  //       fill(r2, g2, b2, 255*timer);
-  //   } else {
-  //       fill(r3 ,g3 ,b3 , 255*timer);
-  //   }
-  //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
-  // }
-  //
-  // //BOTTOM LEFT QUADRANT
-  // for (var i = 20; i < 30; i++) {
-  //   //without x/yposupdate, so ignoring mousepoisition
-  //   perlinTimers[i] += (0.0001*i)+(0.0001);
-  //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-  //   particleYpos[i] = 3*windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-  //   stroke(50, 255*timer);
-  //   strokeWeight(3);
-  //   if (i<24) {
-  //     fill(r1, g1, b1, 255*timer);
-  //   } else if (i<27) {
-  //       fill(r2, g2, b2, 255*timer);
-  //   } else {
-  //       fill(r3 ,g3 ,b3 , 255*timer);
-  //   }
-  //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
-  // }
-
-
-  for (var i = 0; i < 10; i++) {
-    //TOP RIGHT QUADRANT
-    //without x/yposupdate, so ignoring mousepoisition
-    perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
-    particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
-    stroke(50, 255*timer);
-    strokeWeight(3);
-    if (i<4) {
-      fill(r1, g1, b1, 255*timer);
-    } else if (i<7) {
-        fill(r2, g2, b2, 255*timer);
-    } else {
-        fill(r3, g3, b3, 255*timer);
-    }
-    ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
-
-    //BOTTOM RIGHT QUADRANT
-    //without x/yposupdate, so ignoring mousepoisition
-    perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = 3*windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-    stroke(50, 255*timer);
-    strokeWeight(3);
-    if (i<4) {
-      fill(r1, g1, b1, 255*timer);
-    } else if (i<7) {
-        fill(r2, g2, b2, 255*timer);
-    } else {
-        fill(r3, g3, b3, 255*timer);
-    }
-    ellipse(particleXpos[i], particleYpos[i], 10, 10);
-  }
 }
 
+function line_static() {
 
-function tabTransition (currentState, tabvar, currentY, desiredY) {
-  //---particles---//
-  if (state==currentState) {
-    for (var i = 0; i < particleNumber; i++) {
-      perlinTimers[i] += (0.0001*i)+(0.0001);
-      particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-      particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+  stroke(0);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
 
-      //Lines
-      strokeWeight(1.5);
-      //varying line colors based on particle index
-      //state012per makes them reach the specified alpha value when fade-in is done
-      if (i%3==0) {
-        stroke(200, 255*(1-transitionCounterper));
-      } else {
-        if (i%5==0) {
-          stroke(185, 255*(1-transitionCounterper));
-        } else {
-          if (i%7==0) {
-            stroke(170, 255*(1-transitionCounterper));
-          } else {
-            stroke(155, 255*(1-transitionCounterper));
-          }
-        }
-      }
-      //line connecting particles with middle of picture
-      line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+}
 
-      // // line connecting particles with other particles
-      // if (i<particleNumber-2) {
-      //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
-      // }
+function line_fadein() {
+  
+  stroke(0, (1-sin(animation_timer))*255);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
 
-      //Particles
-      strokeWeight(2);
-      stroke(0, (1-transitionCounterper)*255);
-      if (i%3==0) {
-        //stroke(213,126,42, (state012per)*255);
-        fill(179, 157, 219, (1-transitionCounterper)*255);
-      } else {
-        if (i%5==0) {
-          //stroke(0,151,167, (state012per)*255);
-          fill(239, 108, 0, (1-transitionCounterper)*255);
-        } else {
-          if (i%7==0) {
-            //stroke(183,11,104, (state012per)*255);
-            fill(128, 203, 196, (1-transitionCounterper)*255);
-          } else {
-            //stroke(100, (state012per)*255);
-            fill(100, (1-transitionCounterper)*255);
-          }
-        }
-      }
-      ellipse(particleXpos[i], particleYpos[i], 11, 11);
-    }
-
-
-
-    //---tabs---//
-    strokeWeight(1.2);
-    aboutCounter += tabAnimations(25-((1-state011per)*300), -20, aboutCounter, aboutFrameWidth, 179, 157, 219, 20, 20, 20, 255*(1-transitionCounterper));
-    compositionsCounter += tabAnimations(25-((1-state011per)*300), 2, compositionsCounter, compositionsFrameWidth, 159, 168, 218, 20, 20, 20, 255*(1-transitionCounterper));
-    performancesCounter += tabAnimations(25-((1-state011per)*300), 24, performancesCounter, performancesFrameWidth, 144, 202, 249, 20, 20, 0, 255*(1-transitionCounterper));
-    publicationsCounter += tabAnimations(25-((1-state011per)*300), 46, publicationsCounter, publicationsFrameWidth, 129, 212, 250, 20, 20, 20, 255*(1-transitionCounterper));
-    other_projectsCounter += tabAnimations(25-((1-state011per)*300), 68, other_projectsCounter, other_projectsFrameWidth, 128, 222, 234, 20, 20, 20, 255*(1-transitionCounterper));
-    contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, 255*(1-transitionCounterper));
-    noStroke();
-    fill(0);
-    textStyle(BOLD);
-    text(tabvar, (windowWidth/2 + 33)-((1-state011per)*300), currentY);
-
-    //---image---//
-    image(profile, (windowWidth/2 - 180), windowHeight/2 - 86, 180, 180);
-
-    //---eyes---//
-    fill(50, 255*(1-transitionCounterper));
-    noStroke();
-    if (mouseX<=(windowWidth/2)) {
-      ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-      ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-    } else if (mouseX>(windowWidth/2)) {
-      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2)  - 9 + (mouseY/windowHeight)*3, 8, 8);
-      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-    }
-
-    //description
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(15);
-    text(hi, (windowWidth/2 + 25), windowHeight/2 - 95);
-    textSize(12);
-    text(description, (windowWidth/2 + 25), windowHeight/2 - 86, 300, 300);
-
-    //-tab text-//
-    textStyle(BOLD);
-    text(about, (windowWidth/2 + 33), windowHeight/2 -5);
-    text(compositions, (windowWidth/2 + 33), windowHeight/2 + 17);
-    text(performances, (windowWidth/2 + 33), windowHeight/2 + 39);
-    text(publications, (windowWidth/2 + 33), windowHeight/2 + 61);
-    text(other_projects, (windowWidth/2 + 33), windowHeight/2 + 83);
-    text(contact, (windowWidth/2 + 33), windowHeight/2 + 105);
-  }
-
-  if (state==currentState+1) {
-    //---picture---//
-    image(profile, (windowWidth/2 - 180)+((transitionCounterper)*180), windowHeight/2 - 86, 180, 180);
-    //rect to hide image
-    noStroke();
-    fill(255);
-    rect((windowWidth/2), (windowHeight/2)-106, 200, 217);
-    //tab text transition from tab to title position
-    textStyle(BOLD);
-    tab2title(tabvar, currentY, desiredY);
-
-  }
-  //last part of the function manages title and homebutton, the page's content is handled seperately
-  if (state==currentState+2) {
-    noStroke();
-    fill(0);
-    textSize(24);
-    textStyle(BOLD);
-    text(tabvar, (windowWidth/2) + 33, desiredY);
-
-    if (state!=24) {
-      fill(0, 255*(transitionCounterper))
-      textSize(24);
-      text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-    } else {
-      fill(0, 255*(transitionCounterper))
-      textSize(24);
-      text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
-    }
-  }
 }
 
 
@@ -526,10 +562,10 @@ function Particles() {
 }
 
 //-----Tab Class-----//
-function Tab(title, x, y, width, startR, startG, startB, dropR, dropG, dropB) {
+function Tab(title, tab_y, text_y, width, startR, startG, startB, dropR, dropG, dropB) {
   this.title = title;
-  this.x = x;
-  this.y = y;
+  this.tab_y = tab_y;
+  this.text_y = text_y;
   this.width = width;
   this.startR = startR;
   this.startG = startG;
@@ -539,52 +575,392 @@ function Tab(title, x, y, width, startR, startG, startB, dropR, dropG, dropB) {
   this.dropB = dropB;
 }
 
-function picture_slidein() {
-  if (state010 <= HALF_PI) { //check until that value
-    state010 += (HALF_PI/60); //linear counter //divisor determines the duration // for a 1sec animation, divide by 60=p5js default update rate
-    state010per = sin(state010); //translates linear counter to sinusodial animation
-    // state010 += (1/60);
-    // state010per = (state010)**2;
-  } else if (state011 <= HALF_PI) { //when picture animation done, text and tab animation
-    state011 += (HALF_PI/60);
-    state011per = sin(state011);
-  } else if (state012 <= HALF_PI) { //when picture and tab animation done, particle fade in
-    state012 += (HALF_PI/60);
-    state012per = sin(state012);
-  } else {
-    state = 1;
+//-----Page information Dictionary-----//
+var page_info = {};
+
+//declare page dictionaries
+var home = {};
+var about = {};
+var compositions = {};
+var performances = {};
+var publications = {};
+var projects = {};
+var contact = {};
+
+//asign page name to dictionary
+page_info["home"] = home;
+page_info["about"] = about;
+page_info["compositions"] = compositions;
+page_info["performances"] = performances;
+page_info["publications"] = publications;
+page_info["projects"] = projects;
+page_info["contact"] = contact;
+
+//home
+home["image_slidein"] = image_slidein;
+home["image_static"] = image_static;
+home["image_slideout"] = image_slideout;
+home["content_slidein"] = content_slidein;
+home["content_static"] = content_static;
+home["content_slideout"] = content_fadeout;
+home["particle_fadein"] = particle_fadein;
+home["particle_static"] = particle_static;
+home["particle_fadeout"] = particle_fadeout;
+
+//about
+// about["content_fadein"] = about_content_fadein;
+// about["content_static"] = about_content_static;
+// about["content_fadeout"] = about_content_fadeout;
+about["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+about["tab_info"] = Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
+about["box_lines"] = 0;
+
+//compositions
+// compositions["content_fadein"] = compositions_content_fadein;
+// compositions["content_static"] = compositions_content_static;
+// compositions["content_fadeout"] = compositions_content_fadeout;
+compositions["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+compositions["tab_info"] = Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
+compositions["box_lines"] = 0;
+
+//performances
+// performances["content_fadein"] = performances_content_fadein;
+// performances["content_static"] = performances_content_static;
+// performances["content_fadeout"] = performances_content_fadeout;
+performances["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+performances["tab_info"] = Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
+performances["box_lines"] = 0;
+
+//publications
+// publications["content_fadein"] = publications_content_fadein;
+// publications["content_static"] = publications_content_static;
+// publications["content_fadeout"] = publications_content_fadeout;
+publications["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+publications["tab_info"] = Tab("publications", 46, 61, 97, 129, 212, 250, 20, 20, 20);
+publications["box_lines"] = 0;
+
+//projects
+// projects["content_fadein"] = projects_content_fadein;
+// projects["content_static"] = projects_content_static;
+// projects["content_fadeout"] = projects_content_fadeout;
+projects["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+projects["tab_info"] = Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
+projects["box_lines"] = 0;
+
+//contact
+// contact["content_fadein"] = contact_content_fadein;
+// contact["content_static"] = contact_content_static;
+// contact["content_fadeout"] = contact_content_fadeout;
+contact["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+contact["tab_info"] = Tab("contact", 90, 105, 65, 128, 203, 196, 20, 20, 20);
+contact["box_lines"] = 0;
+
+function image_slidein() {
+
+  //white ellipse to cover up image right of center line
+  noStroke();
+  fill(255);
+  rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
+
+  //image slide-in
+  tint(255, sin(animation_timer)*255);
+  image(profile, (windowWidth/2 - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
+
+}
+
+function image_static() {
+
+  tint(255, sin(animation_timer)*255);
+  image(profile, (windowWidth/2) - 180, (windowHeight/2) - 86, 180, 180);
+
+}
+
+function image_slideout() {
+
+  //white ellipse to cover up image right of center line
+  noStroke();
+  fill(255);
+  rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
+
+  //image slide-out
+  tint(255, (1-sin(animation_timer))*255);
+  image(profile, (windowWidth/2 - 180)+(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+
+}
+
+function content_slidein() {
+
+  //white ellipse to cover up text left of center line
+  noStroke();
+  fill(255);
+  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
+
+  //tab boxes
+  strokeWeight(1.2);
+  for(var key in page_info) {
+    if (key != "home") {
+      page_info[key]["box_lines"] += tabAnimations(25-((1-sin(animation_timer))*300), page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, sin(animation_timer)*255);
+    }
   }
+
+  //text
+  noStroke();
+  textStyle(NORMAL);
+  textSize(15);
+  fill(0, sin(animation_timer)*255);
+  text(hi, (windowWidth/2 + 25)-((1-sin(animation_timer))*300), windowHeight/2 - 95);
+  textSize(12);
+  text(description, (windowWidth/2 + 25)-((1-sin(animation_timer))*300), windowHeight/2 - 86, 300, 300);
+
+  //tab text
+  textStyle(BOLD);
+  for(var key in page_info) {
+    if (key != "home") {
+      text(page_info[key]["tab_info"].title, (windowWidth/2 + 33)-((1-sin(animation_timer))*300), windowHeight/2 + page_info[key]["tab_info"].text_y);
+    }
+  }
+
 }
 
-function picture_static() {
+function content_static() {
+
+  //tab boxes
+  strokeWeight(1.2);
+  for(var key in page_info) {
+    if (key != "home") {
+      page_info[key]["box_lines"] += tabAnimations(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, 255);
+    }
+  }
+
+  //text
+  noStroke();
+  textStyle(NORMAL);
+  textSize(15);
+  fill(0, 255);
+  text(hi, windowWidth/2 + 25, windowHeight/2 - 95);
+  textSize(12);
+  text(description, windowWidth/2 + 25, windowHeight/2 - 86, 300, 300);
+
+  //tab text
+  textStyle(BOLD);
+  for(var key in page_info) {
+    if (key != "home") {
+      text(page_info[key]["tab_info"].title, windowWidth/2 + 33, windowHeight/2 + page_info[key]["tab_info"].text_y);
+    }
+  }
 
 }
 
-function picture_slideout() {
+function content_fadeout() {
+
+  //white ellipse to cover up text left of center line
+  noStroke();
+  fill(255);
+  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
+
+  //tab boxes
+  strokeWeight(1.2);
+  for(var key in page_info) {
+    if (key != "home") {
+      page_info[key]["box_lines"] += tabAnimations(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, (1-sin(animation_timer))*255);
+    }
+  }
+
+  //text
+  noStroke();
+  textStyle(NORMAL);
+  textSize(15);
+  fill(0, (1-sin(animation_timer))*255);
+  text(hi, windowWidth/2 + 25, windowHeight/2 - 95);
+  textSize(12);
+  text(description, windowWidth/2 + 25, windowHeight/2 - 86, 300, 300);
+
+  //tab text
+  textStyle(BOLD);
+  for(var key in page_info) {
+    if (key != "home") {
+      text(page_info[key]["tab_info"].title, windowWidth/2 + 33, windowHeight/2 + page_info[key]["tab_info"].text_y);
+    }
+  }
 
 }
 
+function particle_fadein() {
 
+  for (var i = 0; i < particleNumber; i++) {
+    //updates
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+    //varying stroke and fill colors based on particle index
+    if (i%3==0) {
+      stroke(200, (sin(animation_timer))*255);
+      fill(179, 157, 219, (sin(animation_timer))*255);
+    } else {
+      if (i%5==0) {
+        stroke(185, (sin(animation_timer))*255);
+        fill(239, 108, 0, (sin(animation_timer))*255);
+      } else {
+        if (i%7==0) {
+          stroke(170, (sin(animation_timer))*255);
+          fill(128, 203, 196, (sin(animation_timer))*255);
+        } else {
+          stroke(155, (sin(animation_timer))*255);
+          fill(100, (sin(animation_timer))*255);
+        }
+      }
+    }
+
+    //line to middle
+    strokeWeight(1.5);
+    line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+    // // line connecting particles with other particles
+    // if (i<particleNumber-2) {
+    //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+    // }
+
+    //particles
+    strokeWeight(2);
+    stroke(0, (sin(animation_timer))*255);
+    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+
+  }
+
+  //eyes
+  noStroke();
+  fill(50, (sin(animation_timer)*255));
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+
+}
+
+function particle_static() {
+
+  for (var i = 0; i < particleNumber; i++) {
+    //updates
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+    //varying stroke and fill colors based on particle index
+    if (i%3==0) {
+      stroke(200);
+      fill(179, 157, 219);
+    } else {
+      if (i%5==0) {
+        stroke(185);
+        fill(239, 108, 0);
+      } else {
+        if (i%7==0) {
+          stroke(170);
+          fill(128, 203, 196);
+        } else {
+          stroke(155);
+          fill(100);
+        }
+      }
+    }
+
+    //line to middle
+    strokeWeight(1.5);
+    line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+    // // line connecting particles with other particles
+    // if (i<particleNumber-2) {
+    //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+    // }
+
+    //particles
+    strokeWeight(2);
+    stroke(0);
+    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+
+  }
+
+  //eyes
+  noStroke();
+  fill(50);
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+
+}
+
+function particle_fadeout() {
+
+  for (var i = 0; i < particleNumber; i++) {
+    //updates
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+    //varying stroke and fill colors based on particle index
+    if (i%3==0) {
+      stroke(200, (1-sin(animation_timer))*255);
+      fill(179, 157, 219, (1-sin(animation_timer))*255);
+    } else {
+      if (i%5==0) {
+        stroke(185, (1-sin(animation_timer))*255);
+        fill(239, 108, 0, (1-sin(animation_timer))*255);
+      } else {
+        if (i%7==0) {
+          stroke(170, (1-sin(animation_timer))*255);
+          fill(128, 203, 196, (1-sin(animation_timer))*255);
+        } else {
+          stroke(155, 1-(sin(animation_timer))*255);
+          fill(100, (1-sin(animation_timer))*255);
+        }
+      }
+    }
+
+    //line to middle
+    strokeWeight(1.5);
+    line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+    // // line connecting particles with other particles
+    // if (i<particleNumber-2) {
+    //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+    // }
+
+    //particles
+    strokeWeight(2);
+    stroke(0, (1-sin(animation_timer))*255);
+    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+
+  }
+
+  //eyes
+  noStroke();
+  fill(50, (1-sin(animation_timer)*255));
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+
+}
 
 //---------------------NEW DRAW----------------------//
 var STATE = 0;
 var animation_timer = 0;
 var animation_substate = 0;
+var first_time = 1;
 
 function draw() {
 
   //-----STATE AGNOSTIC-----//
-
-  //---background---//
-  background(255);
-
-  //---version---//
-  fill(0);
-  noStroke();
-  textStyle(NORMAL);
-  textSize(12);
-  text('alpha version', 5, 15)
-
+  state_agnostic();
+  
   //-----STATE DEPENDANT-----//
 
   //STATE 0: HOMEPAGE FADE-IN
@@ -610,7 +986,8 @@ function draw() {
     //SUBSTATE 1: IMAGE SLIDE
     if (animation_substate == 1) {
       if (animation_timer <= HALF_PI) {
-        //call image slide
+        image_slidein();
+        line_fadein();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 2;
@@ -621,8 +998,9 @@ function draw() {
     //SUBSTATE 2: CONTENT SLIDE
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
-        //call image static
-        //call content slide
+        image_static();
+        content_slidein();
+        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 3;
@@ -633,9 +1011,10 @@ function draw() {
     //SUBSTATE 3: PARTICLE FADE-IN
     if (animation_substate == 3) {
       if (animation_timer <= HALF_PI) {
-        //call image static
-        //call content static
-        //call particle fade-in
+        image_static();
+        content_static();
+        particle_fadein();
+        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 0;
@@ -649,28 +1028,52 @@ function draw() {
   //STATE 1: HOMEPAGE STATIC
   if (STATE == 1) {
 
-    //call image static
-    //call content static
-    //call particle static
+    image_static();
+    content_static();
+    particle_static();
+    line_static();
 
   }
 
   //STATE 2: HOMEPAGE TO PAGE
   if (STATE == 2) {
 
-    //SUBSTATE 1: HOMEPAGE CONTENT FADE-OUT
-    //call image static
-    //call content fadeout
-    //call particle fadeout
-
+    //SUBSTATE 0: HOMEPAGE CONTENT FADE-OUT
+    if (animation_substate == 0) {
+      if (animation_timer <= HALF_PI) {
+        //call image static
+        //call content fadeout
+        //call particle fadeout
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 1;
+        animation_timer = 0;
+      }
+    }
+    
     //SUBSTATE 2: IMAGE SLIDE AND TAB2TITLE
-    //call image slide
-    //call tab2title
-
+    if (animation_substate == 0) {
+      if (animation_timer <= HALF_PI) {
+        //call image slide out
+        //call tab2title
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 2;
+        animation_timer = 0;
+      }
+    }
+    
     //SUBSTATE 3: PAGE FADE-IN
-    //call general particles fade-in
-    //call content fade-in
-
+    if (animation_substate == 0) {
+      if (animation_timer <= HALF_PI) {
+        //call general particles fade-in
+        //call content fade-in
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 2;
+        animation_timer = 0;
+      }
+    }
   }
 
   //STATE 3: PAGE STATIC
@@ -683,1086 +1086,1080 @@ function draw() {
 }
 
 
-
-
-
-
-
-//-----DRAW-----// see p5js documentation for draw() function
-function draw() {
-
-
-  //---background---//
-  background(255);
-
-  //version
-  fill(0);
-  noStroke();
-  textFont('Verdana');
-  textStyle(NORMAL);
-  textSize(12);
-  text('alpha version', 5, 15)
-
-  // //get framerate
-  // if (frameCount%15==0) {
-  //   fps = frameRate();
-  // }
-
-  //---TAB TRANSITION COUNTER---//
-  if (state==2 || state==3 || state==4 || state==6 || state==7 || state==8 || state==9 || state==11 || state==12 || state==13 || state==14 || state==16 || state==17 || state==18 || state==19 || state==21 || state==22 || state==23 || state==24 || state==26 || state==27 || state==28 || state==29 || state==31) {
-    if (transitionCounter <= HALF_PI) {
-      transitionCounter += (HALF_PI/60);
-      transitionCounterper = sin(transitionCounter);
-    } else if (transitionCounter > HALF_PI) {
-      transitionCounter = 0;
-      transitionCounterper = 0; //to avoid first animation in line using its max value
-      if (state!=6 && state!=11 && state!=16 && state!=21 && state!=26 && state!=31) {
-        state += 1;
-      } else {
-        state = 0;
-      }
-    }
-  }
-
-  //---Debug Text---///
-
-  // text("FPS: " + fps.toFixed(2), 10, height - 10);
-  // text("State: " + state, 10, height - 25);
-  // text("Transition: " + transitionCounter, 10, height - 40);
-
-
-  //---homepage element animation calculations---//
-
-  //picture animation
-  if (state==0) {
-    if (state010 <= HALF_PI) { //check until that value
-      state010 += (HALF_PI/60); //linear counter //divisor determines the duration // for a 1sec animation, divide by 60=p5js default update rate
-      state010per = sin(state010); //translates linear counter to sinusodial animation
-      // state010 += (1/60);
-      // state010per = (state010)**2;
-    } else if (state011 <= HALF_PI) { //when picture animation done, text and tab animation
-      state011 += (HALF_PI/60);
-      state011per = sin(state011);
-    } else if (state012 <= HALF_PI) { //when picture and tab animation done, particle fade in
-      state012 += (HALF_PI/60);
-      state012per = sin(state012);
-    } else {
-      state = 1;
-    }
-  }
-
-  //---particles---//
-  if (state==0 || state==1) {
-    if (state012 > 0) {
-      for (var i = 0; i < particleNumber; i++) {
-        perlinTimers[i] += (0.0001*i)+(0.0001);
-        particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-        particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-
-
-        //Lines
-
-        strokeWeight(1.5);
-        //varying line colors based on particle index
-        //state012per makes them reach the specified alpha value when fade-in is done
-        if (i%3==0) {
-          stroke(200, (state012per)*255);
-        } else {
-          if (i%5==0) {
-            stroke(185, (state012per)*255);
-          } else {
-            if (i%7==0) {
-              stroke(170, (state012per)*255);
-            } else {
-              stroke(155, (state012per)*255);
-            }
-          }
-        }
-        //line connecting particles with middle of picture
-        line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
-
-        // // line connecting particles with other particles
-        // if (i<particleNumber-2) {
-        //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
-        // }
-
-        //Particles
-        strokeWeight(2);
-        stroke(0, (state012per)*255);
-        if (i%3==0) {
-          //stroke(213,126,42, (state012per)*255);
-          fill(179, 157, 219, (state012per)*255);
-        } else {
-          if (i%5==0) {
-            //stroke(0,151,167, (state012per)*255);
-            fill(239, 108, 0, (state012per)*255);
-          } else {
-            if (i%7==0) {
-              //stroke(183,11,104, (state012per)*255);
-              fill(128, 203, 196, (state012per)*255);
-            } else {
-              //stroke(100, (state012per)*255);
-              fill(100, (state012per)*255);
-            }
-          }
-        }
-        ellipse(particleXpos[i], particleYpos[i], 10, 10);
-
-        strokeWeight(1);
-      }
-    }
-  }
-
-  //---tab boxes---//
-  if ((state011 > 0) && (state==0 || state==1)) {
-    strokeWeight(1.2);
-    //to change spacing between tabs, make changes in tab transitions, text, and the mousePressed function
-    aboutCounter += tabAnimations(25-((1-state011per)*300), -20, aboutCounter, aboutFrameWidth, 179, 157, 219, 20, 20, 20, state011per*255);
-    compositionsCounter += tabAnimations(25-((1-state011per)*300), 2, compositionsCounter, compositionsFrameWidth, 159, 168, 218, 20, 20, 20, state011per*255);
-    performancesCounter += tabAnimations(25-((1-state011per)*300), 24, performancesCounter, performancesFrameWidth, 144, 202, 249, 20, 20, 20, state011per*255);
-    publicationsCounter += tabAnimations(25-((1-state011per)*300), 46, publicationsCounter, publicationsFrameWidth, 129, 212, 250, 20, 20, 20, state011per*255);
-    other_projectsCounter += tabAnimations(25-((1-state011per)*300), 68, other_projectsCounter, other_projectsFrameWidth, 128, 222, 234, 20, 20, 20, state011per*255);
-    contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, state011per*255);
-  }
-
-  //---homepage text---//
-  if (state==0 || state==1) {
-    if (state011 > 0 && state!=2) {
-      fill((1-state011per)*255);
-      noStroke();
-      textFont('Verdana');
-      textStyle(NORMAL);
-      textSize(15);
-      text(hi, (windowWidth/2 + 25)-((1-state011per)*300), windowHeight/2 - 95);
-      textSize(12);
-      text(description, (windowWidth/2 + 25)-((1-state011per)*300), windowHeight/2 - 86, 300, 300);
-
-      //-tab text-//
-      textStyle(BOLD);
-      text(about, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 -5);
-      text(compositions, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 17);
-      text(performances, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 39);
-      text(publications, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 61);
-      text(other_projects, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 83);
-      text(contact, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 105);
-    }
-  }
-
-  //-----TAB SWITCHING-----//
-
-
-  //----------##########ABOUT##########----------//
-  if (state==2 || state==3 || state==4) {
-    tabTransition(2, about, windowHeight/2 -5, windowHeight/4);
-  }
-
-  if (state==4) { //last animation for about page
-    //Particles
-    generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 169, transitionCounterper);
-
-    //-----CONTENT-----//
-    fill(0, transitionCounterper*255);
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(12);
-    text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
-
-    tint(255, 255*transitionCounterper);
-    image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
-  }
-
-  if (state==5) { //static about page
-
-    //lines
-    for (var i = 2; i < 12; i++) {
-      stroke(100, 150);
-      strokeWeight(1);
-      for (var j=2; j<12; j++) {
-        if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.04*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.04*windowHeight)) {
-          line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-        }
-      }
-    }
-    generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 1);
-
-    //Title
-    noStroke();
-    fill(0);
-    textStyle(BOLD);
-    textSize(24);
-    text(about, (windowWidth/2) + 33, windowHeight/4);
-    //Image
-    image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
-
-    //-----Content-----//
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(12);
-    text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
-  }
-
-  if (state==6) { //fade-out of about page
-    //lines
-    for (var i = 2; i < 12; i++) {
-      stroke(100, 150*(1-transitionCounterper));
-      strokeWeight(1);
-      for (var j=2; j<12; j++) {
-        if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.04*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.04*windowHeight)) {
-          line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-        }
-      }
-    }
-
-    generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-
-    //-----Content-----//
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(12);
-    text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
-
-    //Title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(about, (windowWidth/2) + 33, windowHeight/4);
-    //Image
-    tint(255, 255*(1-transitionCounterper));
-    image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
-  }
-
-  //----------##########COMPOSITIONS#########----------//
-
-  if (state==7 || state==8 || state==9) {
-    tabTransition(7, compositions, windowHeight/2 +17, windowHeight/4);
-  }
-
-  if (state==9) { //last animation for compositions page
-    generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, transitionCounterper);
-
-    //---frames---//
-    stroke(0, 255*(transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255*(transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(transitionCounterper));
-
-    //12 Preludes of Tonal Resolution for Piano
-    textStyle(BOLD);
-    textSize(12);
-    text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-    //String Quartet
-    textStyle(BOLD);
-    textSize(12);
-    text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Map in music
-    textStyle(BOLD);
-    textSize(12);
-    text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-
-    //Flower's Escape
-    textStyle(BOLD);
-    textSize(12);
-    text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
-    image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
-  }
-
-  if (state==10) { //static compositions page
-    generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, 1);
-
-    //title
-    noStroke();
-    textStyle(BOLD);
-    fill(0);
-    textSize(24);
-    text(compositions, (windowWidth/2) + 33, windowHeight/4);
-
-    //---frames---//
-    stroke(0);
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-
-
-    //12 Preludes of Tonal Resolution for Piano
-    textStyle(BOLD);
-    textSize(12);
-    text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-
-    //String Quartet
-    textStyle(BOLD);
-    textSize(12);
-    text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Map in music
-    textStyle(BOLD);
-    textSize(12);
-    text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-
-    //Flower's Escape
-    textStyle(BOLD);
-    textSize(12);
-    text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
-    image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
-
-  }
-
-  if (state==11) { //fade-out of compositions page
-    generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-
-    //title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(compositions, (windowWidth/2) + 33, windowHeight/4);
-
-    //---frames---//
-    stroke(0, 255*(1-transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(1-transitionCounterper));
-
-    //12 Preludes of Tonal Resolution for Piano
-    textStyle(BOLD);
-    textSize(12);
-    text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-    //String Quartet
-    textStyle(BOLD);
-    textSize(12);
-    text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Map in music
-    textStyle(BOLD);
-    textSize(12);
-    text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-
-    //Flower's Escape
-    textStyle(BOLD);
-    textSize(12);
-    text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
-    image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
-  }
-
-  //----------##########PERFORMANCES##########----------//
-
-  if (state==12 || state==13 || state==14) {
-    tabTransition(12, performances, windowHeight/2 +39, windowHeight/4);
-  }
-
-  if (state==14) { //last animations of performances page
-    generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, transitionCounterper);
-
-    //---frames---//
-    stroke(0, 255*(transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255*(transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(transitionCounterper));
-
-    //Rachmaninoff Piano Concerto 2
-    textStyle(BOLD);
-    textSize(12);
-    text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-    //Messiaen Regard de l'etoile
-    textStyle(BOLD);
-    textSize(12);
-    text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Bach Partita 2
-    textStyle(BOLD);
-    textSize(12);
-    text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-
-  }
-
-  if (state==15) { //static performances page
-
-    generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, 1);
-    noStroke();
-    textStyle(BOLD);
-    fill(0);
-    textSize(24);
-    text(performances, (windowWidth/2) + 33, windowHeight/4);
-
-    //---frames---//
-    stroke(0, 255);
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255);
-
-
-    //Rachmaninoff Piano Concerto 2
-    textStyle(BOLD);
-    textSize(12);
-    text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-    //Messiaen Regard de l'etoile
-    textStyle(BOLD);
-    textSize(12);
-    text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Bach Partita 2
-    textStyle(BOLD);
-    textSize(12);
-    text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-  }
-
-  if (state==16) { //fade-out of performances page
-    generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-
-    //title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(performances, (windowWidth/2) + 33, windowHeight/4);
-
-    //---frames---//
-    stroke(0, 255*(1-transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
-    rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
-
-    //-----Content-----//
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(1-transitionCounterper));
-
-
-    //Rachmaninoff Piano Concerto 2
-    textStyle(BOLD);
-    textSize(12);
-    text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
-    image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-
-    //Messiaen Regard de l'etoile
-    textStyle(BOLD);
-    textSize(12);
-    text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
-    image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
-
-    //Bach Partita 2
-    textStyle(BOLD);
-    textSize(12);
-    text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
-    image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
-  }
-
-
-//----------##########PUBLICATIONS##########----------//
-
-  if (state==17 || state==18 || state==19) {
-    tabTransition(17, publications, windowHeight/2 +61, windowHeight/4);
-  }
-
-  if (state==19) { //last animations of publications page
-    generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, transitionCounterper);
-
-    //-----Content-----//
-    fill(0, 255*(transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(transitionCounterper));
-
-    //---frames---//
-    stroke(0, 255*(transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-
-    //dlfm2019
-    textStyle(BOLD);
-    textSize(12);
-    noStroke();
-    fill(0, 255*transitionCounterper);
-    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
-    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-  }
-
-  if (state==20) { //static publications page
-    generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, 1);
-    noStroke();
-    textStyle(BOLD);
-    fill(0);
-    textSize(24);
-    text(publications, (windowWidth/2) + 33, windowHeight/4);
-
-    //-----Content-----//
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255);
-
-    //---frames---//
-    stroke(0, 255);
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-
-    //dlfm2019
-    textStyle(BOLD);
-    textSize(12);
-    noStroke();
-    fill(0);
-    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
-    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-  }
-
-  if (state==21) { //fade-out of publications tab
-    generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-
-    //title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(publications, (windowWidth/2) + 33, windowHeight/4);
-
-    //-----Content-----//
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(1-transitionCounterper));
-
-    //---frames---//
-    stroke(0, 255*(1-transitionCounterper));
-    fill(0, 0);
-    strokeWeight(2);
-    rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
-
-    //dlfm2019
-    textStyle(BOLD);
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textSize(12);
-    text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
-    image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
-  }
-
-
-  //---------##########OTHER PROJECTS##########----------//
-
-  if (state==22 || state==23 || state==24) {
-    tabTransition(22, other_projects, windowHeight/2 +83, windowHeight/5);
-  }
-
-  if (state==24) { //last animations of other_projects page
-    generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, transitionCounterper);
-
-    //-----Content-----//
-    fill(0, 255*transitionCounterper);
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*transitionCounterper);
-
-    //Koechlin
-    textStyle(BOLD);
-    textSize(12);
-    text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
-    image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
-
-    //Composition Tool
-    textStyle(BOLD);
-    textSize(12);
-    text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
-    image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
-
-    //MaSC
-    textStyle(BOLD);
-    textSize(12);
-    text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
-    textStyle(ITALIC);
-    text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
-    image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
-
-    //OMR
-    textStyle(BOLD);
-    textSize(12);
-    text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
-    image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
-  }
-
-  if (state==25) { //static other_projects page
-    generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, 1);
-    noStroke();
-    textStyle(BOLD);
-    fill(0);
-    textSize(24);
-    text(other_projects, (windowWidth/2) + 33, windowHeight/5);
-
-    //-----Content-----//
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255);
-
-    //Koechlin
-    textStyle(BOLD);
-    textSize(12);
-    text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
-    image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
-
-    //Composition Tool
-    textStyle(BOLD);
-    textSize(12);
-    text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
-    image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
-
-    //MaSC
-    textStyle(BOLD);
-    textSize(12);
-    text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
-    textStyle(ITALIC);
-    text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
-    image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
-
-    //OMR
-    textStyle(BOLD);
-    textSize(12);
-    text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
-    image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
-  }
-
-  if (state==26) { //fade-out of other_projects page
-    generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
-
-    //title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(other_projects, (windowWidth/2) + 33, windowHeight/5);
-
-    //-----Content-----//
-    fill(0, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    tint(255, 255*(1-transitionCounterper));
-
-    //Koehclin
-    textStyle(BOLD);
-    textSize(12);
-    text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
-    image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
-
-    //Composition Tool
-    textStyle(BOLD);
-    textSize(12);
-    text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
-    image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
-
-    //MaSC
-    textStyle(BOLD);
-    textSize(12);
-    text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
-    textStyle(ITALIC);
-    text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
-    image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
-
-    //OMR
-    textStyle(BOLD);
-    textSize(12);
-    text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
-    textStyle(NORMAL);
-    text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
-    image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
-  }
-
-
-  //---------##########CONTACT##########----------//
-
-
-  if (state==27 || state==28 || state==29) {
-    tabTransition(27, contact, windowHeight/2 +105, windowHeight/4);
-  }
-
-  if (state==29) { //last animations of contact page
-    generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, transitionCounterper);
-
-    //-----Content-----//
-    fill(0, 255*(transitionCounterper));
-    tint(255, 255*(transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(14);
-    text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
-    text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
-    image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
-  }
-
-  if (state==30) { //static contact page
-    generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, 1);
-    noStroke();
-    textStyle(BOLD);
-    fill(0);
-    textSize(24);
-    text(contact, (windowWidth/2) + 33, windowHeight/4);
-
-    fill(0, 255);
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(14);
-    text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
-    text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
-    image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
-  }
-
-  if (state==31) { //fade-out of contact page
-    generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, 1-transitionCounterper);
-
-    //homebutton
-    fill(0, 255*(1-transitionCounterper))
-    noStroke();
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-
-    //title
-    noStroke();
-    fill(0, 255*(1-transitionCounterper));
-    textStyle(BOLD);
-    textSize(24);
-    text(contact, (windowWidth/2) + 33, windowHeight/4);
-
-    fill(0, 255*(1-transitionCounterper));
-    tint(255, 255*(1-transitionCounterper));
-    noStroke();
-    textFont('Verdana');
-    textStyle(NORMAL);
-    textSize(14);
-    text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
-    text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
-    text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
-    image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
-  }
-
-  //---Home button---//
-  if (state==5 || state==10 || state==15 || state==20 || state==30) {
-    fill(0);
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-  }
-  if (state==25) { //projects page has a lot of content, so home button is higher
-    fill(0);
-    textStyle(BOLD);
-    textSize(24);
-    text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
-  }
-
-  //white ellpise for homepage text transition cover-up
-  if (state011 < HALF_PI && state==0) {
-    noStroke();
-    fill(255);
-    rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
-  }
-
-
-  //---image---//
-  if (state==0 || state==1) {
-    tint(255, state010per*255);
-    image(profile, (windowWidth/2 - 180)+((1-state010per)*180), windowHeight/2 - 86, 180, 180);
-  }
-
-  //---eyes---//
-  if ((state==0 && (state012 > 0)) || state==1) {
-    noStroke();
-    fill(50, 255*state012per);
-    if (mouseX<=(windowWidth/2)) {
-      ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-      ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-    } else if (mouseX>(windowWidth/2)) {
-      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-      ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-    }
-  }
-
-
-  //white ellpise for image transition cover-up
-  if (state010 < HALF_PI && state==0) {
-    noStroke();
-    fill(255);
-    rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
-  }
-
-  //---line---//
-
-  //last fade-in states before static page
-  if (state==4 || state==9 || state==14 || state==19 || state==24 || state==29) {
-    stroke(0, 255*(1-transitionCounterper));
-    strokeWeight(1);
-    line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-  }
-  //fade-out state after static page
-  if (state==6 || state==11 || state==16 || state==21 || state==26 || state==31) {
-    stroke(0, 255*(transitionCounterper));
-    strokeWeight(1);
-    line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-  }
-  //homepage line (both fade-ins and static), & non-final fade-ins before static pages
-  if (state==0 || state==1 || state==2 || state==3 || state==7 || state==8 || state==12 || state==13 || state==17 || state==18 || state==22 || state==23 || state==27 || state==28) {
-    stroke(0);
-    strokeWeight(1);
-    line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-  }
-
-}
-
-//-----MousePressed-----// see p5js documentation for MousePressed() function
-function mousePressed() {
-  if (state==1) {
-    //if click within about Tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+53)) && (mouseY<((windowHeight/2)-20+20)) && (mouseY>((windowHeight/2)-20))) { //watch out for reversly define mouseY box
-      state = 2;
-    }
-    //if click within compositions Tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+103)) && (mouseY<((windowHeight/2)+2+20)) && (mouseY>((windowHeight/2)+2))) {
-      state = 7;
-    }
-    //if click within performances Tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+106)) && (mouseY<((windowHeight/2)+24+20)) && (mouseY>((windowHeight/2)+24))) {
-      state = 12;
-    }
-    //if click within publications tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+97)) && (mouseY<((windowHeight/2)+46+20)) && (mouseY>((windowHeight/2)+46))) {
-      state = 17;
-    }
-    //if click within other_projects tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+110)) && (mouseY<((windowHeight/2)+68+20)) && (mouseY>((windowHeight/2)+68))) {
-      state = 22;
-    }
-    //if click within contact tab
-    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+65)) && (mouseY<((windowHeight/2)+90+20)) && (mouseY>((windowHeight/2)+90))) {
-      state = 27;
-    }
-  }
-  //return to home
-  if (state==5 || state==10 || state==15 || state==20 || state==30) {
-    if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
-      state += 1;
-      state010 = 0;
-      state011 = 0;
-      state012 = 0;
-    }
-  }
-  if (state==25) {
-    if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/5)-17)) && (mouseY<((windowHeight/5)+4))) {
-      state += 1;
-      state010 = 0;
-      state011 = 0;
-      state012 = 0;
-    }
-  }
-  if (state==10) {
-    //Preludes
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-      window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
-    }
-    //Quartet
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
-      window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
-    }
-    //Map in Music
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
-      window.open("https://www.youtube.com/watch?v=XewU_bfyQ78");
-    }
-    //Flower's Escape
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 349)) && (mouseY<(windowHeight/4 +426))) {
-      window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
-    }
-  }
-  if (state==15) {
-    //Rachmaninioff
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-      window.open("https://www.youtube.com/watch?v=3F1WLZzyLIw");
-    }
-    //Messiaen
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
-      window.open("https://www.youtube.com/watch?v=uGTZf6e6SzY");
-    }
-    //Rachmaninioff
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
-      window.open("https://www.youtube.com/watch?v=kMOaC0guYuw");
-    }
-  }
-  if (state==20) {
-    //dlfm2019
-    if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-      window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
-    }
-  }
-
-}
+// //-----DRAW-----// see p5js documentation for draw() function
+// function draw() {
+
+
+//   //---background---//
+//   background(255);
+
+//   //version
+//   fill(0);
+//   noStroke();
+//   textFont('Verdana');
+//   textStyle(NORMAL);
+//   textSize(12);
+//   text('alpha version', 5, 15)
+
+//   // //get framerate
+//   // if (frameCount%15==0) {
+//   //   fps = frameRate();
+//   // }
+
+//   //---TAB TRANSITION COUNTER---//
+//   if (state==2 || state==3 || state==4 || state==6 || state==7 || state==8 || state==9 || state==11 || state==12 || state==13 || state==14 || state==16 || state==17 || state==18 || state==19 || state==21 || state==22 || state==23 || state==24 || state==26 || state==27 || state==28 || state==29 || state==31) {
+//     if (transitionCounter <= HALF_PI) {
+//       transitionCounter += (HALF_PI/60);
+//       transitionCounterper = sin(transitionCounter);
+//     } else if (transitionCounter > HALF_PI) {
+//       transitionCounter = 0;
+//       transitionCounterper = 0; //to avoid first animation in line using its max value
+//       if (state!=6 && state!=11 && state!=16 && state!=21 && state!=26 && state!=31) {
+//         state += 1;
+//       } else {
+//         state = 0;
+//       }
+//     }
+//   }
+
+//   //---Debug Text---///
+
+//   // text("FPS: " + fps.toFixed(2), 10, height - 10);
+//   // text("State: " + state, 10, height - 25);
+//   // text("Transition: " + transitionCounter, 10, height - 40);
+
+
+//   //---homepage element animation calculations---//
+
+//   //picture animation
+//   if (state==0) {
+//     if (state010 <= HALF_PI) { //check until that value
+//       state010 += (HALF_PI/60); //linear counter //divisor determines the duration // for a 1sec animation, divide by 60=p5js default update rate
+//       state010per = sin(state010); //translates linear counter to sinusodial animation
+//       // state010 += (1/60);
+//       // state010per = (state010)**2;
+//     } else if (state011 <= HALF_PI) { //when picture animation done, text and tab animation
+//       state011 += (HALF_PI/60);
+//       state011per = sin(state011);
+//     } else if (state012 <= HALF_PI) { //when picture and tab animation done, particle fade in
+//       state012 += (HALF_PI/60);
+//       state012per = sin(state012);
+//     } else {
+//       state = 1;
+//     }
+//   }
+
+//   //---particles---//
+//   if (state==0 || state==1) {
+//     if (state012 > 0) {
+//       for (var i = 0; i < particleNumber; i++) {
+//         perlinTimers[i] += (0.0001*i)+(0.0001);
+//         particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+//         particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+//         //Lines
+
+//         strokeWeight(1.5);
+//         //varying line colors based on particle index
+//         //state012per makes them reach the specified alpha value when fade-in is done
+//         if (i%3==0) {
+//           stroke(200, (state012per)*255);
+//         } else {
+//           if (i%5==0) {
+//             stroke(185, (state012per)*255);
+//           } else {
+//             if (i%7==0) {
+//               stroke(170, (state012per)*255);
+//             } else {
+//               stroke(155, (state012per)*255);
+//             }
+//           }
+//         }
+//         //line connecting particles with middle of picture
+//         line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+
+//         // // line connecting particles with other particles
+//         // if (i<particleNumber-2) {
+//         //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+//         // }
+
+//         //Particles
+//         strokeWeight(2);
+//         stroke(0, (state012per)*255);
+//         if (i%3==0) {
+//           //stroke(213,126,42, (state012per)*255);
+//           fill(179, 157, 219, (state012per)*255);
+//         } else {
+//           if (i%5==0) {
+//             //stroke(0,151,167, (state012per)*255);
+//             fill(239, 108, 0, (state012per)*255);
+//           } else {
+//             if (i%7==0) {
+//               //stroke(183,11,104, (state012per)*255);
+//               fill(128, 203, 196, (state012per)*255);
+//             } else {
+//               //stroke(100, (state012per)*255);
+//               fill(100, (state012per)*255);
+//             }
+//           }
+//         }
+//         ellipse(particleXpos[i], particleYpos[i], 10, 10);
+
+//         strokeWeight(1);
+//       }
+//     }
+//   }
+
+//   //---tab boxes---//
+//   if ((state011 > 0) && (state==0 || state==1)) {
+//     strokeWeight(1.2);
+//     //to change spacing between tabs, make changes in tab transitions, text, and the mousePressed function
+//     aboutCounter += tabAnimations(25-((1-state011per)*300), -20, aboutCounter, aboutFrameWidth, 179, 157, 219, 20, 20, 20, state011per*255);
+//     compositionsCounter += tabAnimations(25-((1-state011per)*300), 2, compositionsCounter, compositionsFrameWidth, 159, 168, 218, 20, 20, 20, state011per*255);
+//     performancesCounter += tabAnimations(25-((1-state011per)*300), 24, performancesCounter, performancesFrameWidth, 144, 202, 249, 20, 20, 20, state011per*255);
+//     publicationsCounter += tabAnimations(25-((1-state011per)*300), 46, publicationsCounter, publicationsFrameWidth, 129, 212, 250, 20, 20, 20, state011per*255);
+//     other_projectsCounter += tabAnimations(25-((1-state011per)*300), 68, other_projectsCounter, other_projectsFrameWidth, 128, 222, 234, 20, 20, 20, state011per*255);
+//     contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, state011per*255);
+//   }
+
+//   //---homepage text---//
+//   if (state==0 || state==1) {
+//     if (state011 > 0 && state!=2) {
+//       fill((1-state011per)*255);
+//       noStroke();
+//       textFont('Verdana');
+//       textStyle(NORMAL);
+//       textSize(15);
+//       text(hi, (windowWidth/2 + 25)-((1-state011per)*300), windowHeight/2 - 95);
+//       textSize(12);
+//       text(description, (windowWidth/2 + 25)-((1-state011per)*300), windowHeight/2 - 86, 300, 300);
+
+//       //-tab text-//
+//       textStyle(BOLD);
+//       text(about, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 -5);
+//       text(compositions, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 17);
+//       text(performances, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 39);
+//       text(publications, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 61);
+//       text(other_projects, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 83);
+//       text(contact, (windowWidth/2 + 33)-((1-state011per)*300), windowHeight/2 + 105);
+//     }
+//   }
+
+//   //-----TAB SWITCHING-----//
+
+
+//   //----------##########ABOUT##########----------//
+//   if (state==2 || state==3 || state==4) {
+//     tabTransition(2, about, windowHeight/2 -5, windowHeight/4);
+//   }
+
+//   if (state==4) { //last animation for about page
+//     //Particles
+//     generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 169, transitionCounterper);
+
+//     //-----CONTENT-----//
+//     fill(0, transitionCounterper*255);
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(12);
+//     text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
+
+//     tint(255, 255*transitionCounterper);
+//     image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
+//   }
+
+//   if (state==5) { //static about page
+
+//     //lines
+//     for (var i = 2; i < 12; i++) {
+//       stroke(100, 150);
+//       strokeWeight(1);
+//       for (var j=2; j<12; j++) {
+//         if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.04*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.04*windowHeight)) {
+//           line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+//         }
+//       }
+//     }
+//     generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 1);
+
+//     //Title
+//     noStroke();
+//     fill(0);
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(about, (windowWidth/2) + 33, windowHeight/4);
+//     //Image
+//     image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
+
+//     //-----Content-----//
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(12);
+//     text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
+//   }
+
+//   if (state==6) { //fade-out of about page
+//     //lines
+//     for (var i = 2; i < 12; i++) {
+//       stroke(100, 150*(1-transitionCounterper));
+//       strokeWeight(1);
+//       for (var j=2; j<12; j++) {
+//         if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.04*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.04*windowHeight)) {
+//           line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+//         }
+//       }
+//     }
+
+//     generalParticles(173, 20, 87, 0, 172, 193, 251, 140, 0, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+
+//     //-----Content-----//
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(12);
+//     text(aboutContent, windowWidth/2 + 33, windowHeight/4 + 25, windowWidth/4, 2*windowHeight/3);
+
+//     //Title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(about, (windowWidth/2) + 33, windowHeight/4);
+//     //Image
+//     tint(255, 255*(1-transitionCounterper));
+//     image(profile1, (windowWidth/2 - 220), windowHeight/2 - 96, 200, 200);
+//   }
+
+//   //----------##########COMPOSITIONS#########----------//
+
+//   if (state==7 || state==8 || state==9) {
+//     tabTransition(7, compositions, windowHeight/2 +17, windowHeight/4);
+//   }
+
+//   if (state==9) { //last animation for compositions page
+//     generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, transitionCounterper);
+
+//     //---frames---//
+//     stroke(0, 255*(transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255*(transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(transitionCounterper));
+
+//     //12 Preludes of Tonal Resolution for Piano
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+//     //String Quartet
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Map in music
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+
+//     //Flower's Escape
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
+//     image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
+//   }
+
+//   if (state==10) { //static compositions page
+//     generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, 1);
+
+//     //title
+//     noStroke();
+//     textStyle(BOLD);
+//     fill(0);
+//     textSize(24);
+//     text(compositions, (windowWidth/2) + 33, windowHeight/4);
+
+//     //---frames---//
+//     stroke(0);
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+
+
+//     //12 Preludes of Tonal Resolution for Piano
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+
+//     //String Quartet
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Map in music
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+
+//     //Flower's Escape
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
+//     image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
+
+//   }
+
+//   if (state==11) { //fade-out of compositions page
+//     generalParticles(173, 20, 87, 0, 172, 193, 139, 195, 74, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+
+//     //title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(compositions, (windowWidth/2) + 33, windowHeight/4);
+
+//     //---frames---//
+//     stroke(0, 255*(1-transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 349, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(1-transitionCounterper));
+
+//     //12 Preludes of Tonal Resolution for Piano
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(preludes_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(preludes_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(preludes_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+//     //String Quartet
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(string_quartet_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(string_quartet_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(string_quartet_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Map in music
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(mapinmusic_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(mapinmusic_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+
+//     //Flower's Escape
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(flowersescape_title, windowWidth/2 + 133, windowHeight/4 + 370, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(flowersescape_performance, windowWidth/2 + 133, windowHeight/4 + 385, windowWidth/3, 2*windowHeight/3);
+//     image(flowersescape_img, windowWidth/2 + 33, windowHeight/4 + 350, 75, 75);
+//   }
+
+//   //----------##########PERFORMANCES##########----------//
+
+//   if (state==12 || state==13 || state==14) {
+//     tabTransition(12, performances, windowHeight/2 +39, windowHeight/4);
+//   }
+
+//   if (state==14) { //last animations of performances page
+//     generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, transitionCounterper);
+
+//     //---frames---//
+//     stroke(0, 255*(transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255*(transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(transitionCounterper));
+
+//     //Rachmaninoff Piano Concerto 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+//     //Messiaen Regard de l'etoile
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Bach Partita 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+
+//   }
+
+//   if (state==15) { //static performances page
+
+//     generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, 1);
+//     noStroke();
+//     textStyle(BOLD);
+//     fill(0);
+//     textSize(24);
+//     text(performances, (windowWidth/2) + 33, windowHeight/4);
+
+//     //---frames---//
+//     stroke(0, 255);
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255);
+
+
+//     //Rachmaninoff Piano Concerto 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+//     //Messiaen Regard de l'etoile
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Bach Partita 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+//   }
+
+//   if (state==16) { //fade-out of performances page
+//     generalParticles(48, 63, 159, 0, 172, 193, 139, 195, 74, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+
+//     //title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(performances, (windowWidth/2) + 33, windowHeight/4);
+
+//     //---frames---//
+//     stroke(0, 255*(1-transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 149, windowWidth/3 + 120, 77);
+//     rect(windowWidth/2 +32, windowHeight/4 + 249, windowWidth/3 + 120, 77);
+
+//     //-----Content-----//
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(1-transitionCounterper));
+
+
+//     //Rachmaninoff Piano Concerto 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(rach_title, windowWidth/2 + 133, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(rach_performance, windowWidth/2 + 133, windowHeight/4 + 85, windowWidth/3, 2*windowHeight/3);
+//     image(rach_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+
+//     //Messiaen Regard de l'etoile
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(messiaen_title, windowWidth/2 + 133, windowHeight/4 + 170, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(messiaen_performance, windowWidth/2 + 133, windowHeight/4 + 185, windowWidth/3, 2*windowHeight/3);
+//     image(messiaen_img, windowWidth/2 + 33, windowHeight/4 + 150, 75, 75);
+
+//     //Bach Partita 2
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(bach_title, windowWidth/2 + 133, windowHeight/4 + 270, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(bach_performance, windowWidth/2 + 133, windowHeight/4 + 285, windowWidth/3, 2*windowHeight/3);
+//     image(bach_img, windowWidth/2 + 33, windowHeight/4 + 250, 75, 75);
+//   }
+
+
+// //----------##########PUBLICATIONS##########----------//
+
+//   if (state==17 || state==18 || state==19) {
+//     tabTransition(17, publications, windowHeight/2 +61, windowHeight/4);
+//   }
+
+//   if (state==19) { //last animations of publications page
+//     generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, transitionCounterper);
+
+//     //-----Content-----//
+//     fill(0, 255*(transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(transitionCounterper));
+
+//     //---frames---//
+//     stroke(0, 255*(transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+//     //dlfm2019
+//     textStyle(BOLD);
+//     textSize(12);
+//     noStroke();
+//     fill(0, 255*transitionCounterper);
+//     text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+//     image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+//   }
+
+//   if (state==20) { //static publications page
+//     generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, 1);
+//     noStroke();
+//     textStyle(BOLD);
+//     fill(0);
+//     textSize(24);
+//     text(publications, (windowWidth/2) + 33, windowHeight/4);
+
+//     //-----Content-----//
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255);
+
+//     //---frames---//
+//     stroke(0, 255);
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+//     //dlfm2019
+//     textStyle(BOLD);
+//     textSize(12);
+//     noStroke();
+//     fill(0);
+//     text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+//     image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+//   }
+
+//   if (state==21) { //fade-out of publications tab
+//     generalParticles(48, 63, 159, 253, 216, 53, 139, 195, 74, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+
+//     //title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(publications, (windowWidth/2) + 33, windowHeight/4);
+
+//     //-----Content-----//
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(1-transitionCounterper));
+
+//     //---frames---//
+//     stroke(0, 255*(1-transitionCounterper));
+//     fill(0, 0);
+//     strokeWeight(2);
+//     rect(windowWidth/2 +32, windowHeight/4 + 49, windowWidth/3 + 120, 77);
+
+//     //dlfm2019
+//     textStyle(BOLD);
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textSize(12);
+//     text(dlfm2019_title, windowWidth/2 + 133, windowHeight/4 + 55, windowWidth/3, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(dlfm2019_description, windowWidth/2 + 133, windowHeight/4 + 100, windowWidth/3, 2*windowHeight/3);
+//     image(dlfm2019_img, windowWidth/2 + 33, windowHeight/4 + 50, 75, 75);
+//   }
+
+
+//   //---------##########OTHER PROJECTS##########----------//
+
+//   if (state==22 || state==23 || state==24) {
+//     tabTransition(22, other_projects, windowHeight/2 +83, windowHeight/5);
+//   }
+
+//   if (state==24) { //last animations of other_projects page
+//     generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, transitionCounterper);
+
+//     //-----Content-----//
+//     fill(0, 255*transitionCounterper);
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*transitionCounterper);
+
+//     //Koechlin
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
+//     image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
+
+//     //Composition Tool
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
+//     image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
+
+//     //MaSC
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
+//     textStyle(ITALIC);
+//     text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
+//     image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
+
+//     //OMR
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
+//     image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
+//   }
+
+//   if (state==25) { //static other_projects page
+//     generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, 1);
+//     noStroke();
+//     textStyle(BOLD);
+//     fill(0);
+//     textSize(24);
+//     text(other_projects, (windowWidth/2) + 33, windowHeight/5);
+
+//     //-----Content-----//
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255);
+
+//     //Koechlin
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
+//     image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
+
+//     //Composition Tool
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
+//     image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
+
+//     //MaSC
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
+//     textStyle(ITALIC);
+//     text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
+//     image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
+
+//     //OMR
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
+//     image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
+//   }
+
+//   if (state==26) { //fade-out of other_projects page
+//     generalParticles(48, 63, 159, 253, 216, 53, 156, 39, 176, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
+
+//     //title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(other_projects, (windowWidth/2) + 33, windowHeight/5);
+
+//     //-----Content-----//
+//     fill(0, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     tint(255, 255*(1-transitionCounterper));
+
+//     //Koehclin
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(koechlin_title, windowWidth/2 + 125, windowHeight/5 + 30, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(koechlin_description, windowWidth/2 + 125, windowHeight/5 + 45, windowWidth/3, 2*windowHeight/3);
+//     image(koechlin_img, windowWidth/2 + 25, windowHeight/5 + 30, 75, 75);
+
+//     //Composition Tool
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(tool_title, windowWidth/2 + 125, windowHeight/5 + 180, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(tool_description, windowWidth/2 + 125, windowHeight/5 + 195, windowWidth/3, 2*windowHeight/3);
+//     image(tool_img, windowWidth/2 + 25, windowHeight/5 + 180, 75, 75);
+
+//     //MaSC
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(masc_title, windowWidth/2 + 125, windowHeight/5 + 330, windowWidth/2, 2*windowHeight/3);
+//     textStyle(ITALIC);
+//     text(masc_description, windowWidth/2 + 125, windowHeight/5 + 345, windowWidth/3, 2*windowHeight/3);
+//     image(masc_img, windowWidth/2 + 25, windowHeight/5 + 330, 75, 75);
+
+//     //OMR
+//     textStyle(BOLD);
+//     textSize(12);
+//     text(omr_title, windowWidth/2 + 125, windowHeight/5 + 480, windowWidth/2, 2*windowHeight/3);
+//     textStyle(NORMAL);
+//     text(omr_description, windowWidth/2 + 125, windowHeight/5 + 495, windowWidth/3, 2*windowHeight/3);
+//     image(omr_img, windowWidth/2 + 25, windowHeight/5 + 480, 75, 75);
+//   }
+
+
+//   //---------##########CONTACT##########----------//
+
+
+//   if (state==27 || state==28 || state==29) {
+//     tabTransition(27, contact, windowHeight/2 +105, windowHeight/4);
+//   }
+
+//   if (state==29) { //last animations of contact page
+//     generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, transitionCounterper);
+
+//     //-----Content-----//
+//     fill(0, 255*(transitionCounterper));
+//     tint(255, 255*(transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(14);
+//     text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
+//     text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
+//     image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
+//   }
+
+//   if (state==30) { //static contact page
+//     generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, 1);
+//     noStroke();
+//     textStyle(BOLD);
+//     fill(0);
+//     textSize(24);
+//     text(contact, (windowWidth/2) + 33, windowHeight/4);
+
+//     fill(0, 255);
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(14);
+//     text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
+//     text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
+//     image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
+//   }
+
+//   if (state==31) { //fade-out of contact page
+//     generalParticles(255, 87, 34, 253, 216, 53, 156, 39, 176, 1-transitionCounterper);
+
+//     //homebutton
+//     fill(0, 255*(1-transitionCounterper))
+//     noStroke();
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+
+//     //title
+//     noStroke();
+//     fill(0, 255*(1-transitionCounterper));
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(contact, (windowWidth/2) + 33, windowHeight/4);
+
+//     fill(0, 255*(1-transitionCounterper));
+//     tint(255, 255*(1-transitionCounterper));
+//     noStroke();
+//     textFont('Verdana');
+//     textStyle(NORMAL);
+//     textSize(14);
+//     text(contact_linkedin, windowWidth/2 + 33, windowHeight/4 + 70, windowWidth/3, 2*windowHeight/3);
+//     text(contact_email, windowWidth/2 + 33, windowHeight/4 + 90, windowWidth/3, 2*windowHeight/3);
+//     text(current_location, windowWidth/2 +33, windowHeight/4 +150, windowWidth/3, 2*windowHeight/3);
+//     image(current_location_img, windowWidth/2 +33, windowHeight/4 +170, 200, 200);
+//   }
+
+//   //---Home button---//
+//   if (state==5 || state==10 || state==15 || state==20 || state==30) {
+//     fill(0);
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
+//   }
+//   if (state==25) { //projects page has a lot of content, so home button is higher
+//     fill(0);
+//     textStyle(BOLD);
+//     textSize(24);
+//     text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
+//   }
+
+//   //white ellpise for homepage text transition cover-up
+//   if (state011 < HALF_PI && state==0) {
+//     noStroke();
+//     fill(255);
+//     rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
+//   }
+
+
+//   //---image---//
+//   if (state==0 || state==1) {
+//     tint(255, state010per*255);
+//     image(profile, (windowWidth/2 - 180)+((1-state010per)*180), windowHeight/2 - 86, 180, 180);
+//   }
+
+//   //---eyes---//
+//   if ((state==0 && (state012 > 0)) || state==1) {
+//     noStroke();
+//     fill(50, 255*state012per);
+//     if (mouseX<=(windowWidth/2)) {
+//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+//     } else if (mouseX>(windowWidth/2)) {
+//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+//     }
+//   }
+
+
+//   //white ellpise for image transition cover-up
+//   if (state010 < HALF_PI && state==0) {
+//     noStroke();
+//     fill(255);
+//     rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
+//   }
+
+//   //---line---//
+
+//   //last fade-in states before static page
+//   if (state==4 || state==9 || state==14 || state==19 || state==24 || state==29) {
+//     stroke(0, 255*(1-transitionCounterper));
+//     strokeWeight(1);
+//     line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+//   }
+//   //fade-out state after static page
+//   if (state==6 || state==11 || state==16 || state==21 || state==26 || state==31) {
+//     stroke(0, 255*(transitionCounterper));
+//     strokeWeight(1);
+//     line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+//   }
+//   //homepage line (both fade-ins and static), & non-final fade-ins before static pages
+//   if (state==0 || state==1 || state==2 || state==3 || state==7 || state==8 || state==12 || state==13 || state==17 || state==18 || state==22 || state==23 || state==27 || state==28) {
+//     stroke(0);
+//     strokeWeight(1);
+//     line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+//   }
+
+// }
+
+// //-----MousePressed-----// see p5js documentation for MousePressed() function
+// function mousePressed() {
+//   if (state==1) {
+//     //if click within about Tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+53)) && (mouseY<((windowHeight/2)-20+20)) && (mouseY>((windowHeight/2)-20))) { //watch out for reversly define mouseY box
+//       state = 2;
+//     }
+//     //if click within compositions Tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+103)) && (mouseY<((windowHeight/2)+2+20)) && (mouseY>((windowHeight/2)+2))) {
+//       state = 7;
+//     }
+//     //if click within performances Tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+106)) && (mouseY<((windowHeight/2)+24+20)) && (mouseY>((windowHeight/2)+24))) {
+//       state = 12;
+//     }
+//     //if click within publications tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+97)) && (mouseY<((windowHeight/2)+46+20)) && (mouseY>((windowHeight/2)+46))) {
+//       state = 17;
+//     }
+//     //if click within other_projects tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+110)) && (mouseY<((windowHeight/2)+68+20)) && (mouseY>((windowHeight/2)+68))) {
+//       state = 22;
+//     }
+//     //if click within contact tab
+//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+65)) && (mouseY<((windowHeight/2)+90+20)) && (mouseY>((windowHeight/2)+90))) {
+//       state = 27;
+//     }
+//   }
+//   //return to home
+//   if (state==5 || state==10 || state==15 || state==20 || state==30) {
+//     if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
+//       state += 1;
+//       state010 = 0;
+//       state011 = 0;
+//       state012 = 0;
+//     }
+//   }
+//   if (state==25) {
+//     if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/5)-17)) && (mouseY<((windowHeight/5)+4))) {
+//       state += 1;
+//       state010 = 0;
+//       state011 = 0;
+//       state012 = 0;
+//     }
+//   }
+//   if (state==10) {
+//     //Preludes
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+//       window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
+//     }
+//     //Quartet
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
+//       window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
+//     }
+//     //Map in Music
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
+//       window.open("https://www.youtube.com/watch?v=XewU_bfyQ78");
+//     }
+//     //Flower's Escape
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 349)) && (mouseY<(windowHeight/4 +426))) {
+//       window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
+//     }
+//   }
+//   if (state==15) {
+//     //Rachmaninioff
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+//       window.open("https://www.youtube.com/watch?v=3F1WLZzyLIw");
+//     }
+//     //Messiaen
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
+//       window.open("https://www.youtube.com/watch?v=uGTZf6e6SzY");
+//     }
+//     //Rachmaninioff
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
+//       window.open("https://www.youtube.com/watch?v=kMOaC0guYuw");
+//     }
+//   }
+//   if (state==20) {
+//     //dlfm2019
+//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+//       window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
+//     }
+//   }
+
+// }
