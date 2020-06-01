@@ -131,27 +131,27 @@ var homebutton = "<";
 
 //-----COUNTERS-----//
 
-//tabs
-var aboutCounter = 0;
-var compositionsCounter = 0;
-var performancesCounter = 0;
-var publicationsCounter = 0;
-var other_projectsCounter = 0;
-var contactCounter = 0;
+// //tabs
+// var aboutCounter = 0;
+// var compositionsCounter = 0;
+// var performancesCounter = 0;
+// var publicationsCounter = 0;
+// var other_projectsCounter = 0;
+// var contactCounter = 0;
 
-//tab transition counter
-var transitionCounter = 0;
-var transitionCounterper = 0;
+// //tab transition counter
+// var transitionCounter = 0;
+// var transitionCounterper = 0;
 
 //----FRAME WIDTHS----//
 
 //define width of background boxes for tabs
-var aboutFrameWidth = 53;
-var compositionsFrameWidth = 103;
-var performancesFrameWidth = 106;
-var publicationsFrameWidth = 97;
-var other_projectsFrameWidth = 110;
-var contactFrameWidth = 65;
+// var aboutFrameWidth = 53;
+// var compositionsFrameWidth = 103;
+// var performancesFrameWidth = 106;
+// var publicationsFrameWidth = 97;
+// var other_projectsFrameWidth = 110;
+// var contactFrameWidth = 65;
 
 //-----PARTICLES-----//
 
@@ -519,7 +519,7 @@ function line_static() {
 
 }
 
-function line_fadein() {
+function line_fadeout() {
   
   stroke(0, (1-sin(animation_timer))*255);
   strokeWeight(1);
@@ -612,7 +612,7 @@ home["particle_fadeout"] = particle_fadeout;
 // about["content_static"] = about_content_static;
 // about["content_fadeout"] = about_content_fadeout;
 about["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-about["tab_info"] = Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
+about["tab_info"] = new Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
 about["box_lines"] = 0;
 
 //compositions
@@ -620,7 +620,7 @@ about["box_lines"] = 0;
 // compositions["content_static"] = compositions_content_static;
 // compositions["content_fadeout"] = compositions_content_fadeout;
 compositions["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-compositions["tab_info"] = Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
+compositions["tab_info"] = new Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
 compositions["box_lines"] = 0;
 
 //performances
@@ -628,7 +628,7 @@ compositions["box_lines"] = 0;
 // performances["content_static"] = performances_content_static;
 // performances["content_fadeout"] = performances_content_fadeout;
 performances["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-performances["tab_info"] = Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
+performances["tab_info"] = new Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
 performances["box_lines"] = 0;
 
 //publications
@@ -636,7 +636,7 @@ performances["box_lines"] = 0;
 // publications["content_static"] = publications_content_static;
 // publications["content_fadeout"] = publications_content_fadeout;
 publications["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-publications["tab_info"] = Tab("publications", 46, 61, 97, 129, 212, 250, 20, 20, 20);
+publications["tab_info"] = new Tab("publications", 46, 61, 97, 129, 212, 250, 20, 20, 20);
 publications["box_lines"] = 0;
 
 //projects
@@ -644,7 +644,7 @@ publications["box_lines"] = 0;
 // projects["content_static"] = projects_content_static;
 // projects["content_fadeout"] = projects_content_fadeout;
 projects["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-projects["tab_info"] = Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
+projects["tab_info"] = new Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
 projects["box_lines"] = 0;
 
 //contact
@@ -652,48 +652,76 @@ projects["box_lines"] = 0;
 // contact["content_static"] = contact_content_static;
 // contact["content_fadeout"] = contact_content_fadeout;
 contact["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-contact["tab_info"] = Tab("contact", 90, 105, 65, 128, 203, 196, 20, 20, 20);
+contact["tab_info"] = new Tab("contact", 90, 105, 65, 128, 203, 196, 20, 20, 20);
 contact["box_lines"] = 0;
 
 function image_slidein() {
-
-  //white ellipse to cover up image right of center line
-  noStroke();
-  fill(255);
-  rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
 
   //image slide-in
   tint(255, sin(animation_timer)*255);
   image(profile, (windowWidth/2 - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
 
-}
-
-function image_static() {
-
-  tint(255, sin(animation_timer)*255);
-  image(profile, (windowWidth/2) - 180, (windowHeight/2) - 86, 180, 180);
-
-}
-
-function image_slideout() {
+  //eyes
+  noStroke();
+  fill(50, (sin(animation_timer)*255));
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
 
   //white ellipse to cover up image right of center line
   noStroke();
   fill(255);
   rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
 
+}
+
+function image_static() {
+
+  tint(255);
+  image(profile, (windowWidth/2) - 180, (windowHeight/2) - 86, 180, 180);
+
+  //eyes
+  noStroke();
+  fill(50);
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+
+}
+
+function image_slideout() {
+
   //image slide-out
   tint(255, (1-sin(animation_timer))*255);
   image(profile, (windowWidth/2 - 180)+(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
 
+  //eyes
+  noStroke();
+  fill(50, (1-sin(animation_timer)*255));
+  if (mouseX<=(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  } else if (mouseX>(windowWidth/2)) {
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + (sin(animation_timer)*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+
+  //white ellipse to cover up image right of center line
+  noStroke();
+  fill(255);
+  rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
+
 }
 
 function content_slidein() {
-
-  //white ellipse to cover up text left of center line
-  noStroke();
-  fill(255);
-  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
 
   //tab boxes
   strokeWeight(1.2);
@@ -719,6 +747,11 @@ function content_slidein() {
       text(page_info[key]["tab_info"].title, (windowWidth/2 + 33)-((1-sin(animation_timer))*300), windowHeight/2 + page_info[key]["tab_info"].text_y);
     }
   }
+
+  //white ellipse to cover up text left of center line
+  noStroke();
+  fill(255);
+  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
 
 }
 
@@ -753,11 +786,6 @@ function content_static() {
 
 function content_fadeout() {
 
-  //white ellipse to cover up text left of center line
-  noStroke();
-  fill(255);
-  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
-
   //tab boxes
   strokeWeight(1.2);
   for(var key in page_info) {
@@ -782,6 +810,11 @@ function content_fadeout() {
       text(page_info[key]["tab_info"].title, windowWidth/2 + 33, windowHeight/2 + page_info[key]["tab_info"].text_y);
     }
   }
+
+  //white ellipse to cover up text left of center line
+  noStroke();
+  fill(255);
+  rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
 
 }
 
@@ -825,17 +858,6 @@ function particle_fadein() {
     stroke(0, (sin(animation_timer))*255);
     ellipse(particleXpos[i], particleYpos[i], 10, 10);
 
-  }
-
-  //eyes
-  noStroke();
-  fill(50, (sin(animation_timer)*255));
-  if (mouseX<=(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  } else if (mouseX>(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
   }
 
 }
@@ -882,17 +904,6 @@ function particle_static() {
 
   }
 
-  //eyes
-  noStroke();
-  fill(50);
-  if (mouseX<=(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  } else if (mouseX>(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  }
-
 }
 
 function particle_fadeout() {
@@ -935,17 +946,6 @@ function particle_fadeout() {
     stroke(0, (1-sin(animation_timer))*255);
     ellipse(particleXpos[i], particleYpos[i], 10, 10);
 
-  }
-
-  //eyes
-  noStroke();
-  fill(50, (1-sin(animation_timer)*255));
-  if (mouseX<=(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  } else if (mouseX>(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
   }
 
 }
@@ -998,9 +998,9 @@ function draw() {
     //SUBSTATE 2: CONTENT SLIDE
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
-        image_static();
         content_slidein();
         line_static();
+        image_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 3;
@@ -1011,10 +1011,10 @@ function draw() {
     //SUBSTATE 3: PARTICLE FADE-IN
     if (animation_substate == 3) {
       if (animation_timer <= HALF_PI) {
-        image_static();
         content_static();
         particle_fadein();
         line_static();
+        image_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 0;
@@ -1028,10 +1028,10 @@ function draw() {
   //STATE 1: HOMEPAGE STATIC
   if (STATE == 1) {
 
-    image_static();
     content_static();
     particle_static();
     line_static();
+    image_static();
 
   }
 
