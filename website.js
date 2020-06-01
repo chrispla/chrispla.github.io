@@ -129,30 +129,6 @@ var profile1;
 //home button
 var homebutton = "<";
 
-//-----COUNTERS-----//
-
-// //tabs
-// var aboutCounter = 0;
-// var compositionsCounter = 0;
-// var performancesCounter = 0;
-// var publicationsCounter = 0;
-// var other_projectsCounter = 0;
-// var contactCounter = 0;
-
-// //tab transition counter
-// var transitionCounter = 0;
-// var transitionCounterper = 0;
-
-//----FRAME WIDTHS----//
-
-//define width of background boxes for tabs
-// var aboutFrameWidth = 53;
-// var compositionsFrameWidth = 103;
-// var performancesFrameWidth = 106;
-// var publicationsFrameWidth = 97;
-// var other_projectsFrameWidth = 110;
-// var contactFrameWidth = 65;
-
 //-----PARTICLES-----//
 
 //initializations for particles
@@ -160,7 +136,7 @@ var particles = []; //array storing particle objects
 var particleXpos = []; //array holding particle X positions
 var particleYpos = []; //array holding particle Y positions
 var perlinTimers = []; //array holding noise seeds
-var particleNumber = 40; //if below 20, you'll need to redefine generalParticles()
+var particleNumber = 20; //if below 20, you'll need to redefine generalParticles()
 
 //-----PRELOAD-----// see p5js documentation for preload() function
 function preload() {
@@ -199,31 +175,23 @@ function setup() {
 
 }
 
-// //draw static box on the left of specified tab THIS IS NOT FINISHED
-// function static_box() {
-//   for (var i = 0; i < 3; i++) {
-//     line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
-//   }
-// }
-
-//----TAB ANIMATIONS----// 
-//create a background box for tabs using consecutive vertical lines with changing stroke to create gradient
-function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR, dropG, dropB, alpha) {
+function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR, dropG, dropB, alpha) {
   //xpos value of moving tab box relative to middle width
   //upper ypos value relative to middle height
-  //lCounter = counter of current animation?
+  //lCounter = number of lines to draw
   //frameWidth = width of the moving tab box
   //startRGB = starting values of the fade
   //dropRGB = the amount of reduction of each value at the end of the fade
 
-  lines = round(sin(lCounter)*frameWidth);
   strokeWeight(1.2);
   stroke(startR-dropR, startG-dropG, startB-dropB, alpha);
-
-  //draw 3 lines at the start (left) of each box, regardless of mouse positions
+  
+  //draw some static lines on the left regardless of mouse position and animation
   for (var i = 0; i < 3; i++) {
     line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
   }
+
+  lines = round(sin(lCounter)*frameWidth); //calculate number of lines
 
   //draw lines based on lines variable
   for (var i = 0; i < lines; i++) {
@@ -489,43 +457,6 @@ function tabAnimations(xpos, ypos, lCounter, frameWidth, startR, startG, startB,
 //   }
 // }
 
-function state_agnostic() {
-
-  //---background---//
-  background(255);
-
-  //---version---//
-  fill(0);
-  noStroke();
-  textStyle(NORMAL);
-  textSize(12);
-  text('alpha version', 5, 15)
-
-}
-
-function line_fadein() {
-  
-  stroke(0, sin(animation_timer)*255);
-  strokeWeight(1);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-
-}
-
-function line_static() {
-
-  stroke(0);
-  strokeWeight(1);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-
-}
-
-function line_fadeout() {
-  
-  stroke(0, (1-sin(animation_timer))*255);
-  strokeWeight(1);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
-
-}
 
 
 //-----Particle Class-----//
@@ -578,25 +509,9 @@ function Tab(title, tab_y, text_y, width, startR, startG, startB, dropR, dropG, 
 //-----Page information Dictionary-----//
 var page_info = {};
 
-//declare page dictionaries
-var home = {};
-var about = {};
-var compositions = {};
-var performances = {};
-var publications = {};
-var projects = {};
-var contact = {};
-
-//asign page name to dictionary
-page_info["home"] = home;
-page_info["about"] = about;
-page_info["compositions"] = compositions;
-page_info["performances"] = performances;
-page_info["publications"] = publications;
-page_info["projects"] = projects;
-page_info["contact"] = contact;
-
-//home
+//----------home----------//
+var home = {}; //home dictionary
+page_info["home"] = home; //asign page dict to page info dict
 home["image_slidein"] = image_slidein;
 home["image_static"] = image_static;
 home["image_slideout"] = image_slideout;
@@ -606,55 +521,6 @@ home["content_slideout"] = content_fadeout;
 home["particle_fadein"] = particle_fadein;
 home["particle_static"] = particle_static;
 home["particle_fadeout"] = particle_fadeout;
-
-//about
-// about["content_fadein"] = about_content_fadein;
-// about["content_static"] = about_content_static;
-// about["content_fadeout"] = about_content_fadeout;
-about["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-about["tab_info"] = new Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
-about["box_lines"] = 0;
-
-//compositions
-// compositions["content_fadein"] = compositions_content_fadein;
-// compositions["content_static"] = compositions_content_static;
-// compositions["content_fadeout"] = compositions_content_fadeout;
-compositions["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-compositions["tab_info"] = new Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
-compositions["box_lines"] = 0;
-
-//performances
-// performances["content_fadein"] = performances_content_fadein;
-// performances["content_static"] = performances_content_static;
-// performances["content_fadeout"] = performances_content_fadeout;
-performances["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-performances["tab_info"] = new Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
-performances["box_lines"] = 0;
-
-//publications
-// publications["content_fadein"] = publications_content_fadein;
-// publications["content_static"] = publications_content_static;
-// publications["content_fadeout"] = publications_content_fadeout;
-publications["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-publications["tab_info"] = new Tab("publications", 46, 61, 97, 129, 212, 250, 20, 20, 20);
-publications["box_lines"] = 0;
-
-//projects
-// projects["content_fadein"] = projects_content_fadein;
-// projects["content_static"] = projects_content_static;
-// projects["content_fadeout"] = projects_content_fadeout;
-projects["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-projects["tab_info"] = new Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
-projects["box_lines"] = 0;
-
-//contact
-// contact["content_fadein"] = contact_content_fadein;
-// contact["content_static"] = contact_content_static;
-// contact["content_fadeout"] = contact_content_fadeout;
-contact["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-contact["tab_info"] = new Tab("contact", 90, 105, 65, 128, 203, 196, 20, 20, 20);
-contact["box_lines"] = 0;
-
 function image_slidein() {
 
   //image slide-in
@@ -678,7 +544,6 @@ function image_slidein() {
   rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
 
 }
-
 function image_static() {
 
   tint(255);
@@ -696,7 +561,6 @@ function image_static() {
   }
 
 }
-
 function image_slideout() {
 
   //image slide-out
@@ -720,14 +584,13 @@ function image_slideout() {
   rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
 
 }
-
 function content_slidein() {
 
   //tab boxes
   strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tabAnimations(25-((1-sin(animation_timer))*300), page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, sin(animation_timer)*255);
+      page_info[key]["box_lines"] += tab_box(25-((1-sin(animation_timer))*300), page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, sin(animation_timer)*255);
     }
   }
 
@@ -754,14 +617,13 @@ function content_slidein() {
   rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
 
 }
-
 function content_static() {
 
   //tab boxes
   strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tabAnimations(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, 255);
+      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, 255);
     }
   }
 
@@ -783,14 +645,13 @@ function content_static() {
   }
 
 }
-
 function content_fadeout() {
 
   //tab boxes
   strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tabAnimations(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, (1-sin(animation_timer))*255);
+      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, (1-sin(animation_timer))*255);
     }
   }
 
@@ -817,7 +678,6 @@ function content_fadeout() {
   rect((windowWidth/2)-300, (windowHeight/2)-120, 300, 240);
 
 }
-
 function particle_fadein() {
 
   for (var i = 0; i < particleNumber; i++) {
@@ -861,7 +721,6 @@ function particle_fadein() {
   }
 
 }
-
 function particle_static() {
 
   for (var i = 0; i < particleNumber; i++) {
@@ -905,7 +764,6 @@ function particle_static() {
   }
 
 }
-
 function particle_fadeout() {
 
   for (var i = 0; i < particleNumber; i++) {
@@ -950,6 +808,112 @@ function particle_fadeout() {
 
 }
 
+//----------about----------//
+var about = {}; //about dictionary
+page_info["about"] = about; //asign page dict to page info dict
+// about["content_fadein"] = about_content_fadein;
+// about["content_static"] = about_content_static;
+// about["content_fadeout"] = about_content_fadeout;
+about["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+about["tab_info"] = new Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
+about["box_lines"] = 0;
+
+//------compositions------//
+var compositions = {}; //compositions dictionary
+page_info["compositions"] = compositions; //asign page dict to page info dict
+// compositions["content_fadein"] = compositions_content_fadein;
+// compositions["content_static"] = compositions_content_static;
+// compositions["content_fadeout"] = compositions_content_fadeout;
+compositions["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+compositions["tab_info"] = new Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
+compositions["box_lines"] = 0;
+
+//------performances------//
+var performances = {}; //performances dictionary
+page_info["performances"] = performances; //asign page dict to page info dict
+// performances["content_fadein"] = performances_content_fadein;
+// performances["content_static"] = performances_content_static;
+// performances["content_fadeout"] = performances_content_fadeout;
+performances["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+performances["tab_info"] = new Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
+performances["box_lines"] = 0;
+
+//------publications------//
+var publications = {}; //publications dictionary
+page_info["publications"] = publications; //asign page dict to page info dict
+// publications["content_fadein"] = publications_content_fadein;
+// publications["content_static"] = publications_content_static;
+// publications["content_fadeout"] = publications_content_fadeout;
+publications["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+publications["tab_info"] = new Tab("publications", 46, 61, 97, 129, 212, 250, 20, 20, 20);
+publications["box_lines"] = 0;
+
+//--------projects--------//
+var projects = {}; //projects dictionary
+page_info["projects"] = projects; //asign page dict to page info dict
+// projects["content_fadein"] = projects_content_fadein;
+// projects["content_static"] = projects_content_static;
+// projects["content_fadeout"] = projects_content_fadeout;
+projects["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+projects["tab_info"] = new Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
+projects["box_lines"] = 0;
+
+//---------contact---------//
+var contact = {}; //contact dictionary
+page_info["contact"] = contact; //asign page dict to page info dict
+// contact["content_fadein"] = contact_content_fadein;
+// contact["content_static"] = contact_content_static;
+// contact["content_fadeout"] = contact_content_fadeout;
+contact["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+contact["tab_info"] = new Tab("contact", 90, 105, 65, 128, 203, 196, 20, 20, 20);
+contact["box_lines"] = 0;
+
+//---general functions---//
+
+function state_agnostic() {
+
+  //---background---//
+  background(255);
+
+  //---version---//
+  fill(0);
+  noStroke();
+  textStyle(NORMAL);
+  textSize(12);
+  text('alpha version', 5, 15)
+
+}
+
+function line_fadein() {
+  
+  stroke(0, sin(animation_timer)*255);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+
+}
+
+function line_static() {
+
+  stroke(0);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+
+}
+
+function line_fadeout() {
+  
+  stroke(0, (1-sin(animation_timer))*255);
+  strokeWeight(1);
+  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+
+}
+
+//home functions
+
+
+
+
+
 //---------------------NEW DRAW----------------------//
 var STATE = 0;
 var animation_timer = 0;
@@ -966,7 +930,7 @@ function draw() {
   //STATE 0: HOMEPAGE FADE-IN
   if (STATE == 0) {
 
-    //SUBSTATE 0: PAGE FADE-OUT
+    //substate 0: PAGE FADE-OUT
     if (animation_substate == 0) {
       if (!first_time) {
         if (animation_timer <= HALF_PI) {
@@ -983,7 +947,7 @@ function draw() {
       } 
     }
 
-    //SUBSTATE 1: IMAGE SLIDE
+    //substate 1: IMAGE SLIDE
     if (animation_substate == 1) {
       if (animation_timer <= HALF_PI) {
         image_slidein();
@@ -995,7 +959,7 @@ function draw() {
       }
     }
 
-    //SUBSTATE 2: CONTENT SLIDE
+    //substate 2: CONTENT SLIDE
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
         content_slidein();
@@ -1008,7 +972,7 @@ function draw() {
       }
     }
 
-    //SUBSTATE 3: PARTICLE FADE-IN
+    //substate 3: PARTICLE FADE-IN
     if (animation_substate == 3) {
       if (animation_timer <= HALF_PI) {
         content_static();
@@ -1038,7 +1002,7 @@ function draw() {
   //STATE 2: HOMEPAGE TO PAGE
   if (STATE == 2) {
 
-    //SUBSTATE 0: HOMEPAGE CONTENT FADE-OUT
+    //substate 0: HOMEPAGE CONTENT FADE-OUT
     if (animation_substate == 0) {
       if (animation_timer <= HALF_PI) {
         //call image static
@@ -1051,7 +1015,7 @@ function draw() {
       }
     }
     
-    //SUBSTATE 2: IMAGE SLIDE AND TAB2TITLE
+    //substate 2: IMAGE SLIDE AND TAB2TITLE
     if (animation_substate == 0) {
       if (animation_timer <= HALF_PI) {
         //call image slide out
@@ -1063,7 +1027,7 @@ function draw() {
       }
     }
     
-    //SUBSTATE 3: PAGE FADE-IN
+    //substate 3: PAGE FADE-IN
     if (animation_substate == 0) {
       if (animation_timer <= HALF_PI) {
         //call general particles fade-in
