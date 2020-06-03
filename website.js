@@ -224,13 +224,13 @@ function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR
   }
 }
 
-// function tab2title(textvar, currentY, desiredY) {
-//   textStyle(BOLD);
-//   fill(0);
-//   noStroke();
-//   textSize(12*(1+transitionCounterper));
-//   text(textvar, (windowWidth/2 + 33), (currentY - ((currentY-desiredY)*transitionCounterper)));
-// }
+function tab2title(textvar, currentY, desiredY) {
+  textStyle(BOLD);
+  fill(0);
+  noStroke();
+  textSize(12*(1+sin(animation_timer)));
+  text(textvar, (windowWidth/2 + 33), (currentY - ((currentY-desiredY)*sin(animation_timer))));
+}
 
 // function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set timer to 1 if no timer for opacity, set 1-transitionCounterper for fade-out
 
@@ -465,9 +465,7 @@ function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR
 function Particles() {
 
   //initial spread of particles
-  // this.x = random((windowWidth/2)-225, ((windowWidth/2)+25));
   this.x = random((windowWidth/2)-525, ((windowWidth/2)+325));
-  // this.y = random((windowHeight/2)-125, (windowHeight/2)+125);
   this.y = random((windowHeight/2)-525, (windowHeight/2)+525);
   this.easing = 0.01;
 
@@ -1011,9 +1009,10 @@ function draw() {
     //substate 0: HOMEPAGE CONTENT FADE-OUT
     if (animation_substate == 0) {
       if (animation_timer <= HALF_PI) {
-        //call image static
-        //call content fadeout
-        //call particle fadeout
+        content_fadeout();
+        particle_fadeout();
+        line_static();
+        image_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 1;
@@ -1021,11 +1020,12 @@ function draw() {
       }
     }
     
-    //substate 2: IMAGE SLIDE AND TAB2TITLE
-    if (animation_substate == 0) {
+    //substate 1: IMAGE SLIDE AND TAB2TITLE
+    if (animation_substate == 1) {
       if (animation_timer <= HALF_PI) {
-        //call image slide out
-        //call tab2title
+        image_slideout();
+        line_static();
+        tab2title(page_info[current_page]["tab_info"].title, page_info[current_page]["tab_info"].text_y+windowHeight/2, windowHeight/4);
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 2;
@@ -1033,14 +1033,16 @@ function draw() {
       }
     }
     
-    //substate 3: PAGE FADE-IN
-    if (animation_substate == 0) {
+    //substate 2: PAGE FADE-IN
+    if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
+        line_fadeout();
         //call general particles fade-in
         //call content fade-in
         animation_timer += (HALF_PI/60);
       } else {
-        animation_substate = 2;
+        STATE = 3;
+        animation_substate = 0;
         animation_timer = 0;
       }
     }
@@ -2048,88 +2050,91 @@ function draw() {
 
 // }
 
-// //-----MousePressed-----// see p5js documentation for MousePressed() function
-// function mousePressed() {
-//   if (state==1) {
-//     //if click within about Tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+53)) && (mouseY<((windowHeight/2)-20+20)) && (mouseY>((windowHeight/2)-20))) { //watch out for reversly define mouseY box
-//       state = 2;
-//     }
-//     //if click within compositions Tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+103)) && (mouseY<((windowHeight/2)+2+20)) && (mouseY>((windowHeight/2)+2))) {
-//       state = 7;
-//     }
-//     //if click within performances Tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+106)) && (mouseY<((windowHeight/2)+24+20)) && (mouseY>((windowHeight/2)+24))) {
-//       state = 12;
-//     }
-//     //if click within publications tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+97)) && (mouseY<((windowHeight/2)+46+20)) && (mouseY>((windowHeight/2)+46))) {
-//       state = 17;
-//     }
-//     //if click within other_projects tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+110)) && (mouseY<((windowHeight/2)+68+20)) && (mouseY>((windowHeight/2)+68))) {
-//       state = 22;
-//     }
-//     //if click within contact tab
-//     if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+65)) && (mouseY<((windowHeight/2)+90+20)) && (mouseY>((windowHeight/2)+90))) {
-//       state = 27;
-//     }
-//   }
-//   //return to home
-//   if (state==5 || state==10 || state==15 || state==20 || state==30) {
-//     if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
-//       state += 1;
-//       state010 = 0;
-//       state011 = 0;
-//       state012 = 0;
-//     }
-//   }
-//   if (state==25) {
-//     if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/5)-17)) && (mouseY<((windowHeight/5)+4))) {
-//       state += 1;
-//       state010 = 0;
-//       state011 = 0;
-//       state012 = 0;
-//     }
-//   }
-//   if (state==10) {
-//     //Preludes
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-//       window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
-//     }
-//     //Quartet
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
-//       window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
-//     }
-//     //Map in Music
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
-//       window.open("https://www.youtube.com/watch?v=XewU_bfyQ78");
-//     }
-//     //Flower's Escape
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 349)) && (mouseY<(windowHeight/4 +426))) {
-//       window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
-//     }
-//   }
-//   if (state==15) {
-//     //Rachmaninioff
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-//       window.open("https://www.youtube.com/watch?v=3F1WLZzyLIw");
-//     }
-//     //Messiaen
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
-//       window.open("https://www.youtube.com/watch?v=uGTZf6e6SzY");
-//     }
-//     //Rachmaninioff
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
-//       window.open("https://www.youtube.com/watch?v=kMOaC0guYuw");
-//     }
-//   }
-//   if (state==20) {
-//     //dlfm2019
-//     if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
-//       window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
-//     }
-//   }
+//-----MousePressed-----// see p5js documentation for MousePressed() function
+function mousePressed() {
+  //if in homepage static
+  if (STATE==1) {
+    //if click within about Tab
+    if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+53)) && (mouseY<((windowHeight/2)-20+20)) && (mouseY>((windowHeight/2)-20))) { //watch out for reversly define mouseY box
+      current_page = "about";
+    }
+    //if click within compositions Tab
+    else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+103)) && (mouseY<((windowHeight/2)+2+20)) && (mouseY>((windowHeight/2)+2))) {
+      current_page = "compositions";
+    }
+    //if click within performances Tab
+    else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+106)) && (mouseY<((windowHeight/2)+24+20)) && (mouseY>((windowHeight/2)+24))) {
+      current_page = "performances";
+    }
+    //if click within publications tab
+    else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+97)) && (mouseY<((windowHeight/2)+46+20)) && (mouseY>((windowHeight/2)+46))) {
+      current_page = "publications";
+    }
+    //if click within projects tab
+    else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+70)) && (mouseY<((windowHeight/2)+68+20)) && (mouseY>((windowHeight/2)+68))) {
+      current_page = "projects";
+    }
+    //if click within contact tab
+    else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+65)) && (mouseY<((windowHeight/2)+90+20)) && (mouseY>((windowHeight/2)+90))) {
+      current_page = "contact";
+    }
+    //move to home to page state
+    STATE = 2;
+  }
+  // //return to home
+  // if (state==5 || state==10 || state==15 || state==20 || state==30) {
+  //   if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
+  //     state += 1;
+  //     state010 = 0;
+  //     state011 = 0;
+  //     state012 = 0;
+  //   }
+  // }
+  // if (state==25) {
+  //   if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/5)-17)) && (mouseY<((windowHeight/5)+4))) {
+  //     state += 1;
+  //     state010 = 0;
+  //     state011 = 0;
+  //     state012 = 0;
+  //   }
+  // }
+  // if (state==10) {
+  //   //Preludes
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+  //     window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
+  //   }
+  //   //Quartet
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
+  //     window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
+  //   }
+  //   //Map in Music
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
+  //     window.open("https://www.youtube.com/watch?v=XewU_bfyQ78");
+  //   }
+  //   //Flower's Escape
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 349)) && (mouseY<(windowHeight/4 +426))) {
+  //     window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
+  //   }
+  // }
+  // if (state==15) {
+  //   //Rachmaninioff
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+  //     window.open("https://www.youtube.com/watch?v=3F1WLZzyLIw");
+  //   }
+  //   //Messiaen
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 149)) && (mouseY<(windowHeight/4 +226))) {
+  //     window.open("https://www.youtube.com/watch?v=uGTZf6e6SzY");
+  //   }
+  //   //Rachmaninioff
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 249)) && (mouseY<(windowHeight/4 +326))) {
+  //     window.open("https://www.youtube.com/watch?v=kMOaC0guYuw");
+  //   }
+  // }
+  // if (state==20) {
+  //   //dlfm2019
+  //   if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+  //     window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
+  //   }
+  // }
 
-// }
+}
