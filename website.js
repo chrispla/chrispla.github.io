@@ -172,6 +172,8 @@ function setup() {
     perlinTimers[i] = (i*100);
   }
 
+  //text font
+  textFont('Verdana');
 
 }
 
@@ -185,7 +187,7 @@ function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR
 
   strokeWeight(1.2);
   stroke(startR-dropR, startG-dropG, startB-dropB, alpha);
-  
+
   //draw some static lines on the left regardless of mouse position and animation
   for (var i = 0; i < 3; i++) {
     line(((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos), ((windowWidth/2)+xpos+i), ((windowHeight/2)+ypos+20));
@@ -587,10 +589,9 @@ function image_slideout() {
 function content_slidein() {
 
   //tab boxes
-  strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tab_box(25-((1-sin(animation_timer))*300), page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, sin(animation_timer)*255);
+      page_info[key]["box_lines"] += tab_box(25-((1-sin(animation_timer))*300), page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startB, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, sin(animation_timer)*255);
     }
   }
 
@@ -623,7 +624,7 @@ function content_static() {
   strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, 255);
+      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startB, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, 255);
     }
   }
 
@@ -651,7 +652,7 @@ function content_fadeout() {
   strokeWeight(1.2);
   for(var key in page_info) {
     if (key != "home") {
-      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startb, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, (1-sin(animation_timer))*255);
+      page_info[key]["box_lines"] += tab_box(25, page_info[key]["tab_info"].tab_y, page_info[key]["box_lines"], page_info[key]["tab_info"].width, page_info[key]["tab_info"].startR, page_info[key]["tab_info"].startG, page_info[key]["tab_info"].startB, page_info[key]["tab_info"].dropR, page_info[key]["tab_info"].dropG, page_info[key]["tab_info"].dropB, (1-sin(animation_timer))*255);
     }
   }
 
@@ -716,7 +717,7 @@ function particle_fadein() {
     //particles
     strokeWeight(2);
     stroke(0, (sin(animation_timer))*255);
-    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
 
   }
 
@@ -759,7 +760,7 @@ function particle_static() {
     //particles
     strokeWeight(2);
     stroke(0);
-    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
 
   }
 
@@ -802,7 +803,7 @@ function particle_fadeout() {
     //particles
     strokeWeight(2);
     stroke(0, (1-sin(animation_timer))*255);
-    ellipse(particleXpos[i], particleYpos[i], 10, 10);
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
 
   }
 
@@ -855,7 +856,7 @@ page_info["projects"] = projects; //asign page dict to page info dict
 // projects["content_static"] = projects_content_static;
 // projects["content_fadeout"] = projects_content_fadeout;
 projects["particle_colors"] = [1,2,3,1,2,3,1,2,3];
-projects["tab_info"] = new Tab("projects", 68, 83, 110, 128, 222, 234, 20, 20, 20);
+projects["tab_info"] = new Tab("projects", 68, 83, 70, 128, 222, 234, 20, 20, 20);
 projects["box_lines"] = 0;
 
 //---------contact---------//
@@ -882,6 +883,11 @@ function state_agnostic() {
   textSize(12);
   text('alpha version', 5, 15)
 
+  //---framerate---//
+  if (frameCount%30==0) {
+    fps = frameRate();
+  }
+  text("FPS: " + fps.toFixed(2), 5, 30);
 }
 
 function line_fadein() {
