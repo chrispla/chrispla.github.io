@@ -48,10 +48,7 @@
 //-----VARIABLES-----//
 
 var fps = 0; //FPS used to measure sketch performance
-var state = 0; //Website pages and animations loaded based on states
-var state010 = 0; //substate used to indicate loading transition of homepage
-var state011 = 0; //substate used to indicate the no-transition "static" state of the homepage
-var state012 = 0; //substate used to indiate exiting transition of homepage
+var current_page = "home";
 
 //---TEXT & IMAGES---//
 
@@ -125,9 +122,6 @@ var current_location_img;
 //homepage and about images
 var profile;
 var profile1;
-
-//home button
-var homebutton = "<";
 
 //-----PARTICLES-----//
 
@@ -232,233 +226,198 @@ function tab2title(textvar, currentY, desiredY) {
   text(textvar, (windowWidth/2 + 33), (currentY - ((currentY-desiredY)*sin(animation_timer))));
 }
 
-// function generalParticles(r1, g1, b1, r2, g2, b2, r3, g3, b3, timer) { //set timer to 1 if no timer for opacity, set 1-transitionCounterper for fade-out
+function general_particles_fadein(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
 
-//   //---LINES---// drawn before particles using a different loop so that lines don't overlay any particles
-//   if (timer==1) { //prevent drawing a huge amount of lines before particle position is summed
-//     for (var i = 0; i < 20; i++) {
-//       stroke(100, 150*timer);
-//       strokeWeight(1);
-//       for (var j=0; j<20; j++) {
-//         if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
-//           line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-//         }
-//       }
-//     }
-//   }
+  //---LINES---//
+  // stroke(100, 150);
+  // strokeWeight(1);
+  // for (var i = 0; i < 20; i++) {
+  //   for (var j=0; j<20; j++) {
+  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
+  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+  //     }
+  //   }
+  // }
+  
 
-//   //---PARTICLES---//
+  //---PARTICLES---//
 
-//   // //TOP LEFT QUADRANT
-//   // for (var i = 30; i < 40; i++) {
-//   //   //without x/yposupdate, so ignoring mousepoisition
-//   //   perlinTimers[i] += (0.0001*i)+(0.0001);
-//   //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-//   //   particleYpos[i] = windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-//   //   stroke(50, 255*timer);
-//   //   strokeWeight(3);
-//   //   if (i<34) {
-//   //     fill(r1, g1, b1, 255*timer);
-//   //   } else if (i<37) {
-//   //       fill(r2, g2, b2, 255*timer);
-//   //   } else {
-//   //       fill(r3 ,g3 ,b3 , 255*timer);
-//   //   }
-//   //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
-//   // }
-//   //
-//   // //BOTTOM LEFT QUADRANT
-//   // for (var i = 20; i < 30; i++) {
-//   //   //without x/yposupdate, so ignoring mousepoisition
-//   //   perlinTimers[i] += (0.0001*i)+(0.0001);
-//   //   particleXpos[i] = windowWidth/8 + (windowWidth/3)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-//   //   particleYpos[i] = 3*windowHeight/4 + (2*windowHeight/3)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-//   //   stroke(50, 255*timer);
-//   //   strokeWeight(3);
-//   //   if (i<24) {
-//   //     fill(r1, g1, b1, 255*timer);
-//   //   } else if (i<27) {
-//   //       fill(r2, g2, b2, 255*timer);
-//   //   } else {
-//   //       fill(r3 ,g3 ,b3 , 255*timer);
-//   //   }
-//   //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
-//   // }
+  //TOP LEFT QUADRANT
+  for (var i = 0; i < 10; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255*(sin(animation_timer)));
+    strokeWeight(3);
+    if (i<4) {
+      fill(r1, g1, b1, 255*(sin(animation_timer)));
+    } else if (i<7) {
+        fill(r2, g2, b2, 255*(sin(animation_timer)));
+    } else {
+        fill(r3 ,g3 ,b3 , 255*(sin(animation_timer)));
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
+  
+  //BOTTOM LEFT QUADRANT
+  for (var i = 10; i < 20; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255*(sin(animation_timer)));
+    strokeWeight(3);
+    if (i<14) {
+      fill(r1, g1, b1, 255*(sin(animation_timer)));
+    } else if (i<17) {
+        fill(r2, g2, b2, 255*(sin(animation_timer)));
+    } else {
+        fill(r3 ,g3 ,b3 , 255*(sin(animation_timer)));
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
+}
 
+function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
 
-//   for (var i = 0; i < 10; i++) {
-//     //TOP RIGHT QUADRANT
-//     //without x/yposupdate, so ignoring mousepoisition
-//     perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
-//     particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
-//     particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
-//     stroke(50, 255*timer);
-//     strokeWeight(3);
-//     if (i<4) {
-//       fill(r1, g1, b1, 255*timer);
-//     } else if (i<7) {
-//         fill(r2, g2, b2, 255*timer);
-//     } else {
-//         fill(r3, g3, b3, 255*timer);
-//     }
-//     ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
+  //---LINES---//
+  // stroke(100, 150);
+  // strokeWeight(1);
+  // for (var i = 0; i < 20; i++) {
+  //   for (var j=0; j<20; j++) {
+  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
+  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+  //     }
+  //   }
+  // }
+  
 
-//     //BOTTOM RIGHT QUADRANT
-//     //without x/yposupdate, so ignoring mousepoisition
-//     perlinTimers[i] += (0.0001*i)+(0.0001);
-//     particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-//     particleYpos[i] = 3*windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-//     stroke(50, 255*timer);
-//     strokeWeight(3);
-//     if (i<4) {
-//       fill(r1, g1, b1, 255*timer);
-//     } else if (i<7) {
-//         fill(r2, g2, b2, 255*timer);
-//     } else {
-//         fill(r3, g3, b3, 255*timer);
-//     }
-//     ellipse(particleXpos[i], particleYpos[i], 10, 10);
-//   }
-// }
+  //---PARTICLES---//
 
+  //TOP LEFT QUADRANT
+  for (var i = 0; i < 10; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255);
+    strokeWeight(3);
+    if (i<4) {
+      fill(r1, g1, b1, 255);
+    } else if (i<7) {
+        fill(r2, g2, b2, 255);
+    } else {
+        fill(r3 ,g3 ,b3 , 255);
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
+  
+  //BOTTOM LEFT QUADRANT
+  for (var i = 10; i < 20; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255);
+    strokeWeight(3);
+    if (i<14) {
+      fill(r1, g1, b1, 255);
+    } else if (i<17) {
+        fill(r2, g2, b2, 255);
+    } else {
+        fill(r3 ,g3 ,b3 , 255);
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
+}
 
-// function tabTransition (currentState, tabvar, currentY, desiredY) {
-//   //---particles---//
-//   if (state==currentState) {
-//     for (var i = 0; i < particleNumber; i++) {
-//       perlinTimers[i] += (0.0001*i)+(0.0001);
-//       particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-//       particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+function general_particles_fadeout(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
 
-//       //Lines
-//       strokeWeight(1.5);
-//       //varying line colors based on particle index
-//       //state012per makes them reach the specified alpha value when fade-in is done
-//       if (i%3==0) {
-//         stroke(200, 255*(1-transitionCounterper));
-//       } else {
-//         if (i%5==0) {
-//           stroke(185, 255*(1-transitionCounterper));
-//         } else {
-//           if (i%7==0) {
-//             stroke(170, 255*(1-transitionCounterper));
-//           } else {
-//             stroke(155, 255*(1-transitionCounterper));
-//           }
-//         }
-//       }
-//       //line connecting particles with middle of picture
-//       line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+  //---LINES---//
+  // stroke(100, 150);
+  // strokeWeight(1);
+  // for (var i = 0; i < 20; i++) {
+  //   for (var j=0; j<20; j++) {
+  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
+  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+  //     }
+  //   }
+  // }
+  
 
-//       // // line connecting particles with other particles
-//       // if (i<particleNumber-2) {
-//       //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
-//       // }
+  //---PARTICLES---//
 
-//       //Particles
-//       strokeWeight(2);
-//       stroke(0, (1-transitionCounterper)*255);
-//       if (i%3==0) {
-//         //stroke(213,126,42, (state012per)*255);
-//         fill(179, 157, 219, (1-transitionCounterper)*255);
-//       } else {
-//         if (i%5==0) {
-//           //stroke(0,151,167, (state012per)*255);
-//           fill(239, 108, 0, (1-transitionCounterper)*255);
-//         } else {
-//           if (i%7==0) {
-//             //stroke(183,11,104, (state012per)*255);
-//             fill(128, 203, 196, (1-transitionCounterper)*255);
-//           } else {
-//             //stroke(100, (state012per)*255);
-//             fill(100, (1-transitionCounterper)*255);
-//           }
-//         }
-//       }
-//       ellipse(particleXpos[i], particleYpos[i], 11, 11);
-//     }
+  //TOP LEFT QUADRANT
+  for (var i = 0; i < 10; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255*(1-sin(animation_timer)));
+    strokeWeight(3);
+    if (i<34) {
+      fill(r1, g1, b1, 255*(1-sin(animation_timer)));
+    } else if (i<37) {
+        fill(r2, g2, b2, 255*(1-sin(animation_timer)));
+    } else {
+        fill(r3 ,g3 ,b3 , 255*(1-sin(animation_timer)));
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
+  
+  //BOTTOM LEFT QUADRANT
+  for (var i = 10; i < 20; i++) {
+    //without x/yposupdate, so ignoring mousepoisition
+    perlinTimers[i] += (0.0001*i)+(0.0001);
+    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/4 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255*animation_timer);
+    strokeWeight(3);
+    if (i<24) {
+      fill(r1, g1, b1, 255*(1-sin(animation_timer)));
+    } else if (i<27) {
+        fill(r2, g2, b2, 255*(1-sin(animation_timer)));
+    } else {
+        fill(r3 ,g3 ,b3 , 255*(1-sin(animation_timer)));
+    }
+    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+  }
 
+  // for (var i = 0; i < 10; i++) {
+  //   //TOP RIGHT QUADRANT
+  //   //without x/yposupdate, so ignoring mousepoisition
+  //   perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
+  //   particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
+  //   particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
+  //   stroke(50, 255*timer);
+  //   strokeWeight(3);
+  //   if (i<4) {
+  //     fill(r1, g1, b1, 255*timer);
+  //   } else if (i<7) {
+  //       fill(r2, g2, b2, 255*timer);
+  //   } else {
+  //       fill(r3, g3, b3, 255*timer);
+  //   }
+  //   ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
 
-
-//     //---tabs---//
-//     strokeWeight(1.2);
-//     aboutCounter += tabAnimations(25-((1-state011per)*300), -20, aboutCounter, aboutFrameWidth, 179, 157, 219, 20, 20, 20, 255*(1-transitionCounterper));
-//     compositionsCounter += tabAnimations(25-((1-state011per)*300), 2, compositionsCounter, compositionsFrameWidth, 159, 168, 218, 20, 20, 20, 255*(1-transitionCounterper));
-//     performancesCounter += tabAnimations(25-((1-state011per)*300), 24, performancesCounter, performancesFrameWidth, 144, 202, 249, 20, 20, 0, 255*(1-transitionCounterper));
-//     publicationsCounter += tabAnimations(25-((1-state011per)*300), 46, publicationsCounter, publicationsFrameWidth, 129, 212, 250, 20, 20, 20, 255*(1-transitionCounterper));
-//     other_projectsCounter += tabAnimations(25-((1-state011per)*300), 68, other_projectsCounter, other_projectsFrameWidth, 128, 222, 234, 20, 20, 20, 255*(1-transitionCounterper));
-//     contactCounter += tabAnimations(25-((1-state011per)*300), 90, contactCounter, contactFrameWidth, 128, 203, 196, 20, 20, 20, 255*(1-transitionCounterper));
-//     noStroke();
-//     fill(0);
-//     textStyle(BOLD);
-//     text(tabvar, (windowWidth/2 + 33)-((1-state011per)*300), currentY);
-
-//     //---image---//
-//     image(profile, (windowWidth/2 - 180), windowHeight/2 - 86, 180, 180);
-
-//     //---eyes---//
-//     fill(50, 255*(1-transitionCounterper));
-//     noStroke();
-//     if (mouseX<=(windowWidth/2)) {
-//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-//       ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-//     } else if (mouseX>(windowWidth/2)) {
-//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2)  - 9 + (mouseY/windowHeight)*3, 8, 8);
-//       ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-//     }
-
-//     //description
-//     fill(0, 255*(1-transitionCounterper));
-//     noStroke();
-//     textFont('Verdana');
-//     textStyle(NORMAL);
-//     textSize(15);
-//     text(hi, (windowWidth/2 + 25), windowHeight/2 - 95);
-//     textSize(12);
-//     text(description, (windowWidth/2 + 25), windowHeight/2 - 86, 300, 300);
-
-//     //-tab text-//
-//     textStyle(BOLD);
-//     text(about, (windowWidth/2 + 33), windowHeight/2 -5);
-//     text(compositions, (windowWidth/2 + 33), windowHeight/2 + 17);
-//     text(performances, (windowWidth/2 + 33), windowHeight/2 + 39);
-//     text(publications, (windowWidth/2 + 33), windowHeight/2 + 61);
-//     text(other_projects, (windowWidth/2 + 33), windowHeight/2 + 83);
-//     text(contact, (windowWidth/2 + 33), windowHeight/2 + 105);
-//   }
-
-//   if (state==currentState+1) {
-//     //---picture---//
-//     image(profile, (windowWidth/2 - 180)+((transitionCounterper)*180), windowHeight/2 - 86, 180, 180);
-//     //rect to hide image
-//     noStroke();
-//     fill(255);
-//     rect((windowWidth/2), (windowHeight/2)-106, 200, 217);
-//     //tab text transition from tab to title position
-//     textStyle(BOLD);
-//     tab2title(tabvar, currentY, desiredY);
-
-//   }
-//   //last part of the function manages title and homebutton, the page's content is handled seperately
-//   if (state==currentState+2) {
-//     noStroke();
-//     fill(0);
-//     textSize(24);
-//     textStyle(BOLD);
-//     text(tabvar, (windowWidth/2) + 33, desiredY);
-
-//     if (state!=24) {
-//       fill(0, 255*(transitionCounterper))
-//       textSize(24);
-//       text(homebutton, (windowWidth/2)-10, (windowHeight/4)+1);
-//     } else {
-//       fill(0, 255*(transitionCounterper))
-//       textSize(24);
-//       text(homebutton, (windowWidth/2)-10, (windowHeight/5)+1);
-//     }
-//   }
-// }
-
+  //   //BOTTOM RIGHT QUADRANT
+  //   //without x/yposupdate, so ignoring mousepoisition
+  //   perlinTimers[i] += (0.0001*i)+(0.0001);
+  //   particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+  //   particleYpos[i] = 3*windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+  //   stroke(50, 255*timer);
+  //   strokeWeight(3);
+  //   if (i<4) {
+  //     fill(r1, g1, b1, 255*timer);
+  //   } else if (i<7) {
+  //       fill(r2, g2, b2, 255*timer);
+  //   } else {
+  //       fill(r3, g3, b3, 255*timer);
+  //   }
+  //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
+  // }
+}
 
 
 //-----Particle Class-----//
@@ -912,10 +871,32 @@ function line_fadeout() {
 
 }
 
-//home functions
+function homebutton_fadein() {
+  //homebutton
+  fill(0, 255*(sin(animation_timer)));
+  noStroke();
+  textStyle(BOLD);
+  textSize(24);
+  text("<", (windowWidth/2)-10, (windowHeight/4)+1);
+}
 
+function homebutton_static() {
+  //homebutton
+  fill(0, 255);
+  noStroke();
+  textStyle(BOLD);
+  textSize(24);
+  text("<", (windowWidth/2)-10, (windowHeight/4)+1);
+}
 
-
+function homebutton_fadeout() {
+  //homebutton
+  fill(0, 255*(1-sin(animation_timer)));
+  noStroke();
+  textStyle(BOLD);
+  textSize(24);
+  text("<", (windowWidth/2)-10, (windowHeight/4)+1);
+}
 
 
 //---------------------NEW DRAW----------------------//
@@ -1013,6 +994,7 @@ function draw() {
         particle_fadeout();
         line_static();
         image_static();
+        text(page_info[current_page]["tab_info"].title, (windowWidth/2 + 33), page_info[current_page]["tab_info"].text_y+windowHeight/2); //keep selected tab text visible
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 1;
@@ -1037,7 +1019,8 @@ function draw() {
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
         line_fadeout();
-        //call general particles fade-in
+        general_particles_fadein(int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)))
+        homebutton_fadein();
         //call content fade-in
         animation_timer += (HALF_PI/60);
       } else {
@@ -1051,7 +1034,8 @@ function draw() {
   //STATE 3: PAGE STATIC
   if (STATE == 3) {
 
-    //call general particles static
+    general_particles_static(int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)))
+    homebutton_static();
     //call content static
 
   }
@@ -2081,9 +2065,13 @@ function mousePressed() {
     //move to home to page state
     STATE = 2;
   }
+
+  if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
+    STATE = 0;
+  }
   // //return to home
   // if (state==5 || state==10 || state==15 || state==20 || state==30) {
-  //   if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
+  //   
   //     state += 1;
   //     state010 = 0;
   //     state011 = 0;
