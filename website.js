@@ -228,26 +228,14 @@ function tab2title(textvar, currentY, desiredY) {
 
 function general_particles_fadein(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
 
-  //---LINES---//
-  // stroke(100, 150);
-  // strokeWeight(1);
-  // for (var i = 0; i < 20; i++) {
-  //   for (var j=0; j<20; j++) {
-  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
-  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-  //     }
-  //   }
-  // }
-  
-
   //---PARTICLES---//
 
   //TOP LEFT QUADRANT
   for (var i = 0; i < 10; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 2*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255*(sin(animation_timer)));
     strokeWeight(3);
     if (i<4) {
@@ -257,15 +245,15 @@ function general_particles_fadein(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
     } else {
         fill(r3 ,g3 ,b3 , 255*(sin(animation_timer)));
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13*sin(animation_timer), 13*sin(animation_timer));
   }
   
   //BOTTOM LEFT QUADRANT
   for (var i = 10; i < 20; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = 3*windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255*(sin(animation_timer)));
     strokeWeight(3);
     if (i<14) {
@@ -275,32 +263,31 @@ function general_particles_fadein(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
     } else {
         fill(r3 ,g3 ,b3 , 255*(sin(animation_timer)));
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13*sin(animation_timer), 13*sin(animation_timer));
   }
 }
 
 function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
 
   //---LINES---//
-  // stroke(100, 150);
-  // strokeWeight(1);
-  // for (var i = 0; i < 20; i++) {
-  //   for (var j=0; j<20; j++) {
-  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
-  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-  //     }
-  //   }
-  // }
+  stroke(180);
+  strokeWeight(1);
+  for (var i = 0; i < 20; i++) {
+    for (var j=0; j<20; j++) {
+      if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.05*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.05*windowHeight)) {
+        line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
+      }
+    }
+  }
   
-
   //---PARTICLES---//
 
   //TOP LEFT QUADRANT
   for (var i = 0; i < 10; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 2*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255);
     strokeWeight(3);
     if (i<4) {
@@ -310,15 +297,15 @@ function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
     } else {
         fill(r3 ,g3 ,b3 , 255);
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13, 13);
   }
   
   //BOTTOM LEFT QUADRANT
   for (var i = 10; i < 20; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = 3*windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255);
     strokeWeight(3);
     if (i<14) {
@@ -328,23 +315,11 @@ function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
     } else {
         fill(r3 ,g3 ,b3 , 255);
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13, 13);
   }
 }
 
 function general_particles_fadeout(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
-
-  //---LINES---//
-  // stroke(100, 150);
-  // strokeWeight(1);
-  // for (var i = 0; i < 20; i++) {
-  //   for (var j=0; j<20; j++) {
-  //     if (((Math.abs(particleXpos[i]-particleXpos[j]))<0.07*windowWidth) && ((Math.abs(particleYpos[i]-particleYpos[j]))<0.07*windowHeight)) {
-  //       line(particleXpos[i], particleYpos[i], particleXpos[j], particleYpos[j]);
-  //     }
-  //   }
-  // }
-  
 
   //---PARTICLES---//
 
@@ -352,71 +327,37 @@ function general_particles_fadeout(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
   for (var i = 0; i < 10; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = windowHeight/4 + (3*windowHeight/4)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 2*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
     stroke(50, 255*(1-sin(animation_timer)));
     strokeWeight(3);
-    if (i<34) {
+    if (i<4) {
       fill(r1, g1, b1, 255*(1-sin(animation_timer)));
-    } else if (i<37) {
+    } else if (i<7) {
         fill(r2, g2, b2, 255*(1-sin(animation_timer)));
     } else {
         fill(r3 ,g3 ,b3 , 255*(1-sin(animation_timer)));
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13*(1-sin(animation_timer)), 13*(1-sin(animation_timer)));
   }
   
   //BOTTOM LEFT QUADRANT
   for (var i = 10; i < 20; i++) {
     //without x/yposupdate, so ignoring mousepoisition
     perlinTimers[i] += (0.0001*i)+(0.0001);
-    particleXpos[i] = windowWidth/6 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = 3*windowHeight/4 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-    stroke(50, 255*animation_timer);
+    particleXpos[i] = windowWidth/4 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = 3*windowHeight/5 + (4*windowHeight/5)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    stroke(50, 255*(1-sin(animation_timer)));
     strokeWeight(3);
-    if (i<24) {
+    if (i<14) {
       fill(r1, g1, b1, 255*(1-sin(animation_timer)));
-    } else if (i<27) {
+    } else if (i<17) {
         fill(r2, g2, b2, 255*(1-sin(animation_timer)));
     } else {
         fill(r3 ,g3 ,b3 , 255*(1-sin(animation_timer)));
     }
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
+    ellipse(particleXpos[i], particleYpos[i], 13*(1-sin(animation_timer)), 13*(1-sin(animation_timer)));
   }
-
-  // for (var i = 0; i < 10; i++) {
-  //   //TOP RIGHT QUADRANT
-  //   //without x/yposupdate, so ignoring mousepoisition
-  //   perlinTimers[i+10] += (0.0001*(i+10))+(0.0001);
-  //   particleXpos[i+10] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i+10]) - 0.5); //multiplicative parameter changes particle spread
-  //   particleYpos[i+10] = windowHeight/4 + (windowHeight)*(noise(perlinTimers[i+10]+1) - 0.5); //multiplicative parameter changes particle spread
-  //   stroke(50, 255*timer);
-  //   strokeWeight(3);
-  //   if (i<4) {
-  //     fill(r1, g1, b1, 255*timer);
-  //   } else if (i<7) {
-  //       fill(r2, g2, b2, 255*timer);
-  //   } else {
-  //       fill(r3, g3, b3, 255*timer);
-  //   }
-  //   ellipse(particleXpos[i+10], particleYpos[i+10], 10, 10);
-
-  //   //BOTTOM RIGHT QUADRANT
-  //   //without x/yposupdate, so ignoring mousepoisition
-  //   perlinTimers[i] += (0.0001*i)+(0.0001);
-  //   particleXpos[i] = 3*windowWidth/8 + (windowWidth/2)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-  //   particleYpos[i] = 3*windowHeight/4 + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
-  //   stroke(50, 255*timer);
-  //   strokeWeight(3);
-  //   if (i<4) {
-  //     fill(r1, g1, b1, 255*timer);
-  //   } else if (i<7) {
-  //       fill(r2, g2, b2, 255*timer);
-  //   } else {
-  //       fill(r3, g3, b3, 255*timer);
-  //   }
-  //   ellipse(particleXpos[i], particleYpos[i], 10, 10);
-  // }
 }
 
 
@@ -483,12 +424,12 @@ home["particle_fadeout"] = particle_fadeout;
 function image_slidein() {
 
   //image slide-in
-  tint(255, sin(animation_timer)*255);
+  //tint(255, sin(animation_timer)*255);
   image(profile, (windowWidth/2 - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
 
   //eyes
   noStroke();
-  fill(50, (sin(animation_timer)*255));
+  fill(60);
   if (mouseX<=(windowWidth/2)) {
     ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
     ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
@@ -505,12 +446,11 @@ function image_slidein() {
 }
 function image_static() {
 
-  tint(255);
   image(profile, (windowWidth/2) - 180, (windowHeight/2) - 86, 180, 180);
 
   //eyes
   noStroke();
-  fill(50);
+  fill(60);
   if (mouseX<=(windowWidth/2)) {
     ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
     ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
@@ -523,15 +463,15 @@ function image_static() {
 function image_slideout() {
 
   //image slide-out
-  tint(255, (1-sin(animation_timer))*255);
+  //tint(255, (1-sin(animation_timer))*255);
   image(profile, (windowWidth/2 - 180)+(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
 
   //eyes
   noStroke();
-  fill(50, (1-sin(animation_timer)*255));
+  fill(60);
   if (mouseX<=(windowWidth/2)) {
     ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + (sin(animation_timer)*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
   } else if (mouseX>(windowWidth/2)) {
     ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
     ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + (sin(animation_timer)*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
@@ -640,130 +580,97 @@ function particle_fadein() {
 
   for (var i = 0; i < particleNumber; i++) {
     //updates
-    perlinTimers[i] += (0.0001*i)+(0.0001);
+    perlinTimers[i] += (0.0001*i)+(0.001);
     particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
     particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
-    //varying stroke and fill colors based on particle index
-    if (i%3==0) {
-      stroke(200, (sin(animation_timer))*255);
-      fill(179, 157, 219, (sin(animation_timer))*255);
-    } else {
-      if (i%5==0) {
-        stroke(185, (sin(animation_timer))*255);
-        fill(239, 108, 0, (sin(animation_timer))*255);
-      } else {
-        if (i%7==0) {
-          stroke(170, (sin(animation_timer))*255);
-          fill(128, 203, 196, (sin(animation_timer))*255);
-        } else {
-          stroke(155, (sin(animation_timer))*255);
-          fill(100, (sin(animation_timer))*255);
-        }
-      }
-    }
-
     //line to middle
-    strokeWeight(1.5);
+    strokeWeight(1.4);
+    stroke(140, 150*(sin(animation_timer)));
     line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
     // }
 
+    //varying fill colors based on particle index
+    if (i%3==0) {
+      fill(179, 157, 219);
+    } else if (i%2==0) {
+      fill(255, 151, 66);
+    } else {
+      fill(128, 203, 196);
+    }
+    
     //particles
     strokeWeight(2);
-    stroke(0, (sin(animation_timer))*255);
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
-
+    stroke(60, 255*(sin(animation_timer)));
+    ellipse(particleXpos[i], particleYpos[i], 15*(sin(animation_timer)), 15*sin(animation_timer));
   }
-
 }
 function particle_static() {
 
   for (var i = 0; i < particleNumber; i++) {
     //updates
-    perlinTimers[i] += (0.0001*i)+(0.0001);
+    perlinTimers[i] += (0.0001*i)+(0.001);
     particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
     particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
-    //varying stroke and fill colors based on particle index
-    if (i%3==0) {
-      stroke(200);
-      fill(179, 157, 219);
-    } else {
-      if (i%5==0) {
-        stroke(185);
-        fill(239, 108, 0);
-      } else {
-        if (i%7==0) {
-          stroke(170);
-          fill(128, 203, 196);
-        } else {
-          stroke(155);
-          fill(100);
-        }
-      }
-    }
-
     //line to middle
-    strokeWeight(1.5);
+    strokeWeight(1.4);
+    stroke(140, 150);
     line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
     // }
 
+    //varying fill colors based on particle index
+    if (i%3==0) {
+      fill(179, 157, 219);
+    } else if (i%2==0) {
+      fill(255, 151, 66);
+    } else {
+      fill(128, 203, 196);
+    }
+    
     //particles
     strokeWeight(2);
-    stroke(0);
+    stroke(60);
     ellipse(particleXpos[i], particleYpos[i], 15, 15);
-
   }
-
 }
 function particle_fadeout() {
 
   for (var i = 0; i < particleNumber; i++) {
     //updates
-    perlinTimers[i] += (0.0001*i)+(0.0001);
+    perlinTimers[i] += (0.0001*i)+(0.001);
     particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
     particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
-    //varying stroke and fill colors based on particle index
-    if (i%3==0) {
-      stroke(200, (1-sin(animation_timer))*255);
-      fill(179, 157, 219, (1-sin(animation_timer))*255);
-    } else {
-      if (i%5==0) {
-        stroke(185, (1-sin(animation_timer))*255);
-        fill(239, 108, 0, (1-sin(animation_timer))*255);
-      } else {
-        if (i%7==0) {
-          stroke(170, (1-sin(animation_timer))*255);
-          fill(128, 203, 196, (1-sin(animation_timer))*255);
-        } else {
-          stroke(155, 1-(sin(animation_timer))*255);
-          fill(100, (1-sin(animation_timer))*255);
-        }
-      }
-    }
-
     //line to middle
-    strokeWeight(1.5);
+    strokeWeight(1.4);
+    stroke(140, 150*(1-sin(animation_timer)));
     line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
     // }
 
+    //varying fill colors based on particle index
+    if (i%3==0) {
+      fill(179, 157, 219);
+    } else if (i%2==0) {
+      fill(255, 151, 66);
+    } else {
+      fill(128, 203, 196);
+    }
+    
     //particles
     strokeWeight(2);
-    stroke(0, (1-sin(animation_timer))*255);
-    ellipse(particleXpos[i], particleYpos[i], 15, 15);
-
+    stroke(60, 255*(1-sin(animation_timer)));
+    ellipse(particleXpos[i], particleYpos[i], 15*(1-sin(animation_timer)), 15*(1-sin(animation_timer)));
   }
-
 }
 
 //----------about----------//
@@ -772,7 +679,7 @@ page_info["about"] = about; //asign page dict to page info dict
 // about["content_fadein"] = about_content_fadein;
 // about["content_static"] = about_content_static;
 // about["content_fadeout"] = about_content_fadeout;
-about["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+about["particle_colors"] = [179, 157, 219, 127, 73, 145, 215, 204, 219];
 about["tab_info"] = new Tab("about", -20, -5, 53, 179, 157, 219, 20, 20, 20);
 about["box_lines"] = 0;
 
@@ -782,7 +689,7 @@ page_info["compositions"] = compositions; //asign page dict to page info dict
 // compositions["content_fadein"] = compositions_content_fadein;
 // compositions["content_static"] = compositions_content_static;
 // compositions["content_fadeout"] = compositions_content_fadeout;
-compositions["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+compositions["particle_colors"] = [159, 168, 218, 120, 126, 158, 118, 87, 171];
 compositions["tab_info"] = new Tab("compositions", 2, 17, 103, 159, 168, 218, 20, 20, 20);
 compositions["box_lines"] = 0;
 
@@ -792,7 +699,7 @@ page_info["performances"] = performances; //asign page dict to page info dict
 // performances["content_fadein"] = performances_content_fadein;
 // performances["content_static"] = performances_content_static;
 // performances["content_fadeout"] = performances_content_fadeout;
-performances["particle_colors"] = [1,2,3,1,2,3,1,2,3];
+performances["particle_colors"] = [144, 202, 249, 184, 199, 214, 76, 144, 212];
 performances["tab_info"] = new Tab("performances", 24, 39, 106, 144, 202, 249, 20, 20, 0);
 performances["box_lines"] = 0;
 
@@ -849,25 +756,25 @@ function state_agnostic() {
 
 function line_fadein() {
   
-  stroke(0, sin(animation_timer)*255);
-  strokeWeight(1);
+  stroke(70, sin(animation_timer)*255);
+  strokeWeight(sin(animation_timer)*2);
   line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
 
 }
 
 function line_static() {
 
-  stroke(0);
-  strokeWeight(1);
+  stroke(70);
+  strokeWeight(2);
   line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
 
 }
 
 function line_fadeout() {
   
-  stroke(0, (1-sin(animation_timer))*255);
-  strokeWeight(1);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+  stroke(70);
+  strokeWeight(2);
+  line(windowWidth/2, windowHeight/2 - 106 - (windowHeight/4 - 121)*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - (windowHeight/4 + 96)*(sin(animation_timer)));
 
 }
 
@@ -919,7 +826,8 @@ function draw() {
     if (animation_substate == 0) {
       if (!first_time) {
         if (animation_timer <= HALF_PI) {
-          //call general particle fade-out
+          general_particles_fadeout(...page_info[current_page]["particle_colors"]);
+          homebutton_fadeout();
           //call content fade-out
           animation_timer += (HALF_PI/60);
         } else {
@@ -934,6 +842,7 @@ function draw() {
 
     //substate 1: IMAGE SLIDE
     if (animation_substate == 1) {
+      current_page = "home";
       if (animation_timer <= HALF_PI) {
         image_slidein();
         line_fadein();
@@ -948,8 +857,8 @@ function draw() {
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
         content_slidein();
-        line_static();
         image_static();
+        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 3;
@@ -962,8 +871,8 @@ function draw() {
       if (animation_timer <= HALF_PI) {
         content_static();
         particle_fadein();
-        line_static();
         image_static();
+        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 0;
@@ -979,8 +888,8 @@ function draw() {
 
     content_static();
     particle_static();
-    line_static();
     image_static();
+    line_static();
 
   }
 
@@ -992,8 +901,9 @@ function draw() {
       if (animation_timer <= HALF_PI) {
         content_fadeout();
         particle_fadeout();
-        line_static();
         image_static();
+        line_static();
+        noStroke();
         text(page_info[current_page]["tab_info"].title, (windowWidth/2 + 33), page_info[current_page]["tab_info"].text_y+windowHeight/2); //keep selected tab text visible
         animation_timer += (HALF_PI/60);
       } else {
@@ -1019,7 +929,7 @@ function draw() {
     if (animation_substate == 2) {
       if (animation_timer <= HALF_PI) {
         line_fadeout();
-        general_particles_fadein(int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)))
+        general_particles_fadein(...page_info[current_page]["particle_colors"]);
         homebutton_fadein();
         //call content fade-in
         animation_timer += (HALF_PI/60);
@@ -1034,7 +944,7 @@ function draw() {
   //STATE 3: PAGE STATIC
   if (STATE == 3) {
 
-    general_particles_static(int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)), int(random(0,256)))
+    general_particles_static(...page_info[current_page]["particle_colors"]);
     homebutton_static();
     //call content static
 
@@ -2063,7 +1973,9 @@ function mousePressed() {
       current_page = "contact";
     }
     //move to home to page state
-    STATE = 2;
+    if (current_page != "home") {
+      STATE = 2;
+    }
   }
 
   if ((mouseX>((windowWidth/2)-10)) && (mouseX<((windowWidth/2)+11)) && (mouseY>((windowHeight/4)-17)) && (mouseY<((windowHeight/4)+4))) {
