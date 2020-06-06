@@ -1,12 +1,13 @@
-website.js structure:
+#### website.js structure:
 
+```
 text and image variables
 preload()
-  preload images
+	preload images	
 setup()
-  particle instantiation and initialization
+	particle instantiation and initialization	
 page dictionary values and functions
-  home
+	home	
     particle_colors and tab_info
     image {slidein, static, slideout}
     content {slidein, static, fadeout}
@@ -58,3 +59,4 @@ mousePressed()
    if tab
    if homebutton
    if content in page
+```
