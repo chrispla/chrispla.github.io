@@ -60,7 +60,7 @@ var contact_email = "email: cplachouras -αt- nyu.edu";
 var contact_linkedin = "linkedIn: Christos Plachouras";
 var contact_youtube = "YouTube: Christos Plachouras";
 var contact_github = "GitHub: chrispla";
-var current_location = "I am currently in: Athens!";
+var current_location = "I am currently in: Athens!\nFeedback on website performance and bugs is greatly appreciated.";
 var current_location_img;
 
 //homepage and about images
@@ -747,7 +747,7 @@ function performances_content_static() {
 function performances_content_fadeout() {
   noStroke();
   textStyle(BOLD);
-  fill(0);
+  fill(0, 255*(1-sin(animation_counter)));
   textSize(24);
   text(page_info[current_page]["tab_info"].title, (windowWidth/2) + 33, windowHeight/5);
 
