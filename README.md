@@ -3,11 +3,11 @@
 ```
 text and image variables
 preload()
-	preload images	
+  preload images	
 setup()
-	particle instantiation and initialization	
+  particle instantiation and initialization	
 page dictionary values and functions
-	home	
+  home	
     particle_colors and tab_info
     image {slidein, static, slideout}
     content {slidein, static, fadeout}
@@ -31,8 +31,8 @@ page dictionary values and functions
     particle_colors and tab_info
     content {fadein, static, fadeout}
 general functions
-  state_agnostic()
-    {background, version, framerate}
+   state_agnostic()
+     {background, version, framerate}
    Particle class
    Tab class
    tab_box()
