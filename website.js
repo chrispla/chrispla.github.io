@@ -52,7 +52,7 @@ var masc_title = "Computational Analysis, Cultural Preservation - MaSC (active)"
 var masc_description = "\"The Music and Sound Cultures (MaSC) research group is a collective of researchers focusing on the multidisciplinary study of music from the Gulf, the Levant, East Africa, and South India. Having as a primary goal the study and dissemination of music from this region, the group currently hosts several projects that range from the preservation of collections of field or rare commercial recordings, to developing innovative ways of conducting musical heritage analysis, preservation, and dissemination.\"";
 var masc_img;
 var structure_title = "Music structure analysis and comparison (active)";
-var structure_description = "My proposed undergraduate thesis on developing a hierarchical decomposition of music structure to allow for structure comparisons at different levels of granularity. The method utilizes low-rank approximations of the graph Laplacian proposed from feature-fused self-similarity matrices, and has applications to cover detection and the more general task of music similarity.";
+var structure_description = "My proposed undergraduate thesis on developing a hierarchical decomposition of music structure to allow for structure comparisons at different levels of granularity. The method utilizes low-rank approximations of the graph Laplacian constructed from feature-fused self-similarity matrices, and has applications to cover detection and the more general task of music similarity.";
 var structure_img;
 
 //contact
