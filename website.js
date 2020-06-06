@@ -747,7 +747,7 @@ function performances_content_static() {
 function performances_content_fadeout() {
   noStroke();
   textStyle(BOLD);
-  fill(0, 255*(1-sin(animation_counter)));
+  fill(0, 255*(1-sin(animation_timer)));
   textSize(24);
   text(page_info[current_page]["tab_info"].title, (windowWidth/2) + 33, windowHeight/5);
 
