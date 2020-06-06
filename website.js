@@ -1,12 +1,6 @@
-//---TEXT & IMAGES---//
+//check the repo's README to overview code structure
 
-//TABS
-var about = "about";
-var compositions = "compositions";
-var performances = "performances";
-var publications = "publications";
-var other_projects = "other projects";
-var contact = "contact";
+//---TEXT & IMAGES---//
 
 //homepage text
 var hi = "Hi!";
@@ -1111,8 +1105,7 @@ function state_agnostic() {
   }
   text("FPS: " + fps.toFixed(2), 5, 15);
 }
-//-----Particle Class-----//
-function Particles() {
+function Particles() { //particle class
 
   //initial spread of particles
   this.x = random((windowWidth/2)-525, ((windowWidth/2)+325));
@@ -1141,8 +1134,7 @@ function Particles() {
     return this.y;
   }
 }
-//-----Tab Class-----//
-function Tab(title, tab_y, text_y, width, startR, startG, startB, dropR, dropG, dropB) {
+function Tab(title, tab_y, text_y, width, startR, startG, startB, dropR, dropG, dropB) { //tab class
   this.title = title;
   this.tab_y = tab_y;
   this.text_y = text_y;
@@ -1154,7 +1146,7 @@ function Tab(title, tab_y, text_y, width, startR, startG, startB, dropR, dropG, 
   this.dropG = dropG;
   this.dropB = dropB;
 }
-function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR, dropG, dropB, alpha) {
+function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR, dropG, dropB, alpha) { //interactive gradient boxes behind tab text
   //xpos value of moving tab box relative to middle width
   //upper ypos value relative to middle height
   //lCounter = number of lines to draw
@@ -1200,7 +1192,7 @@ function tab_box(xpos, ypos, lCounter, frameWidth, startR, startG, startB, dropR
       }
   }
 }
-function tab2title(textvar, currentY, desiredY) {
+function tab2title(textvar, currentY, desiredY) { //transition from tab text to page title
   textStyle(BOLD);
   fill(0);
   noStroke();
@@ -1247,7 +1239,7 @@ function general_particles_fadein(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
     ellipse(particleXpos[i], particleYpos[i], 13*sin(animation_timer), 13*sin(animation_timer));
   }
 }
-function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) {
+function general_particles_static(r1, g1, b1, r2, g2, b2, r3, g3, b3) { //used on all pages apart from home page, non-interactive
 
   //---LINES---//
   stroke(180);
