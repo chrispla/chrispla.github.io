@@ -1609,7 +1609,7 @@ function mousePressed() {
     }
     else if (current_page == "publications") {
       //dlfm2019
-      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/4 + 49)) && (mouseY<(windowHeight/4 +126))) {
+      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
         window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
       }
     }
