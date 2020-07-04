@@ -22,6 +22,9 @@ var mapinmusic_img;
 var flowersescape_title = "Flower's Escape";
 var flowersescape_performance = "Christos Plachouras, Live at NYUAD Blue Hall, 10th of December, 2018";
 var floswersescape_img;
+var newtime_title = "New Time, a short tribute to a vibrant memory";
+var newtime_performance = "Christos Plachouras, June 2020";
+var newtime_img;
 
 //performances page
 var rach_title = "Rachmaninoff - Piano Concerto No. 2, I. Moderato";
@@ -77,6 +80,7 @@ function preload() {
   preludes_img = loadImage('preludes.png');
   mapinmusic_img = loadImage('mapinmusic.png');
   flowersescape_img = loadImage('flowersescape.png');
+  newtime_img = loadImage('newtime.png');
   rach_img = loadImage('rach.png');
   messiaen_img = loadImage('messiaen.png');
   coldplay_img = loadImage('coldplay.png');
@@ -491,6 +495,7 @@ function compositions_content_fadein() {
   rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*sin(animation_timer));
@@ -526,6 +531,13 @@ function compositions_content_fadein() {
   text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
   image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
 
+  //New time
+  textStyle(BOLD);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
+
 }
 function compositions_content_static() {
   //---title---//
@@ -543,6 +555,7 @@ function compositions_content_static() {
   rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*(1-sin(animation_timer)));
@@ -579,6 +592,14 @@ function compositions_content_static() {
   text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
   image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
 
+  //New time
+  textStyle(BOLD);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
+
+
 }
 function compositions_content_fadeout() {
   //---title---//
@@ -596,6 +617,7 @@ function compositions_content_fadeout() {
   rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*(1-sin(animation_timer)));
@@ -630,6 +652,13 @@ function compositions_content_fadeout() {
   textStyle(NORMAL);
   text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
   image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
+
+  //New time
+  textStyle(BOLD);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
 
 }
 
@@ -1103,7 +1132,7 @@ function state_agnostic() {
   if (frameCount%30==0) {
     fps = frameRate();
   }
-  text("FPS: " + fps.toFixed(2), 5, 15);
+  //text("FPS: " + fps.toFixed(2), 5, 15);
 }
 function Particles() { //particle class
 
@@ -1588,6 +1617,11 @@ function mousePressed() {
       else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 349)) && (mouseY<(windowHeight/5 +426))) {
         window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
       }
+      //New time
+      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 449)) && (mouseY<(windowHeight/5 +526))) {
+        window.open("https://www.youtube.com/watch?v=kdwFy86QjOU");
+      }
+
     }
     else if (current_page == "performances") {
       //Rachmaninioff
