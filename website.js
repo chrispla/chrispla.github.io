@@ -37,8 +37,14 @@ var coldplay_performance = "Christos Plachouras - Voice Arrangement, 27th of Mar
 var coldplay_img;
 
 //publications page
+var timbre2020_title = "Mapping Timbre Space in Regional Music Collections using HPSS Decomposition";
+var timbre2020_description = "To be presented in the 2nd International Conference on Timbre, Timbre 2020";
+var timbre2020_img;
+var cur_title = "Computational Audio Analysis for Cultural Heritage Preservation";
+var cur_description = "Feature on the webpage of the Council on Undergraduate Research";
+var cur_img;
 var dlfm2019_title = "Mapping the Sounds of the Swahili coast and the Arab Mashriq: Music research at the intersection of computational analysis and cultural heritage preservation";
-var dlfm2019_description = "TROMPA Poster presentation at the 6th Digital Libraries for Musicology event of ISMIR 2019"
+var dlfm2019_description = "TROMPA Poster presentation at the 6th Digital Libraries for Musicology event of ISMIR 2019";
 var dlfm2019_img;
 
 //other_projects page
@@ -82,6 +88,8 @@ function preload() {
   coldplay_img = loadImage('coldplay.png');
   bach_img = loadImage('bach.png');
   koechlin_img = loadImage('koechlin.png');
+  timbre2020_img = loadImage('timbre2020.png');
+  cur_img = loadImage('cur.png');
   dlfm2019_img = loadImage('dlfm2019.png');
   tool_img = loadImage('tool.png');
   masc_img = loadImage('masc.png');
@@ -817,6 +825,8 @@ function publications_content_fadein() {
   fill(0, 0*(sin(animation_timer)));
   strokeWeight(2);
   rect(windowWidth/2 +32, windowHeight/5 + 49, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
 
   //---content---//
   textSize(12);
@@ -824,12 +834,26 @@ function publications_content_fadein() {
   fill(0, 255*(sin(animation_timer)));
   tint(255, 255*(sin(animation_timer)));
 
+  //timbre2020
+  textStyle(BOLD);
+  text(timbre2020_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(timbre2020_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
+  image(timbre2020_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+
+  //cur
+  textStyle(BOLD);
+  text(cur_title, windowWidth/2 + 133, windowHeight/5 + 155, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(cur_description, windowWidth/2 + 133, windowHeight/5 + 200, windowWidth/3, 2*windowHeight/3);
+  image(cur_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
+
   //dlfm2019
   textStyle(BOLD);
-  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 255, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
-  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 300, windowWidth/3, 2*windowHeight/3);
+  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
 }
 function publications_content_static() {
   noStroke();
@@ -843,6 +867,8 @@ function publications_content_static() {
   fill(0, 0);
   strokeWeight(2);
   rect(windowWidth/2 +32, windowHeight/5 + 49, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
 
   //---content---//
   textSize(12);
@@ -850,12 +876,26 @@ function publications_content_static() {
   fill(0, 255);
   tint(255, 255);
 
+  //timbre2020
+  textStyle(BOLD);
+  text(timbre2020_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(timbre2020_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
+  image(timbre2020_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+
+  //cur
+  textStyle(BOLD);
+  text(cur_title, windowWidth/2 + 133, windowHeight/5 + 155, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(cur_description, windowWidth/2 + 133, windowHeight/5 + 200, windowWidth/3, 2*windowHeight/3);
+  image(cur_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
+
   //dlfm2019
   textStyle(BOLD);
-  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 255, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
-  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 300, windowWidth/3, 2*windowHeight/3);
+  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
 }
 function publications_content_fadeout() {
   noStroke();
@@ -869,6 +909,8 @@ function publications_content_fadeout() {
   fill(0, 0);
   strokeWeight(2);
   rect(windowWidth/2 +32, windowHeight/5 + 49, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 149, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
 
   //---content---//
   textSize(12);
@@ -876,12 +918,26 @@ function publications_content_fadeout() {
   fill(0, 255*(1-sin(animation_timer)));
   tint(255, 255*(1-sin(animation_timer)));
 
+  //timbre2020
+  textStyle(BOLD);
+  text(timbre2020_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(timbre2020_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
+  image(timbre2020_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+
+  //cur
+  textStyle(BOLD);
+  text(cur_title, windowWidth/2 + 133, windowHeight/5 + 155, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(cur_description, windowWidth/2 + 133, windowHeight/5 + 200, windowWidth/3, 2*windowHeight/3);
+  image(cur_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
+
   //dlfm2019
   textStyle(BOLD);
-  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 55, windowWidth/3, 2*windowHeight/3);
+  text(dlfm2019_title, windowWidth/2 + 133, windowHeight/5 + 255, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 100, windowWidth/3, 2*windowHeight/3);
-  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
+  text(dlfm2019_description, windowWidth/2 + 133, windowHeight/5 + 300, windowWidth/3, 2*windowHeight/3);
+  image(dlfm2019_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
 }
 
 //--------projects--------//
@@ -1608,8 +1664,16 @@ function mousePressed() {
       }
     }
     else if (current_page == "publications") {
+      //timbre2020
+      // if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
+      //   window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
+      // }
+      //cur
+      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 149)) && (mouseY<(windowHeight/5 +226))) {
+        window.open("https://www.cur.org/computational_audio_analysis_for_cultural_heritage_preservation/");
+      }
       //dlfm2019
-      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
+      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 249)) && (mouseY<(windowHeight/5 +326))) {
         window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
       }
     }
