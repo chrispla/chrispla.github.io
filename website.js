@@ -69,7 +69,7 @@ var contact_email = "email: cplachouras -αt- nyu.edu";
 var contact_linkedin = "linkedIn: Christos Plachouras";
 var contact_youtube = "YouTube: Christos Plachouras";
 var contact_github = "GitHub: chrispla";
-var current_location = "I am currently in: Athens!\nFeedback on website performance and bugs is greatly appreciated.";
+var current_location = "I am currently in: Abu Dhabi!\nFeedback on website performance and bugs is greatly appreciated.";
 var current_location_img;
 
 //homepage and about images
