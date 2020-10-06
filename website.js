@@ -1659,7 +1659,7 @@ function mousePressed() {
     if (current_page=="compositions") {
       //Preludes
       if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
-        window.open("https://www.youtube.com/playlist?list=PL6rrHapQThnecOVk68MT500jKBxnWD7ak");
+        window.open("https://www.youtube.com/playlist?list=PL6rrHapQThneqt1rfM0bDmX8uw7_0F22D");
       }
       //Quartet
       else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 149)) && (mouseY<(windowHeight/5 +226))) {
