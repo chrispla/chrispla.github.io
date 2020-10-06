@@ -41,7 +41,7 @@ var coldplay_img;
 
 //publications page
 var timbre2020_title = "Mapping Timbre Space in Regional Music Collections using HPSS Decomposition";
-var timbre2020_description = "To be presented in the 2nd International Conference on Timbre, Timbre 2020";
+var timbre2020_description = "Proceedings of the 2nd International Conference on Timbre, Timbre 2020";
 var timbre2020_img;
 var cur_title = "Computational Audio Analysis for Cultural Heritage Preservation";
 var cur_description = "Feature on the webpage of the Council on Undergraduate Research";
@@ -1699,9 +1699,9 @@ function mousePressed() {
     }
     else if (current_page == "publications") {
       //timbre2020
-      // if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
-      //   window.open("https://dlsi.ua.es/gent/drizo/dlfm2019/trochidis.pdf");
-      // }
+      if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 49)) && (mouseY<(windowHeight/5 +126))) {
+        window.open("http://timbre2020.mus.auth.gr/assets/papers/Timbre2020_proceedings.pdf");
+      }
       //cur
       if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 149)) && (mouseY<(windowHeight/5 +226))) {
         window.open("https://www.cur.org/computational_audio_analysis_for_cultural_heritage_preservation/");
