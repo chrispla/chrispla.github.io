@@ -25,6 +25,9 @@ var floswersescape_img;
 var newtime_title = "New Time, a short tribute to a vibrant memory";
 var newtime_performance = "Christos Plachouras, June 2020";
 var newtime_img;
+var ascending_title = "Ascending";
+var ascending_performance = "Christos Plachouras, September 2019, NYU Bleep Bloop 2019"
+var ascending_img;
 
 //performances page
 var rach_title = "Rachmaninoff - Piano Concerto No. 2, I. Moderato";
@@ -85,6 +88,7 @@ function preload() {
   string_quartet_img = loadImage('string_quartet.png');
   preludes_img = loadImage('preludes.png');
   mapinmusic_img = loadImage('mapinmusic.png');
+  ascending_img = loadImage('ascending.png');
   flowersescape_img = loadImage('flowersescape.png');
   newtime_img = loadImage('newtime.png');
   rach_img = loadImage('rach.png');
@@ -504,6 +508,7 @@ function compositions_content_fadein() {
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 549, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*sin(animation_timer));
@@ -525,26 +530,33 @@ function compositions_content_fadein() {
   text(string_quartet_performance, windowWidth/2 + 133, windowHeight/5 + 185, windowWidth/3, 2*windowHeight/3);
   image(string_quartet_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
 
+  //Ascending
+  textStyle(BOLD);
+  text(ascending_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(ascending_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
+  image(ascending_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+
   //Map in music
   textStyle(BOLD);
-  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
-  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
+  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
 
   //Flower's Escape
   textStyle(BOLD);
-  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
+  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
-  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
+  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
 
   //New time
   textStyle(BOLD);
-  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 570, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
-  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 585, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 550, 75, 75);
 
 }
 function compositions_content_static() {
@@ -564,6 +576,7 @@ function compositions_content_static() {
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 549, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*(1-sin(animation_timer)));
@@ -578,7 +591,6 @@ function compositions_content_static() {
   text(preludes_performance, windowWidth/2 + 133, windowHeight/5 + 85, windowWidth/3, 2*windowHeight/3);
   image(preludes_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
 
-
   //String Quartet
   textStyle(BOLD);
   text(string_quartet_title, windowWidth/2 + 133, windowHeight/5 + 170, windowWidth/3, 2*windowHeight/3);
@@ -586,26 +598,33 @@ function compositions_content_static() {
   text(string_quartet_performance, windowWidth/2 + 133, windowHeight/5 + 185, windowWidth/3, 2*windowHeight/3);
   image(string_quartet_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
 
+  //Ascending
+  textStyle(BOLD);
+  text(ascending_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(ascending_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
+  image(ascending_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+
   //Map in music
   textStyle(BOLD);
-  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
-  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
+  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
 
   //Flower's Escape
   textStyle(BOLD);
-  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
+  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
-  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
+  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
 
   //New time
   textStyle(BOLD);
-  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 570, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
-  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 585, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 550, 75, 75);
 
 
 }
@@ -626,6 +645,7 @@ function compositions_content_fadeout() {
   rect(windowWidth/2 +32, windowHeight/5 + 249, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 349, windowWidth/3 + 120, 77);
   rect(windowWidth/2 +32, windowHeight/5 + 449, windowWidth/3 + 120, 77);
+  rect(windowWidth/2 +32, windowHeight/5 + 549, windowWidth/3 + 120, 77);
 
   //-----Content-----//
   fill(0, 255*(1-sin(animation_timer)));
@@ -640,6 +660,7 @@ function compositions_content_fadeout() {
   text(preludes_performance, windowWidth/2 + 133, windowHeight/5 + 85, windowWidth/3, 2*windowHeight/3);
   image(preludes_img, windowWidth/2 + 33, windowHeight/5 + 50, 75, 75);
 
+
   //String Quartet
   textStyle(BOLD);
   text(string_quartet_title, windowWidth/2 + 133, windowHeight/5 + 170, windowWidth/3, 2*windowHeight/3);
@@ -647,26 +668,33 @@ function compositions_content_fadeout() {
   text(string_quartet_performance, windowWidth/2 + 133, windowHeight/5 + 185, windowWidth/3, 2*windowHeight/3);
   image(string_quartet_img, windowWidth/2 + 33, windowHeight/5 + 150, 75, 75);
 
+  //Ascending
+  textStyle(BOLD);
+  text(ascending_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  textStyle(NORMAL);
+  text(ascending_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
+  image(ascending_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+
   //Map in music
   textStyle(BOLD);
-  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 270, windowWidth/3, 2*windowHeight/3);
+  text(mapinmusic_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 285, windowWidth/3, 2*windowHeight/3);
-  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 250, 75, 75);
+  text(mapinmusic_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
+  image(mapinmusic_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
 
   //Flower's Escape
   textStyle(BOLD);
-  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 370, windowWidth/3, 2*windowHeight/3);
+  text(flowersescape_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 385, windowWidth/3, 2*windowHeight/3);
-  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 350, 75, 75);
+  text(flowersescape_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
+  image(flowersescape_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
 
   //New time
   textStyle(BOLD);
-  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 470, windowWidth/3, 2*windowHeight/3);
+  text(newtime_title, windowWidth/2 + 133, windowHeight/5 + 570, windowWidth/3, 2*windowHeight/3);
   textStyle(NORMAL);
-  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 485, windowWidth/3, 2*windowHeight/3);
-  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 450, 75, 75);
+  text(newtime_performance, windowWidth/2 + 133, windowHeight/5 + 585, windowWidth/3, 2*windowHeight/3);
+  image(newtime_img, windowWidth/2 + 33, windowHeight/5 + 550, 75, 75);
 
 }
 
@@ -1665,16 +1693,20 @@ function mousePressed() {
       else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 149)) && (mouseY<(windowHeight/5 +226))) {
         window.open("https://www.youtube.com/watch?v=JR-bvfh0kKI");
       }
-      //Map in Music
+      //Ascending
       else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 249)) && (mouseY<(windowHeight/5 +326))) {
+        window.open("https://youtu.be/PEVUPg_hrss");
+      }
+      //Map in Music
+      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 349)) && (mouseY<(windowHeight/5 +426))) {
         window.open("https://www.youtube.com/watch?v=XewU_bfyQ78");
       }
       //Flower's Escape
-      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 349)) && (mouseY<(windowHeight/5 +426))) {
+      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 449)) && (mouseY<(windowHeight/5 +526))) {
         window.open("https://www.youtube.com/watch?v=NN7XjtjN-Iw");
       }
       //New time
-      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 449)) && (mouseY<(windowHeight/5 +526))) {
+      else if ((mouseX>windowWidth/2 +32) && (mouseX<((windowWidth/2 +32) + (windowWidth/3 +120))) && (mouseY>(windowHeight/5 + 549)) && (mouseY<(windowHeight/5 +626))) {
         window.open("https://www.youtube.com/watch?v=kdwFy86QjOU");
       }
 
