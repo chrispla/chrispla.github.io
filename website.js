@@ -83,26 +83,26 @@ var profile1;
 function preload() {
 
   //preload images
-  profile = loadImage('profile.png');
-  profile1 = loadImage('profile1.png');
-  string_quartet_img = loadImage('string_quartet.png');
-  preludes_img = loadImage('preludes.png');
-  mapinmusic_img = loadImage('mapinmusic.png');
-  ascending_img = loadImage('ascending.png');
-  flowersescape_img = loadImage('flowersescape.png');
-  newtime_img = loadImage('newtime.png');
-  rach_img = loadImage('rach.png');
-  messiaen_img = loadImage('messiaen.png');
-  coldplay_img = loadImage('coldplay.png');
-  bach_img = loadImage('bach.png');
-  koechlin_img = loadImage('koechlin.png');
-  timbre2020_img = loadImage('timbre2020.png');
-  cur_img = loadImage('cur.png');
-  dlfm2019_img = loadImage('dlfm2019.png');
-  tool_img = loadImage('tool.png');
-  masc_img = loadImage('masc.png');
-  structure_img = loadImage('structure.png');
-  current_location_img = loadImage('newyork.png');
+  profile = loadImage('/img/profile.png');
+  profile1 = loadImage('/img/profile1.png');
+  string_quartet_img = loadImage('/img/string_quartet.png');
+  preludes_img = loadImage('/img/preludes.png');
+  mapinmusic_img = loadImage('/img/mapinmusic.png');
+  ascending_img = loadImage('/img/ascending.png');
+  flowersescape_img = loadImage('/img/flowersescape.png');
+  newtime_img = loadImage('/img/newtime.png');
+  rach_img = loadImage('/img/rach.png');
+  messiaen_img = loadImage('/img/messiaen.png');
+  coldplay_img = loadImage('/img/coldplay.png');
+  bach_img = loadImage('/img/bach.png');
+  koechlin_img = loadImage('/img/koechlin.png');
+  timbre2020_img = loadImage('/img/timbre2020.png');
+  cur_img = loadImage('/img/cur.png');
+  dlfm2019_img = loadImage('/img/dlfm2019.png');
+  tool_img = loadImage('/img/tool.png');
+  masc_img = loadImage('/img/masc.png');
+  structure_img = loadImage('/img/structure.png');
+  current_location_img = loadImage('/img/newyork.png');
 }
 
 //-----SETUP-----// see p5js documentation for setup() function
@@ -1654,6 +1654,7 @@ function mousePressed() {
     //if click within compositions Tab
     else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+103)) && (mouseY<((windowHeight/2)+2+20)) && (mouseY>((windowHeight/2)+2))) {
       current_page = "compositions";
+      window.open("./compositions.html","_self")
     }
     //if click within performances Tab
     else if ((mouseX>((windowWidth/2)+25)) && (mouseX<((windowWidth/2)+25+3+106)) && (mouseY<((windowHeight/2)+24+20)) && (mouseY>((windowHeight/2)+24))) {
