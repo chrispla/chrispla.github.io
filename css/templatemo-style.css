@@ -1,0 +1,211 @@
+/*
+
+Timeless Template 
+
+http://www.templatemo.com/tm-517-timeless
+
+*/
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: 'Verdana';
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+h1 {
+  font-size: 30px;
+}
+h2 {
+  font-size: 26px;
+}
+h3 {
+    font-size: 24px;
+}
+h4 {
+    font-size: 19px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
+p {
+  font-size: 13px;
+}
+p {
+    line-height: 1.2;
+}
+
+
+.tm-site-logo {
+    width: 40px;
+    height: 40px;
+    border: 7px solid white;
+    transform: rotate(45deg);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.tm-site-title {
+    display: inline-block;
+    margin-top: 2cm;
+    margin-bottom: 1cm;
+}
+
+.tm-site-header {
+    padding-top: 45px;
+    padding-bottom: 45px;
+    margin: auto;
+    text-align: center;
+}
+
+
+.tm-font-200 {
+    font-weight: 200;
+}
+
+.tm-text-light-gray {
+    color: #CDCDCD;
+}
+
+.tm-text-gray {
+    color: #CCCCCC;
+}
+
+.tm-text-white {
+    color: #FFFFFF;
+}
+
+a.tm-text-white:hover,
+a.tm-text-white:focus {
+    color: #FFFFFF;
+}
+
+.tm-text-green {
+    color: #99CC66;
+}
+
+.tm-text-cyan {
+    color: #33CCCC;
+}
+
+.tm-text-yellow {
+    color: #FFFF66;
+}
+
+.tm-text-orange {
+    color: #CC9966;
+}
+
+.tm-bg-white {
+    background-color: #eee6e6;
+}
+
+
+hr {
+    border-color: #666666;
+    max-width: 70%;
+}
+
+.tm-video-iframe {
+    height: auto;
+}
+
+.tm-img-timeline {
+    float: left;
+    width: 100px;
+    height: 100px;
+    border-radius: 0px;  
+}
+
+.tm-timeline-description {
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #000000;
+    border-radius: 0px;
+    min-width: 600px;
+    max-width: 600px;
+    margin-bottom:0.5cm
+}
+
+.box-text {
+    float: left;
+    padding-top: 25px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+}
+
+.tm-section-mb {
+    margin-bottom: 10px;
+}
+
+
+
+.tm-section-mt {
+    margin-top: 85px;
+}
+
+.tm-contact-form {
+    max-width: 500px;
+}
+
+.form-control {
+    border-radius: 0;
+    border-color: #666666;
+	color: #CCC;
+    background: transparent;
+    padding: 12px 15px;
+}
+
+.form-control::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #CCCCCC;
+    opacity: 1;
+    /* Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #DDDDDD;
+}
+
+.form-control::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #DDDDDD;
+}
+
+iframe {
+    max-width: 100%;
+}
+
+.tm-btn-send {
+    border-radius: 0;
+    font-size: 1.1rem;
+    padding: 12px 50px;
+    background: transparent;
+    border: 1px solid #CCCCCC;
+    color: #CCCCCC;
+}
+
+.tm-btn-send:hover,
+.tm-btn-send:focus {
+    background: #CCCCCC;
+    color: #333333;
+}
+
+.form-control:focus {
+    background-color: transparent;
+    border-color: #CCCCCC;
+	color: #FFF;
+    box-shadow: 0 0 0 0.2rem #cccccc14;
+}
+
+input,
+textarea,
+[contenteditable] {
+    caret-color: #FFFFFF;
+}
