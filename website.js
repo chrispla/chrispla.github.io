@@ -9,14 +9,12 @@ var description = "My name is Christos Plachouras, and I'm working on some cool 
 
 //homepage and about images
 var profile;
-var profile1;
 
 //-----PRELOAD-----// see p5js documentation for preload() function
 function preload() {
 
   //preload images
   profile = loadImage('profile.png');
-  profile1 = loadImage('profile1.png');
 }
 
 //-----SETUP-----// see p5js documentation for setup() function
