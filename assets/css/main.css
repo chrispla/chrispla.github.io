@@ -112,11 +112,11 @@ a {
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   border-bottom: dotted 1px;
-  color: #f56a6a;
+  color: #f79d4e;
   text-decoration: none; }
   a:hover {
-    border-bottom-color: #f56a6a;
-    color: #f56a6a !important; }
+    border-bottom-color: #f79d4e;
+    color: #f79d4e !important; }
     a:hover strong {
       color: inherit; }
 
@@ -214,10 +214,10 @@ pre {
 
 hr {
   border: 0;
-  border-bottom: solid 1px rgba(210, 215, 217, 0.75);
   margin: 2em 0; }
   hr.major {
-    margin: 3em 0; }
+    margin: 3em 0;
+    border-bottom: solid 1px rgba(210, 215, 217); }
 
 .align-left {
   text-align: left; }
@@ -1230,7 +1230,7 @@ input[type="radio"] + label:before {
     width: 100px;
     height: 100px; }
   .image.left, .image.right {
-    max-width: 40%; }
+    max-width: 20%; }
     .image.left img, .image.right img {
       width: 100%; }
   .image.left {
@@ -1938,7 +1938,8 @@ button,
   -webkit-transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   -ms-transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   transition: margin-left 0.5s ease, box-shadow 0.5s ease;
-  background-color: #f5f6f7;
+  /* background-color: #f5f6f7; */
+  background-image: linear-gradient(to right, rgb(240, 240, 240), rgb(236, 236, 236));
   font-size: 0.9em;
   position: relative;
   width: 26em; }
@@ -1997,7 +1998,7 @@ button,
       font-family: 'Font Awesome 5 Free';
       font-weight: 900; }
     #sidebar .toggle:before {
-      content: '\f142';
+      content: '\f0c9';
       font-size: 2rem;
       height: inherit;
       left: 0;
@@ -2135,7 +2136,7 @@ button,
     -webkit-flex-shrink: 1;
     -ms-flex-shrink: 1;
     flex-shrink: 1;
-    width: 50%; }
+    width: 30%; }
   #banner .image {
     -moz-flex-grow: 0;
     -webkit-flex-grow: 0;
@@ -2147,9 +2148,9 @@ button,
     flex-shrink: 0;
     display: block;
     margin: 0 0 0em 0em;
-    width: 50%; }
+    width: 40%; }
     #banner .image img {
-      height: 100%;
+      height: 95%;
       -moz-object-fit: cover;
       -webkit-object-fit: cover;
       -ms-object-fit: cover;
@@ -2161,10 +2162,10 @@ button,
       width: 100%; }
   @media screen and (orientation: portrait) {
     #banner {
-      -moz-flex-direction: column-reverse;
-      -webkit-flex-direction: column-reverse;
-      -ms-flex-direction: column-reverse;
-      flex-direction: column-reverse; }
+      -moz-flex-direction: column;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
       #banner h1 br {
         display: none; }
       #banner .content {
@@ -2307,9 +2308,13 @@ button,
 }
 
 
-/* @media screen and (max-width: 1280px) {
+@media screen and (max-width: 1280px) {
   img#no-mobile { 
     height:50px; 
     width:50px;
   } 
-} */
+}
+
+.iframe {
+  visibility: None;
+}

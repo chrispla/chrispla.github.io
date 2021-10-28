@@ -2,11 +2,6 @@
 
 //---TEXT & IMAGES---//
 
-//homepage text
-var hi = "Hi!";
-var description = "My name is Christos Plachouras, and I'm working on some cool stuff in music, computer science, mathematics, and engineering. You can find some of them on this website!";
-
-
 //homepage and about images
 var profile;
 
@@ -50,40 +45,29 @@ function image_slidein() {
 
   //image slide-in
   tint(255, 255);
-  image(profile, (windowWidth/2 - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
+  image(profile, (windowWidth - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
 
   //eyes
   noStroke();
   fill(60);
-  if (mouseX<=(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  } else if (mouseX>(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  }
+  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
 
-  //white ellipse to cover up image right of center line
-  noStroke();
-  fill(255);
-  rect(windowWidth/2, (windowHeight/2)-100, 200, 200);
+  // //white ellipse to cover up image right of center line
+  // noStroke();
+  // fill(255);
+  // rect(windowWidth, (windowHeight/2)-100, 200, 200);
 
 }
 function image_static() {
 
-  image(profile, (windowWidth/2) - 180, (windowHeight/2) - 86, 180, 180);
+  image(profile, (windowWidth) - 180, (windowHeight/2) - 86, 180, 180);
 
   //eyes
   noStroke();
   fill(60);
-  if (mouseX<=(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  } else if (mouseX>(windowWidth/2)) {
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse((windowWidth/2)-120 + (1-(mouseX/windowWidth))*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
-  }
-
+  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
 }
 
 function particle_fadein() {
@@ -97,7 +81,7 @@ function particle_fadein() {
     //line to middle
     strokeWeight(1.4);
     stroke(140, 150*(sin(animation_timer)));
-    line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+    line(particleXpos[i], particleYpos[i], (windowWidth)-100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
@@ -129,7 +113,7 @@ function particle_static() {
     //line to middle
     strokeWeight(1.4);
     stroke(140, 150);
-    line(particleXpos[i], particleYpos[i], (windowWidth/2)-100, windowHeight/2);
+    line(particleXpos[i], particleYpos[i], (windowWidth)-100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
@@ -174,20 +158,12 @@ function state_agnostic() {
 function Particles() { //particle class
 
   //initial spread of particles
-  this.x = random((windowWidth/2)-525, ((windowWidth/2)+325));
+  this.x = random((windowWidth)-525, ((windowWidth)+325));
   this.y = random((windowHeight/2)-525, (windowHeight/2)+525);
   this.easing = 0.01;
 
   this.xposupdate = function() {
-    if (mouseX < (windowWidth/2)) {
-      if (mouseX != 0) {
-        this.x += ((mouseX - this.x)*this.easing);
-      } else {
-        this.x += ((((windowWidth/2)-100) - this.x)*this.easing);
-      }
-    } else {
-      this.x += (((windowWidth - mouseX) - this.x)*this.easing);
-    }
+    this.x += ((mouseX - this.x)*this.easing);
     return this.x;
   }
 
@@ -203,26 +179,26 @@ function Particles() { //particle class
 
 function line_fadein() {
   
-  stroke(70, sin(animation_timer)*255);
+  stroke(170, sin(animation_timer)*255);
   strokeWeight(sin(animation_timer)*2);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+  line(windowWidth-1, windowHeight/2 - 106, windowWidth-1, windowHeight/2 + 111);
 
 }
 function line_static() {
 
-  stroke(70);
+  stroke(170);
   strokeWeight(2);
-  line(windowWidth/2, windowHeight/2 - 106, windowWidth/2, windowHeight/2 + 111);
+  line(windowWidth-1, windowHeight/2 - 106, windowWidth-1, windowHeight/2 + 111);
 
 }
-function line_fadeout() {
+// function line_fadeout() {
   
-  stroke(70);
-  strokeWeight(2);
-  line(windowWidth/2, windowHeight/2 - 106 - (3*windowHeight/10 - 133)*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - (3*windowHeight/10 + 84)*(sin(animation_timer)));
-  //line(windowWidth/2, windowHeight/2 - 108 + 106*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - 113*sin(animation_timer));
+//   stroke(70);
+//   strokeWeight(2);
+//   line(windowWidth/2, windowHeight/2 - 106 - (3*windowHeight/10 - 133)*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - (3*windowHeight/10 + 84)*(sin(animation_timer)));
+//   //line(windowWidth/2, windowHeight/2 - 108 + 106*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - 113*sin(animation_timer));
 
-}
+// }
 
 //---------------------DRAW----------------------//
 var STATE = 0; //highest level state, 4 states indicated in draw()
