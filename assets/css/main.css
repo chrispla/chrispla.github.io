@@ -1230,7 +1230,7 @@ input[type="radio"] + label:before {
     width: 100px;
     height: 100px; }
   .image.left, .image.right {
-    max-width: 40%; }
+    max-width: 20%; }
     .image.left img, .image.right img {
       width: 100%; }
   .image.left {
@@ -2148,9 +2148,9 @@ button,
     flex-shrink: 0;
     display: block;
     margin: 0 0 0em 0em;
-    width: 50%; }
+    width: 40%; }
     #banner .image img {
-      height: 100%;
+      height: 95%;
       -moz-object-fit: cover;
       -webkit-object-fit: cover;
       -ms-object-fit: cover;
@@ -2162,10 +2162,10 @@ button,
       width: 100%; }
   @media screen and (orientation: portrait) {
     #banner {
-      -moz-flex-direction: column-reverse;
-      -webkit-flex-direction: column-reverse;
-      -ms-flex-direction: column-reverse;
-      flex-direction: column-reverse; }
+      -moz-flex-direction: column;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column; }
       #banner h1 br {
         display: none; }
       #banner .content {
