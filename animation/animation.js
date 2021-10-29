@@ -3,13 +3,15 @@
 //---TEXT & IMAGES---//
 
 //homepage and about images
-var profile;
+var profile, real_profile;
 
 //-----PRELOAD-----// see p5js documentation for preload() function
 function preload() {
 
   //preload images
   profile = loadImage('profile.png');
+  real_profile = loadImage('real_profile.png');
+
 }
 
 //-----SETUP-----// see p5js documentation for setup() function
@@ -38,36 +40,70 @@ var home = {}; //home dictionary
 page_info["home"] = home; //asign page dict to page info dict
 home["image_slidein"] = image_slidein;
 home["image_static"] = image_static;
+home["image_slideout"] = image_slideout;
 home["particle_fadein"] = particle_fadein;
 home["particle_static"] = particle_static;
+home["particle_fadeout"] = particle_static;
+profile_img = 0; // state for wether to use fake (0) or real (1) profile pic
 
 function image_slidein() {
 
   //image slide-in
   tint(255, 255);
-  image(profile, (windowWidth - 180)+((1-sin(animation_timer))*180), (windowHeight/2) - 86, 180, 180);
+  if (profile_img == 0) {
+    image(profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+  } else {
+    image(real_profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+  }
+  
 
-  //eyes
-  noStroke();
-  fill(60);
-  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5 + ((1-sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  //eyes (only if sketch)
+  if (profile_img == 0) {
+    noStroke();
+    fill(60);
+    ellipse(-65 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(-65 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
 
-  // //white ellipse to cover up image right of center line
-  // noStroke();
-  // fill(255);
-  // rect(windowWidth, (windowHeight/2)-100, 200, 200);
+  }
 
 }
 function image_static() {
 
-  image(profile, (windowWidth) - 180, (windowHeight/2) - 86, 180, 180);
+  if (profile_img == 0) {
+    image(profile, 0, (windowHeight/2) - 86, 180, 180);
+  } else {
+    image(real_profile, 0, (windowHeight/2) - 86, 180, 180);
+  }
+  
+  //eyes (only if sketch)
+  if (profile_img == 0) {
+    noStroke();
+    fill(60);
+    ellipse(115 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(115 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  }
+  
+}
+function image_slideout() {
 
-  //eyes
-  noStroke();
-  fill(60);
-  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-  ellipse((windowWidth)-120 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+  //image slide-out
+  tint(255, 255);
+  if (profile_img == 0) {
+    image(profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+  } else {
+    image(real_profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+  }
+  
+
+  //eyes (only if sketch)
+  if (profile_img == 0) {
+    noStroke();
+    fill(60);
+    ellipse(115 + (mouseX/windowWidth)*5 - (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(115 + (mouseX/windowWidth)*5 - (sin(animation_timer)*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+
+  }
+
 }
 
 function particle_fadein() {
@@ -75,13 +111,13 @@ function particle_fadein() {
   for (var i = 0; i < particleNumber; i++) {
     //updates
     perlinTimers[i] += (0.0001*i)+(0.001);
-    particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = particles[i].xposupdate() + (windowWidth)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
     //line to middle
     strokeWeight(1.4);
     stroke(140, 150*(sin(animation_timer)));
-    line(particleXpos[i], particleYpos[i], (windowWidth)-100, windowHeight/2);
+    line(particleXpos[i], particleYpos[i], 100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
@@ -107,13 +143,13 @@ function particle_static() {
   for (var i = 0; i < particleNumber; i++) {
     //updates
     perlinTimers[i] += (0.0001*i)+(0.001);
-    particleXpos[i] = particles[i].xposupdate() + 700*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
-    particleYpos[i] = particles[i].yposupdate() + 700*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+    particleXpos[i] = particles[i].xposupdate() + (windowWidth)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
 
     //line to middle
     strokeWeight(1.4);
     stroke(140, 150);
-    line(particleXpos[i], particleYpos[i], (windowWidth)-100, windowHeight/2);
+    line(particleXpos[i], particleYpos[i], 100, windowHeight/2);
     // // line connecting particles with other particles
     // if (i<particleNumber-2) {
     //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
@@ -134,6 +170,39 @@ function particle_static() {
     ellipse(particleXpos[i], particleYpos[i], 17, 17);
   }
 }
+function particle_fadeout() {
+
+  for (var i = 0; i < particleNumber; i++) {
+    //updates
+    perlinTimers[i] += (0.0001*i)+(0.001);
+    particleXpos[i] = particles[i].xposupdate() + (windowWidth)*(noise(perlinTimers[i]) - 0.5); //multiplicative parameter changes particle spread
+    particleYpos[i] = particles[i].yposupdate() + (windowHeight)*(noise(perlinTimers[i]+1) - 0.5); //multiplicative parameter changes particle spread
+
+    //line to middle
+    strokeWeight(1.4);
+    stroke(140, 150*(1-sin(animation_timer)));
+    line(particleXpos[i], particleYpos[i], 100, windowHeight/2);
+    // // line connecting particles with other particles
+    // if (i<particleNumber-2) {
+    //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
+    // }
+
+    //varying fill colors based on particle index
+    if (i%3==0) {
+      fill(179, 157, 219);
+    } else if (i%2==0) {
+      fill(255, 151, 66);
+    } else {
+      fill(128, 203, 196);
+    }
+    
+    //particles
+    strokeWeight(2);
+    stroke(60, 255*(1-sin(animation_timer)));
+    ellipse(particleXpos[i], particleYpos[i], 17-17*(sin(animation_timer)), 17-17*sin(animation_timer));
+  }
+}
+
 
 //---general functions---//
 
@@ -149,17 +218,17 @@ function state_agnostic() {
   textSize(12);
   // text('alpha version', 5, 15)
 
-  //---framerate---//
-  if (frameCount%30==0) {
-    fps = frameRate();
-  }
+  // //---framerate---//
+  // if (frameCount%30==0) {
+  //   fps = frameRate();
+  // }
   //text("FPS: " + fps.toFixed(2), 5, 15);
 }
 function Particles() { //particle class
 
   //initial spread of particles
-  this.x = random((windowWidth)-525, ((windowWidth)+325));
-  this.y = random((windowHeight/2)-525, (windowHeight/2)+525);
+  this.x = random(0, windowWidth);
+  this.y = random(0, windowHeight);
   this.easing = 0.01;
 
   this.xposupdate = function() {
@@ -177,28 +246,14 @@ function Particles() { //particle class
   }
 }
 
-function line_fadein() {
-  
-  stroke(170, sin(animation_timer)*255);
-  strokeWeight(sin(animation_timer)*2);
-  line(windowWidth-1, windowHeight/2 - 106, windowWidth-1, windowHeight/2 + 111);
-
-}
 function line_static() {
 
   stroke(170);
-  strokeWeight(2);
-  line(windowWidth-1, windowHeight/2 - 106, windowWidth-1, windowHeight/2 + 111);
+  strokeWeight(1);
+  line(0, windowHeight/2 - 106, 0, windowHeight/2 + 111);
 
 }
-// function line_fadeout() {
-  
-//   stroke(70);
-//   strokeWeight(2);
-//   line(windowWidth/2, windowHeight/2 - 106 - (3*windowHeight/10 - 133)*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - (3*windowHeight/10 + 84)*(sin(animation_timer)));
-//   //line(windowWidth/2, windowHeight/2 - 108 + 106*sin(animation_timer), windowWidth/2, windowHeight/2 + 111 - 113*sin(animation_timer));
 
-// }
 
 //---------------------DRAW----------------------//
 var STATE = 0; //highest level state, 4 states indicated in draw()
@@ -229,7 +284,7 @@ function draw() {
       current_page = "home";
       if (animation_timer <= HALF_PI) {
         image_slidein();
-        line_fadein();
+        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 2;
@@ -253,6 +308,8 @@ function draw() {
 
   }
 
+  line_static();
+
   //STATE 1: HOMEPAGE STATIC
   if (STATE == 1) {
 
@@ -260,5 +317,40 @@ function draw() {
     image_static();
     line_static();
 
+  }
+
+  if (STATE == 2) {
+
+    //substate 0: particle fade-out
+    if (animation_substate == 0) {
+      if (animation_timer <= HALF_PI) {
+        particle_fadeout();
+        image_static();
+        noStroke();
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 1;
+        animation_timer = 0;
+      }
+    }
+
+    //substate 1: image slideout
+    if (animation_substate == 1) {
+      if (animation_timer <= HALF_PI) {
+        image_slideout();
+        animation_timer += (HALF_PI/60);
+      } else {
+        animation_substate = 1;
+        STATE = 0;
+        profile_img = (profile_img + 1)%2;
+        animation_timer = 0;
+      }
+    }
+  }
+}
+
+function mousePressed() {
+  if (STATE == 1) { //only if static
+    STATE = 2;
   }
 }

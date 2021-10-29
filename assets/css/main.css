@@ -112,11 +112,11 @@ a {
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   border-bottom: dotted 1px;
-  color: #f79d4e;
+  color: #e27e3b;
   text-decoration: none; }
   a:hover {
-    border-bottom-color: #f79d4e;
-    color: #f79d4e !important; }
+    border-bottom-color: #e27e3b;
+    color: #e27e3b !important; }
     a:hover strong {
       color: inherit; }
 
