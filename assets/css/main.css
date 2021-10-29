@@ -1939,7 +1939,7 @@ button,
   -ms-transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   transition: margin-left 0.5s ease, box-shadow 0.5s ease;
   /* background-color: #f5f6f7; */
-  background-image: linear-gradient(to right, rgb(240, 240, 240), rgb(236, 236, 236));
+  background-image: linear-gradient(to right, rgb(247, 247, 247), rgb(236, 236, 236));
   font-size: 0.9em;
   position: relative;
   width: 26em; }

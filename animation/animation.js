@@ -248,9 +248,9 @@ function Particles() { //particle class
 
 function line_static() {
 
-  stroke(170);
+  stroke(255);
   strokeWeight(1);
-  line(0, windowHeight/2 - 106, 0, windowHeight/2 + 111);
+  line(0, 0, 0, windowHeight);
 
 }
 
@@ -284,7 +284,6 @@ function draw() {
       current_page = "home";
       if (animation_timer <= HALF_PI) {
         image_slidein();
-        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 2;
@@ -297,7 +296,6 @@ function draw() {
       if (animation_timer <= HALF_PI) {
         particle_fadein();
         image_static();
-        line_static();
         animation_timer += (HALF_PI/60);
       } else {
         animation_substate = 0;
@@ -308,14 +306,13 @@ function draw() {
 
   }
 
-  line_static();
+  // line_static();
 
   //STATE 1: HOMEPAGE STATIC
   if (STATE == 1) {
 
     particle_static();
     image_static();
-    line_static();
 
   }
 
