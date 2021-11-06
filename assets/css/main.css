@@ -1222,13 +1222,13 @@ input[type="radio"] + label:before {
   .image.entry {
     float: left;
     margin-right: 0.7em;
-    height: 80px;
-    width: 80px; }
+    height: 78px;
+    width: 78px; }
   .image.entry img {
     float: left;
     margin-right: 0.7em;
-    width: 80px;
-    height: 80px; }
+    width: 78px;
+    height: 78px; }
   .image.left, .image.right {
     max-width: 20%; }
     .image.left img, .image.right img {
@@ -2289,7 +2289,7 @@ button,
     padding-top: 0; }
 
 .boxed {
-  /* border: solid 1px #dcdfe0; */
+  border: solid 1px #dcdfe0;
   border-radius: 0.375em;
   margin: 0 0 0.5em 0;
   padding: 0em 0.7em 0 0;
