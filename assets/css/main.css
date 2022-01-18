@@ -145,7 +145,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 2.25em;
-  margin: 0 0 0.2em -0.1em;
+  margin: 0 0 0em -0.0675em;
   line-height: 1.3; 
   font-family: "Open Sans", sans-serif
   }
@@ -165,6 +165,10 @@ h5 {
 h6 {
   font-size: 0.7em; }
 
+#myName {
+  float: left;
+}
+
 @media screen and (max-width: 1680px) {
   h1 {
     font-size: 2.15em; } }
@@ -176,7 +180,13 @@ h6 {
 @media screen and (max-width: 736px) {
   h1 {
     font-size: 2.15em;
-    line-height: 1.4; } }
+    line-height: 1.4; } 
+  #myName {
+    float: none;
+  }
+}
+
+
 
 sub {
   font-size: 0.8em;
@@ -1868,7 +1878,7 @@ button,
   width: 100%;}
   #main > .inner {
     padding: 0em 6em 0.1em 3.5em ;
-    margin: 4em auto 0 auto;
+    margin: 0.5em auto 1em auto;
     max-width: 65em; }
     #main > .inner > section {
       padding: 0em 0 0em 0 ;
@@ -2221,7 +2231,7 @@ button,
   letter-spacing: 0em;
   list-style: none;
   margin-bottom: 0;
-  padding: 0;
+  padding: 0.82em 0 0em 0;
   text-align: right;
   text-transform: lowercase; }
   #menu ul a, #menu ul span {
@@ -2270,6 +2280,20 @@ button,
         -webkit-transform: rotate(-180deg);
         -ms-transform: rotate(-180deg);
         transform: rotate(-180deg); }
+@media screen and (max-width: 736px) {
+  #menu ul {
+    padding: 0;
+    text-align: left;
+    margin: 0 0 0 0;
+  }
+}
+@media screen and (max-width: 736px) {
+  #menu ul a {
+    padding: 0;
+    text-align: left;
+    margin: 0 0.6em 0 0;
+  }
+}
 
 #menu > ul > li {
   }
