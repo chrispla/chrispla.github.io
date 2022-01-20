@@ -2347,7 +2347,7 @@ button,
   visibility: None;
 }
 
-#contactWide {
+/* #contactWide {
   display: hidden;
 }
 
@@ -2370,4 +2370,4 @@ button,
   #contactPhone {
     display: none;
   }
-}
+} */
