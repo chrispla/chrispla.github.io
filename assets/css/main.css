@@ -165,10 +165,6 @@ h5 {
 h6 {
   font-size: 0.7em; }
 
-#myName {
-  float: left;
-}
-
 @media screen and (max-width: 1680px) {
   h1 {
     font-size: 2.15em; } }
@@ -2231,7 +2227,7 @@ button,
   letter-spacing: 0em;
   list-style: none;
   margin-bottom: 0;
-  padding: 0.82em 0 0em 0;
+  padding: 0em 0 0em 0;
   text-align: right;
   text-transform: lowercase; }
   #menu ul a, #menu ul span {
