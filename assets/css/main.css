@@ -1510,23 +1510,23 @@ button,
   -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  background-color: transparent;
-  border-radius: 0.375em;
-  border: 0;
-  box-shadow: inset 0 0 0 2px #f56a6a;
-  color: #f56a6a !important;
+  /* background-color: transparent; */
+  /* border-radius: 0.375em; */
+  /* border: solid 1px black; */
+  /* box-shadow: inset 0 0 0 2px #f56a6a; */
+  /* color: #f56a6a !important; */
   cursor: pointer;
   display: inline-block;
-  font-family: "Tahoma", serif;
-  font-size: 0.8em;
-  font-weight: 700;
-  height: 3.5em;
-  letter-spacing: 0.075em;
-  line-height: 3.5em;
-  padding: 0 2.25em;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
+  /* font-family: "Tahoma", serif; */
+  /* font-size: 0.8em; */
+  /* font-weight: 700; */
+  /* height: 3.5em; */
+  /* letter-spacing: 0.075em; */
+  /* line-height: 3.5em; */
+  /* padding: 0 2.25em; */
+  /* text-align: center; */
+  /* text-decoration: none; */
+  /* text-transform: uppercase; */
   white-space: nowrap; }
   input[type="submit"]:hover,
   input[type="reset"]:hover,
@@ -1545,7 +1545,7 @@ button,
   input[type="button"].icon:before,
   button.icon:before,
   .button.icon:before {
-    margin-right: 0.5em; }
+    margin-right: 0em; }
   input[type="submit"].fit,
   input[type="reset"].fit,
   input[type="button"].fit,
@@ -1557,15 +1557,15 @@ button,
   input[type="button"].small,
   button.small,
   .button.small {
-    font-size: 0.6em; }
+    font-size: 1em; }
   input[type="submit"].large,
   input[type="reset"].large,
   input[type="button"].large,
   button.large,
   .button.large {
     font-size: 1em;
-    height: 3.65em;
-    line-height: 3.65em; }
+    height: 0em;
+    line-height: 0em; }
   input[type="submit"].primary,
   input[type="reset"].primary,
   input[type="button"].primary,
@@ -1601,7 +1601,7 @@ button,
 /* Mini Posts */
 .mini-posts article {
   border-top: solid 1px rgba(210, 215, 217, 0.75);
-  margin-top: 2em;
+  margin-top: -;
   padding-top: 2em; }
   .mini-posts article .image {
     display: block;
@@ -2370,3 +2370,26 @@ button,
     display: none;
   }
 } */
+.blog-content {
+  padding: 0 0.7em 0 0.7em;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  text-align: justify; 
+  text-justify: inter-word; 
+  margin: 0em 0 1em 0;
+  background:rgba(255, 230, 230, 0.712);
+  border-radius: 0.375em;
+}
+
+.collapsible {
+  cursor: pointer;
+  width: 100%;
+  background:rgba(255, 230, 230, 0.712);
+  /* border: solid 1px #dcdfe0;  */
+  border: none; 
+  border-radius: 0.375em;
+  padding: 0.7em;
+  text-align: left;
+  outline: none;
+}
