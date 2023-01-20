@@ -209,7 +209,8 @@ function particle_fadeout() {
 function state_agnostic() {
 
   //---background---//
-  background(252, 237, 245);
+  // background(252, 237, 245);
+  background(255, 255, 255);
 
   // //---version---//
   fill(0);
