@@ -1240,29 +1240,33 @@ input[type="radio"] + label:before {
   margin-top: 0em;
   display: inline-block;
   position: relative;
-  opacity: 0.7;
-  -webkit-filter: grayscale(50%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(50%);
+  opacity: 0.9;
+  /* -webkit-filter: grayscale(50%); Safari 6.0 - 9.0 */
+  /* filter: grayscale(50%); */
 }
-  .image:hover {
-    -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(0%);
-  }
+  /* .image:hover { */
+    /* -webkit-filter: grayscale(0%); Safari 6.0 - 9.0 */
+    /* filter: grayscale(0%); */
+  /* } */
   .image img {
     border-radius: 0.1em;
     display: block; }
   .image.entry {
     float: left;
-    margin-right: 0.7em;
-    margin-bottom: 0.1em;
-    height: 37px;
-    width: 37px;}
+    margin-left: 0.1em;
+    margin-top: 0.1em;
+    margin-right: 0.3em;
+    height: 45px;
+    width: auto;}
   .image.entry img {
     float: left;
-    margin-right: 0.7em;
-    margin-bottom: 0.1em;
-    width: 37px;
-    height: 37px;}
+    margin-top: 0.1em;
+    margin-right: 0.3em;
+    margin-bottom: 0.5em;
+    border-right: 1px solid rgb(27, 27, 27);
+    padding-right: 10px;
+    width: 45px;
+    height: auto;}
   .image.left, .image.right {
     max-width: 20%; }
     .image.left img, .image.right img {
@@ -2349,15 +2353,15 @@ button,
 }
 .boxed.even {
   /* background: rgba(239, 239, 239, 0.5); */
-  border-radius: 0.2em;
+  /* border-radius: 0.2em; */
   /* border-top: solid 1px rgba(210, 215, 217, 0.75); */
   /* border-bottom: solid 1px rgba(210, 215, 217, 0.75); */
   /* border: 1px solid black; */
 }
 .boxed.odd {
   /* background: rgba(245, 245, 245, 0.5); */
-  border-radius: 0.2em;
-  /* border-top: solid 2px rgba(172, 172, 172, 0.75); */
+  /* border-radius: 0.2em; */
+  /* border-top: solid 1px rgba(172, 172, 172, 0.75); */
   /* border-bottom: solid 1px rgba(210, 215, 217, 0.75); */
   /* border: 1px solid black; */
 }
@@ -2382,6 +2386,11 @@ button,
     .iframe {
       border-left: 0;
     }
+  }
+
+  .text-border {
+    border-left: 1px solid #000; /* Change color as needed */
+    padding-left: 10px; /* Adjust space between line and text */
   }
 
 
@@ -2435,6 +2444,10 @@ button,
 }
 
 a:link, a:visited {
-  color: rgba(94, 94, 94, 0.796);
+  color: rgba(48, 48, 48, 0.796);
 }
 
+a.underline:link, a.underline:visited {
+  color: rgba(48, 48, 48, 0.796);
+  text-decoration: underline;
+}

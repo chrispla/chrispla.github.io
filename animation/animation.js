@@ -50,7 +50,7 @@ function image_slidein() {
 
   //image slide-in
   tint(255, 255);
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     image(profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
   } else {
     image(real_profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
@@ -58,7 +58,7 @@ function image_slidein() {
   
 
   //eyes (only if sketch)
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     noStroke();
     fill(60);
     ellipse(-65 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
@@ -69,14 +69,14 @@ function image_slidein() {
 }
 function image_static() {
 
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     image(profile, 0, (windowHeight/2) - 86, 180, 180);
   } else {
     image(real_profile, 0, (windowHeight/2) - 86, 180, 180);
   }
   
   //eyes (only if sketch)
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     noStroke();
     fill(60);
     ellipse(115 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
@@ -88,7 +88,7 @@ function image_slideout() {
 
   //image slide-out
   tint(255, 255);
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     image(profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
   } else {
     image(real_profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
@@ -96,7 +96,7 @@ function image_slideout() {
   
 
   //eyes (only if sketch)
-  if (profile_img == 0) {
+  if (profile_img == 1) {
     noStroke();
     fill(60);
     ellipse(115 + (mouseX/windowWidth)*5 - (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
@@ -182,10 +182,7 @@ function particle_fadeout() {
     strokeWeight(1.4);
     stroke(140, 150*(1-sin(animation_timer)));
     line(particleXpos[i], particleYpos[i], 100, windowHeight/2);
-    // // line connecting particles with other particles
-    // if (i<particleNumber-2) {
-    //   line(particleXpos[i], particleYpos[i], particleXpos[i+1], particleYpos[i+1]);
-    // }
+    // line connecting particles with other particles
 
     //varying fill colors based on particle index
     if (i%3==0) {
@@ -233,7 +230,12 @@ function Particles() { //particle class
   this.easing = 0.01;
 
   this.xposupdate = function() {
-    this.x += ((mouseX - this.x)*this.easing);
+    if (mouseX != 0) {
+      this.x += ((mouseX - this.x)*this.easing);
+    } else {
+      this.x += (((windowWidth/1.8) - this.x)*this.easing);
+    }
+    
     return this.x;
   }
 
