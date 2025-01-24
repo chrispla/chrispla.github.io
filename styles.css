@@ -287,6 +287,23 @@ h3::first-letter {
     /* border-right: solid 1px rgba(210, 215, 217); */
 }
 
+.stave-container {
+    position: absolute;
+    /* top: -29.25vh; */
+    left: -6.2vw;
+    /* width: 33.33vw; /* Exact width of left section */
+    /* height: 50vh; Half viewport height */ 
+    overflow: hidden;
+    /* transform: rotate(180deg); */
+}
+
+.stave-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* border-right: solid 1px rgba(210, 215, 217); */
+}
+
 .left-section::after {
     content: '';
     position: absolute;
