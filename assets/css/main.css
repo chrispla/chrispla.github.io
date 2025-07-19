@@ -123,8 +123,8 @@ a {
   color: #3d96b6; */
   text-decoration: none; }
   a:hover {
-    border-bottom-color: #FF9742;
-    color: #FF9742 !important; }
+    border-bottom-color: #6c757d;
+    color: #6c757d !important; }
     a:hover strong {
       color: inherit; }
 
@@ -1249,14 +1249,14 @@ input[type="radio"] + label:before {
     /* filter: grayscale(0%); */
   /* } */
   .image img {
-    border-radius: 0.1em;
+    border-radius: 0em;
     display: block; }
   .image.entry {
     float: left;
     margin-left: 0.1em;
     margin-top: 0.1em;
     margin-right: 0.3em;
-    height: 45px;
+    height: 42px;
     width: auto;}
   .image.entry img {
     float: left;
@@ -1265,7 +1265,7 @@ input[type="radio"] + label:before {
     margin-bottom: 0.5em;
     border-right: 1px solid rgb(27, 27, 27);
     padding-right: 10px;
-    width: 45px;
+    width: 42px;
     height: auto;}
   .image.left, .image.right {
     max-width: 20%; }
@@ -1609,7 +1609,7 @@ button,
     input[type="button"].primary:hover,
     button.primary:hover,
     .button.primary:hover {
-      background-color: #FF9742; }
+      background-color: #6c757d; }
     input[type="submit"].primary:active,
     input[type="reset"].primary:active,
     input[type="button"].primary:active,
@@ -2299,7 +2299,7 @@ button,
         position: absolute;
         right: 0; }
       #menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
-        color: #FF9742; }
+        color: #6c757d; }
       #menu ul a.opener.active + ul, #menu ul span.opener.active + ul {
         display: block; }
       #menu ul a.opener.active:before, #menu ul span.opener.active:before {
