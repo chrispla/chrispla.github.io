@@ -51,9 +51,9 @@ function image_slidein() {
   //image slide-in
   tint(255, 255);
   if (profile_img == 1) {
-    image(profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+    image(profile, -162 + (sin(animation_timer)*162), (windowHeight/2) - 77, 162, 162);
   } else {
-    image(real_profile, -180 + (sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+    image(real_profile, -162 + (sin(animation_timer)*162), (windowHeight/2) - 77, 162, 162);
   }
   
 
@@ -61,8 +61,8 @@ function image_slidein() {
   if (profile_img == 1) {
     noStroke();
     fill(60);
-    ellipse(-65 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse(-65 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(-59 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*162), (windowHeight/2) - 8 + (mouseY/windowHeight)*3, 7, 7);
+    ellipse(-59 + (mouseX/windowWidth)*5 + ((sin(animation_timer))*162), (windowHeight/2) + 12.5 + (mouseY/windowHeight)*3, 7, 7);
 
   }
 
@@ -70,17 +70,17 @@ function image_slidein() {
 function image_static() {
 
   if (profile_img == 1) {
-    image(profile, 0, (windowHeight/2) - 86, 180, 180);
+    image(profile, 0, (windowHeight/2) - 77, 162, 162);
   } else {
-    image(real_profile, 0, (windowHeight/2) - 86, 180, 180);
+    image(real_profile, 0, (windowHeight/2) - 77, 162, 162);
   }
   
   //eyes (only if sketch)
   if (profile_img == 1) {
     noStroke();
     fill(60);
-    ellipse(115 + (mouseX/windowWidth)*5, (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse(115 + (mouseX/windowWidth)*5, (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(103 + (mouseX/windowWidth)*5, (windowHeight/2) - 8 + (mouseY/windowHeight)*3, 7, 7);
+    ellipse(103 + (mouseX/windowWidth)*5, (windowHeight/2) + 12.5 + (mouseY/windowHeight)*3, 7, 7);
   }
   
 }
@@ -89,9 +89,9 @@ function image_slideout() {
   //image slide-out
   tint(255, 255);
   if (profile_img == 1) {
-    image(profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+    image(profile, -(sin(animation_timer)*162), (windowHeight/2) - 77, 162, 162);
   } else {
-    image(real_profile, -(sin(animation_timer)*180), (windowHeight/2) - 86, 180, 180);
+    image(real_profile, -(sin(animation_timer)*162), (windowHeight/2) - 77, 162, 162);
   }
   
 
@@ -99,8 +99,8 @@ function image_slideout() {
   if (profile_img == 1) {
     noStroke();
     fill(60);
-    ellipse(115 + (mouseX/windowWidth)*5 - (sin(animation_timer)*180), (windowHeight/2) - 9 + (mouseY/windowHeight)*3, 8, 8);
-    ellipse(115 + (mouseX/windowWidth)*5 - (sin(animation_timer)*180), (windowHeight/2) + 14 + (mouseY/windowHeight)*3, 8, 8);
+    ellipse(103 + (mouseX/windowWidth)*5 - (sin(animation_timer)*162), (windowHeight/2) - 8 + (mouseY/windowHeight)*3, 7, 7);
+    ellipse(103 + (mouseX/windowWidth)*5 - (sin(animation_timer)*162), (windowHeight/2) + 12.5 + (mouseY/windowHeight)*3, 7, 7);
 
   }
 
