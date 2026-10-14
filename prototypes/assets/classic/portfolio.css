@@ -1,4 +1,4 @@
-:root { --ink:#3a3a41; --heading:#27292b; --rule:#d2d7d9; --accent:#790000; --body:'Manrope',Arial,sans-serif; --display:'Lora',Georgia,serif; --hand:'Caveat','Segoe Print',cursive; }
+:root { --ink:#3a3a41; --heading:#27292b; --rule:#d2d7d9; --accent:#790000; --body:'Manrope',Arial,sans-serif; --display:'Lora',Georgia,serif; }
 * { box-sizing:border-box; }
 html { scroll-behavior:auto; }
 body { margin:0; background:#fff; color:var(--ink); font-family:var(--body); font-size:15px; font-weight:400; line-height:1.55; }
@@ -89,8 +89,8 @@ body[data-mode=art] a:focus-visible,body[data-mode=art] button:focus-visible { o
 body[data-mode=art] .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
 body[data-mode=art] #portrait { width:100%; height:100%; }
 body[data-mode=art] #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
-.art-statement { max-width:8em; font-family:var(--hand); font-size:46px; font-weight:500; line-height:1.15; letter-spacing:0; color:#e8dce7; }
-.art-statement span { color:#e9b5e6; white-space:nowrap; }
+.art-statement { max-width:13em; font-family:var(--body); font-size:26px; font-weight:400; line-height:1.5; letter-spacing:-.3px; color:#e8dce7; }
+.art-statement span { white-space:nowrap; }
 body[data-crossing=true][data-mode=art] .art-statement { animation:statement-arrive 1050ms ease both; }
 @keyframes statement-arrive { 0%,35% { opacity:0; transform:translateY(6px); } 100% { opacity:1; transform:none; } }
 .stage-caption { position:absolute; left:12px; bottom:18px; font-family:var(--body); font-size:9px; color:#d9ff60; letter-spacing:.2px; }
@@ -115,7 +115,7 @@ body[data-mode=art] footer { color:#9f94aa; }
   #portrait-fallback { left:17px; }
   .album-grid { gap:20px; }
   .art-stage { --spill:24px; gap:30px; }
-  .art-statement { font-size:39px; }
+  .art-statement { font-size:24px; }
   .album h3 { font-size:15px; }
 }
 @media(max-width:600px) {
@@ -151,7 +151,7 @@ body[data-mode=art] footer { color:#9f94aa; }
   .music-entry p { font-size:12px; }
   .art-stage { --spill:16px; grid-template-columns:1fr; gap:24px; }
   .art-portrait { max-width:460px; }
-  .art-statement { max-width:10em; font-size:38px; padding:0 4px 8px; }
+  .art-statement { max-width:15em; font-size:22px; padding:0 4px 8px; }
   body[data-mode=art] .portrait-panel { margin-top:0; }
   .stage-caption { left:10px; bottom:46px; font-size:8px; }
   #motion-toggle { right:calc(var(--spill) + 7px); bottom:13px; font-size:8px; }
