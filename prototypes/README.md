@@ -6,7 +6,7 @@ Three standalone directions for Christos Plachouras's website. Open `index.html`
 
 - **Signal / Noise:** editorial research, an immersive pink/purple image field, and a circular transition.
 - **Out of Order:** a typeset reading room, floating gallery fragments, and a folding shutter.
-- **Research / Art (revised Soft Errors):** the current site's compact research scale, full intro/background/research, and a prominent toggle. The portrait expands and blends into the full-height art image, with moving slices that fade at their ends. Uppercase “MUSIC” runs vertically down the right edge beside the portrait on desktop; it is hidden on mobile. Art has a still dark background and fixed 40% portrait displacement. Large album covers come first, including the sunset cover for **Songs of Adelina — Coming soon**, followed by compositions, performances, and writing. Section navigation links are omitted.
+- **Research / Art (revised Soft Errors):** the current site's compact research scale, full intro/background/research, and a prominent toggle. The portrait expands and blends into the full-height art image, with moving slices that fade at their ends. Uppercase “MUSIC” runs vertically down the right edge beside the portrait on desktop; it is hidden on mobile. Art has a still dark background and fixed 40% portrait displacement. Large album covers come first, including the sunset cover for **Songs of Adelina — Coming soon**, followed by compositions and performances. Section navigation links are omitted.
 
 The revised direction uses Lora for headings and the vertical MUSIC lettering, with Manrope for text and controls.
 

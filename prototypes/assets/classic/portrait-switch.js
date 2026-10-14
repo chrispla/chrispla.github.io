@@ -199,7 +199,7 @@ window.addEventListener('resize', () => { if (crossing) finishCrossing(); sizePo
 window.addEventListener('hashchange', () => {
   const hash = location.hash;
   if (hash === '#home' || hash === '#intro') { window.scrollTo({top:0, behavior:'instant'}); return; }
-  const target = ['#art','#albums','#compositions','#performances','#writing'].includes(hash) ? 'art' : ['#background','#research'].includes(hash) ? 'research' : null;
+  const target = ['#art','#albums','#compositions','#performances'].includes(hash) ? 'art' : ['#background','#research'].includes(hash) ? 'research' : null;
   if (target && target !== mode) {
     switchMode(target);
     history.replaceState(null, '', `${location.pathname}${hash}`);
@@ -207,7 +207,7 @@ window.addEventListener('hashchange', () => {
   }
 });
 const initialHash = location.hash;
-switchMode(['#art','#albums','#compositions','#performances','#writing'].includes(initialHash) ? 'art' : 'research', false);
+switchMode(['#art','#albums','#compositions','#performances'].includes(initialHash) ? 'art' : 'research', false);
 if (!['','#art','#intro','#home'].includes(initialHash)) {
   history.replaceState(null, '', `${location.pathname}${initialHash}`);
   requestAnimationFrame(() => document.querySelector(initialHash)?.scrollIntoView());
