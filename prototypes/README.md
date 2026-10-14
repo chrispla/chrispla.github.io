@@ -8,6 +8,8 @@ Three standalone directions for Christos Plachouras's website. Open `index.html`
 - **Out of Order:** a typeset reading room, floating gallery fragments, and a folding shutter.
 - **Research / Art (revised Soft Errors):** the current site's compact research scale, full intro/background/research, and a prominent toggle. The portrait expands and blends into the full-height art image, with moving slices that fade at their ends. The line “it's more important than ever to make music” sits alongside the portrait on desktop and below it on mobile. Art has a still dark background and fixed 40% portrait displacement. Large album covers come first, including the sunset cover for **Songs of Adelina — Coming soon**, followed by compositions, performances, and writing. Section navigation links are omitted.
 
+The revised direction uses Lora for headings, Manrope for text and controls, and Caveat for the handwritten art statement.
+
 The research views have no continuous animation or canvas loop. Art motion has a pause control and respects `prefers-reduced-motion`. Canvas work also stops when the tab is hidden. Artwork and research links come from the existing website. The source portrait is the user's supplied corrupted image; its pixels are preserved.
 
 Run from the repository root:
