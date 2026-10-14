@@ -39,8 +39,10 @@ document.querySelectorAll('.album-cover').forEach(cover => {
     const y = Math.max(0,Math.min(1,(event.clientY-bounds.top)/cover.offsetHeight));
     cover.style.setProperty('--tilt-x',`${(0.5-y)*6}deg`);
     cover.style.setProperty('--tilt-y',`${(x-0.5)*6}deg`);
-    cover.style.setProperty('--shine-x',`${x*100}%`);
-    cover.style.setProperty('--shine-y',`${y*100}%`);
+    cover.style.setProperty('--shine-x',`${(0.5-x)*18}%`);
+    cover.style.setProperty('--shine-y',`${(0.5-y)*12}%`);
+    cover.style.setProperty('--shine-angle',`${125+(x-0.5)*18+(y-0.5)*8}deg`);
+    cover.style.setProperty('--shine-opacity',`${0.45+Math.hypot(x-0.5,y-0.5)*0.65}`);
     cover.classList.add('is-tilting');
   });
   cover.addEventListener('pointerleave',resetCover);
