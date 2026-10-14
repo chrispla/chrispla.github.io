@@ -31,7 +31,7 @@ function sizePortrait() {
   const rect = portrait.getBoundingClientRect();
   width = Math.round(rect.width);
   height = Math.round(rect.height);
-  spill = mode === 'art' ? Math.round((rect.width - document.querySelector('#art-stage').getBoundingClientRect().width) / 2) : 0;
+  spill = mode === 'art' ? Math.round((rect.width - document.querySelector('#art-portrait-slot').getBoundingClientRect().width) / 2) : 0;
   portrait.width = Math.round(width * ratio());
   portrait.height = Math.round(height * ratio());
   context?.setTransform(ratio(), 0, 0, ratio(), 0, 0);
@@ -49,11 +49,24 @@ function preparePortraits() {
   normal.drawImage(normalImage, -size / 2, -size / 2, size, size);
   normal.restore();
   const imageArea = width - spill * 2;
-  const scale = Math.max(imageArea / noiseImage.width, height / noiseImage.height);
+  const scale = Math.min(imageArea / noiseImage.width, height / noiseImage.height);
   const imageWidth = noiseImage.width * scale;
   const imageHeight = noiseImage.height * scale;
-  // Fit the image to the content column; transparent side gutters let strips spill out.
-  noise.drawImage(noiseImage, (width - imageWidth) / 2, (height - imageHeight) * .26, imageWidth, imageHeight);
+  const imageLeft = (width - imageWidth) / 2;
+  // Preserve the full portrait and let its feathered strips move through transparent gutters.
+  noise.drawImage(noiseImage, imageLeft, (height - imageHeight) / 2, imageWidth, imageHeight);
+  const feather = Math.min(32, imageWidth * .07) / imageWidth;
+  const edgeFade = noise.createLinearGradient(imageLeft, 0, imageLeft + imageWidth, 0);
+  edgeFade.addColorStop(0, 'transparent');
+  edgeFade.addColorStop(feather * .45, 'rgba(0,0,0,.35)');
+  edgeFade.addColorStop(feather, '#000');
+  edgeFade.addColorStop(1 - feather, '#000');
+  edgeFade.addColorStop(1 - feather * .45, 'rgba(0,0,0,.35)');
+  edgeFade.addColorStop(1, 'transparent');
+  noise.globalCompositeOperation = 'destination-in';
+  noise.fillStyle = edgeFade;
+  noise.fillRect(0, 0, width, height);
+  noise.globalCompositeOperation = 'source-over';
 }
 function drawPortrait() {
   if (!ready || !context || !width || !height) return;
