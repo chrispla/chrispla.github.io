@@ -69,11 +69,17 @@ body[data-crossing=true] .switch-knob { transition:transform .7s cubic-bezier(.4
 .album>p { font-size:13px; margin-bottom:8px; }
 .work-links { display:flex; flex-wrap:wrap; gap:4px 12px; font-size:12px; }
 .work-links a { text-decoration:underline; text-underline-offset:3px; }
-.music-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 26px; }
-.music-entry { display:grid; grid-template-columns:84px minmax(0,1fr); align-items:start; gap:16px; }
-.music-entry img { width:84px; height:84px; object-fit:cover; }
-.music-entry h3 { font-size:15px; line-height:1.4; margin:-2px 0 7px; }
-.music-entry p { font-size:13px; line-height:1.55; }
+.music-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px; }
+.music-entry { --work-thumb:128px; display:grid; grid-template-columns:var(--work-thumb) minmax(0,1fr); align-items:start; gap:14px; }
+.music-entry>a { display:block; aspect-ratio:16/9; overflow:hidden; }
+.music-entry img { width:100%; height:100%; object-fit:cover; }
+.music-entry img[src$="/YDMC.png"] { object-position:50% 40%; }
+.music-entry img[src$="/rach.png"] { object-position:50% 30%; }
+.music-entry img[src$="/bach.png"] { object-position:50% 10%; }
+.music-entry img[src$="/messiaen.png"] { object-position:50% 25%; }
+.music-entry img[src$="/jack.png"] { object-position:50% 0%; }
+.music-entry h3 { font-size:14px; line-height:1.45; margin:0 0 5px; }
+.music-entry p { font-size:12px; line-height:1.5; }
 .music-entry a:hover { text-decoration:underline; text-underline-offset:3px; }
 footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 30px; font-size:12px; color:#81818a; }
 .studies-link { font-size:10px; font-family:var(--body); white-space:nowrap; }
@@ -116,6 +122,7 @@ body[data-mode=art] footer { color:#9f94aa; }
   .art-stage { --spill:24px; gap:30px; }
   .art-word { font-size:44px; }
   .album h3 { font-size:15px; }
+  .music-entry { --work-thumb:112px; }
 }
 @media(max-width:760px) {
   .site-header { display:block; }
@@ -148,9 +155,7 @@ body[data-mode=art] footer { color:#9f94aa; }
   .album>p { font-size:12px; }
   .work-links { font-size:11px; gap:4px 11px; }
   .music-list { grid-template-columns:1fr; gap:19px; }
-  .music-entry { grid-template-columns:68px minmax(0,1fr); gap:13px; }
-  .music-entry img { width:68px; height:68px; }
-  .music-entry h3 { font-size:15px; }
+  .music-entry { --work-thumb:104px; gap:12px; }
   .music-entry p { font-size:12px; }
   .art-stage { --spill:16px; grid-template-columns:1fr; gap:24px; }
   .art-portrait { max-width:460px; }
