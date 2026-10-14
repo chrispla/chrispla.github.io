@@ -59,7 +59,6 @@ body[data-crossing=true] .switch-knob { transition:transform .7s cubic-bezier(.4
 .album-cover img { width:100%; height:100%; object-fit:cover; }
 .album h3 { font-size:17px; font-weight:600; margin-top:14px; min-height:46px; }
 .album>p { font-size:14px; margin-bottom:8px; }
-.album-placeholder { border:1px solid #ffffff35; background:#1b1524; }
 .work-links { display:flex; flex-wrap:wrap; gap:4px 12px; font-size:12px; }
 .work-links a { text-decoration:underline; text-underline-offset:3px; }
 .music-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 26px; }
