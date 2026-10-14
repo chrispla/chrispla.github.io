@@ -24,3 +24,26 @@ function renderWorks(target, items) {
   document.querySelector(target).innerHTML = items.map(([image,title,description,url]) => `<article class="music-entry"><a href="${url}" target="_blank" rel="noopener noreferrer" aria-label="${title.replaceAll('"','&quot;')}"><img src="${asset}${image}" alt="" loading="lazy"></a><div><h3><a href="${url}" target="_blank" rel="noopener noreferrer">${title} <span aria-hidden="true">↗</span></a></h3><p>${description}</p></div></article>`).join('');
 }
 renderWorks('#composition-list',compositions); renderWorks('#performance-list',performances); renderWorks('#writing-list',writing);
+
+const albumHover = window.matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+document.querySelectorAll('.album-cover').forEach(cover => {
+  function resetCover() {
+    cover.classList.remove('is-tilting');
+    cover.style.removeProperty('--tilt-x');
+    cover.style.removeProperty('--tilt-y');
+  }
+  cover.addEventListener('pointermove',event => {
+    if (!albumHover.matches || event.pointerType !== 'mouse') return;
+    const bounds = cover.closest('.album').getBoundingClientRect();
+    const x = Math.max(0,Math.min(1,(event.clientX-bounds.left)/bounds.width));
+    const y = Math.max(0,Math.min(1,(event.clientY-bounds.top)/cover.offsetHeight));
+    cover.style.setProperty('--tilt-x',`${(0.5-y)*6}deg`);
+    cover.style.setProperty('--tilt-y',`${(x-0.5)*6}deg`);
+    cover.style.setProperty('--shine-x',`${x*100}%`);
+    cover.style.setProperty('--shine-y',`${y*100}%`);
+    cover.classList.add('is-tilting');
+  });
+  cover.addEventListener('pointerleave',resetCover);
+  cover.addEventListener('pointercancel',resetCover);
+  albumHover.addEventListener('change',resetCover);
+});
