@@ -30,8 +30,9 @@ body[data-mode=art] .switch-knob { transform:translateX(18px); background:#d9ff6
 body[data-crossing=true],body[data-crossing=true] .site-header,body[data-crossing=true] footer { transition:background-color 1s ease,color 1s ease; }
 body[data-crossing=true] .switch-knob { transition:transform .7s cubic-bezier(.4,0,.2,1),background-color .7s; }
 .links-row { display:contents; }
-.contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:4px; font-size:18px; }
-.contact-links a+a:before { content:'|'; display:inline-block; color:#a8aaac; font-size:12px; font-weight:300; margin-right:4px; }
+.contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:5px; font-size:18px; }
+.contact-links a { display:inline-flex; align-items:center; }
+.contact-links a+a:before { content:'|'; display:inline-block; color:#a8aaac; font-size:15px; font-weight:300; line-height:1; margin-right:5px; }
 .intro { display:grid; grid-template-columns:minmax(0,1fr) 194px; gap:42px; align-items:center; padding:27px 0; min-height:250px; border-bottom:1px solid var(--rule); }
 .intro-copy { min-width:0; }
 .intro-copy h2 { margin-bottom:19px; }
