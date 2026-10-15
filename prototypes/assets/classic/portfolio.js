@@ -13,7 +13,7 @@ const compositions = [
 const performances = [
   ['rach.png','Rachmaninoff — Piano Concerto No. 2, I. Moderato','Christos Plachouras, Ioannis Potamousis. NYUAD Blue Hall, December 2018','https://www.youtube.com/watch?v=3F1WLZzyLIw&ab_channel=ChristosPlachouras'],
   ['bach.png','Bach — Partita No. 2 in C minor, I. Simfonia','Christos Plachouras, live at NYUAD Blue Hall, May 2018','https://www.youtube.com/watch?v=kMOaC0guYuw&ab_channel=ChristosPlachouras'],
-  ['messiaen.png','Messiaen — Vingt Regards, II. Regard de l’étoile','Christos Plachouras, Studio Odeon, Athens, October 2016','https://www.youtube.com/watch?v=uGTZf6e6SzY&ab_channel=ChrisPla'],
+  ['messiaen.png','Messiaen — Vingt Regards, II. Regard de l’étoile','Christos Plachouras, Athens, October 2016','https://www.youtube.com/watch?v=uGTZf6e6SzY&ab_channel=ChrisPla'],
   ['jack.png','Making music online','Making music online in real time with musicians across the world, 2020','https://www.youtube.com/watch?v=xErPiqM0SUM&feature=emb_title']
 ];
 function renderWorks(target, items) {
