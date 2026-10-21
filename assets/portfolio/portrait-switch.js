@@ -36,15 +36,21 @@ function sizePortrait() {
   if (ready && width && height) preparePortraits();
 }
 function preparePortraits() {
-  normalBuffer.width = noiseBuffer.width = width;
-  normalBuffer.height = noiseBuffer.height = height;
+  // Keep the buffers at device resolution so the portraits stay sharp on high-density screens.
+  normalBuffer.width = noiseBuffer.width = Math.round(width * ratio());
+  normalBuffer.height = noiseBuffer.height = Math.round(height * ratio());
   const normal = normalBuffer.getContext('2d');
   const noise = noiseBuffer.getContext('2d');
+  normal.setTransform(ratio(), 0, 0, ratio(), 0, 0);
+  noise.setTransform(ratio(), 0, 0, ratio(), 0, 0);
+  normal.imageSmoothingQuality = noise.imageSmoothingQuality = 'high';
   normal.save();
   normal.translate(width / 2, height / 2);
-  normal.rotate(-Math.PI / 2);
-  const size = Math.min(width, 162);
-  normal.drawImage(normalImage, -size / 2, -size / 2, size, size);
+  const cover = Math.max(width / normalImage.width, height / normalImage.height);
+  const coverWidth = normalImage.width * cover;
+  const coverHeight = normalImage.height * cover;
+  // Keep the top of the photo and centre it sideways; any excess is cropped from the bottom.
+  normal.drawImage(normalImage, -coverWidth / 2, -height / 2, coverWidth, coverHeight);
   normal.restore();
   const imageArea = width - spill * 2;
   const scale = Math.min(imageArea / noiseImage.width, height / noiseImage.height);
@@ -70,7 +76,7 @@ function drawPortrait() {
   if (!ready || !context || !width || !height) return;
   context.clearRect(0, 0, width, height);
   if (mode === 'research') {
-    context.drawImage(normalBuffer, 0, 0);
+    context.drawImage(normalBuffer, 0, 0, width, height);
     return;
   }
   const strip = height / 44;
@@ -78,7 +84,7 @@ function drawPortrait() {
     const y = index * strip;
     const h = Math.min(strip + 1, height - y);
     const offset = Math.sin(index * 1.49 + phase) * Math.sin(index * .21 - phase * .36) * displacement * (width - spill * 2) * .12;
-    context.drawImage(noiseBuffer, 0, y, width, h, offset, y, width, h);
+    context.drawImage(noiseBuffer, 0, y * ratio(), noiseBuffer.width, h * ratio(), offset, y, width, h);
   }
 }
 function finishCrossing() {
@@ -126,7 +132,7 @@ function applyMode(next, hash) {
   });
   motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
-  fallback.src = art ? artSource : `${asset}real-profile.png`;
+  fallback.src = art ? artSource : `${asset}profile.jpg`;
   const targetHash = hash ?? (art ? '#art' : '');
   history.replaceState(null, '', `${location.pathname}${location.search}${targetHash}`);
   window.scrollTo({top:0, behavior:'instant'});
@@ -196,7 +202,7 @@ if (!['','#art','#intro','#home'].includes(initialHash)) {
 }
 if (context) {
   Promise.all([
-    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}real-profile.png`; }),
+    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}profile.jpg`; }),
     new Promise((resolve,reject) => { noiseImage.onload=resolve; noiseImage.onerror=reject; noiseImage.src=artSource; })
   ]).then(() => { ready=true; fallback.hidden=true; sizePortrait(); refresh(); }).catch(() => { portrait.hidden=true; fallback.hidden=false; });
 }
