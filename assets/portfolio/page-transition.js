@@ -30,7 +30,7 @@ const pageTransition = (() => {
     return {width, height, point, radius};
   }
   const stages = radius => [0, radius * .2, radius];
-  const duration = 1360;
+  const duration = 1088;
   // CSS cubic-bezier(x1, y1, x2, y2), solved for y at a given x.
   function bezier(x1, y1, x2, y2) {
     const at = (a, b, t) => 3 * a * t * (1 - t) ** 2 + 3 * b * t * t * (1 - t) + t ** 3;
@@ -50,19 +50,20 @@ const pageTransition = (() => {
 
   return {
     available: typeof document.startViewTransition === 'function',
-    // Grow the incoming page over a snapshot of the outgoing one.
+    // Grow the incoming page over a snapshot of the outgoing one, from a point found once it is in place.
     start({origin, onChange, onComplete}) {
-      const {point, radius} = geometry(origin);
       const state = {cancelled:false};
       active = state;
       const root = document.documentElement;
-      const [from, mid, to] = stages(radius).map(r => polygon(outline(r, point)));
-      root.style.setProperty('--eclipse-from', from);
-      root.style.setProperty('--eclipse-mid', mid);
-      root.style.setProperty('--eclipse-to', to);
       root.classList.add('eclipse-reveal');
       state.transition = document.startViewTransition(() => {
-        if (!state.cancelled) onChange();
+        if (state.cancelled) return;
+        onChange();
+        const {point, radius} = geometry(origin());
+        const [from, mid, to] = stages(radius).map(r => polygon(outline(r, point)));
+        root.style.setProperty('--eclipse-from', from);
+        root.style.setProperty('--eclipse-mid', mid);
+        root.style.setProperty('--eclipse-to', to);
       });
       // Escape, resize, or reduced motion can skip a pending snapshot.
       state.transition.ready.catch(() => {});

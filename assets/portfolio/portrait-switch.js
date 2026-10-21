@@ -25,6 +25,8 @@ let spill = 0;
 // While leaving the music page, a live copy of it covers the incoming page and an eclipse opens through it.
 let ghost = null;
 const displacement = 0.4;
+// Where the face sits in each source image, as fractions of its width and height.
+const faces = {research:{x:.505, y:.37}, art:{x:.447, y:.455}};
 const ratio = () => Math.min(devicePixelRatio || 1, 2);
 
 function sizePortrait() {
@@ -120,6 +122,31 @@ function removeCover() {
   ghost?.layer.remove();
   ghost = null;
 }
+// The eclipse grows from the face in the incoming portrait, following how that image is fitted.
+function faceOrigin() {
+  const element = portrait.hidden ? fallback : portrait;
+  const rect = element.getBoundingClientRect();
+  const image = mode === 'art' ? noiseImage : normalImage;
+  const imageWidth = image.naturalWidth;
+  const imageHeight = image.naturalHeight;
+  if (!imageWidth || !imageHeight) return rect;
+  let scale, left, top;
+  if (mode === 'art') {
+    // Contained between the canvas's transparent gutters; the fallback image has none.
+    const gutter = portrait.hidden ? 0 : spill;
+    scale = Math.min((rect.width - gutter * 2) / imageWidth, rect.height / imageHeight);
+    left = rect.left + (rect.width - imageWidth * scale) / 2;
+    top = rect.top + (rect.height - imageHeight * scale) / 2;
+  } else {
+    // Covers the slot, centred sideways and anchored to the top.
+    scale = Math.max(rect.width / imageWidth, rect.height / imageHeight);
+    left = rect.left + (rect.width - imageWidth * scale) / 2;
+    top = rect.top;
+  }
+  const x = left + faces[mode].x * imageWidth * scale;
+  const y = top + faces[mode].y * imageHeight * scale;
+  return {left:x, top:y, width:0, height:0, bottom:y};
+}
 function finishCrossing() {
   if (!crossing) return;
   const completed = crossing;
@@ -168,7 +195,7 @@ function applyMode(next, hash) {
   });
   motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
-  fallback.src = art ? artSource : `${asset}profile.jpg?v=3`;
+  fallback.src = art ? artSource : `${asset}profile.jpg?v=4`;
   const targetHash = hash ?? (art ? '#art' : '');
   history.replaceState(null, '', `${location.pathname}${location.search}${targetHash}`);
   window.scrollTo({top:0, behavior:'instant'});
@@ -185,7 +212,6 @@ function switchMode(next, animate = true, hash) {
   }
   crossing = {next, hash, focus:document.activeElement};
   document.body.dataset.crossing = 'true';
-  const origin = (portrait.hidden ? fallback : portrait).getBoundingClientRect();
   pageShell.inert = true;
   document.querySelector('#main').setAttribute('aria-busy', 'true');
   if (mode === 'art' && ready && !portrait.hidden) {
@@ -197,12 +223,12 @@ function switchMode(next, animate = true, hash) {
       document.body.append(layer);
       drawPortrait();
       applyMode(next, hash);
-      pageTransition.cover({origin, layer, onComplete:finishCrossing});
+      pageTransition.cover({origin:faceOrigin(), layer, onComplete:finishCrossing});
     });
     return;
   }
   pageTransition.start({
-    origin,
+    origin:faceOrigin,
     onChange:() => applyMode(next, hash),
     onComplete:finishCrossing,
   });
@@ -250,7 +276,7 @@ if (!['','#art','#intro','#home'].includes(initialHash)) {
 }
 if (context) {
   Promise.all([
-    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}profile.jpg?v=3`; }),
+    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}profile.jpg?v=4`; }),
     new Promise((resolve,reject) => { noiseImage.onload=resolve; noiseImage.onerror=reject; noiseImage.src=artSource; })
   ]).then(() => { ready=true; fallback.hidden=true; sizePortrait(); refresh(); }).catch(() => { portrait.hidden=true; fallback.hidden=false; });
 }

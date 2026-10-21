@@ -44,14 +44,15 @@ body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#perfo
 .contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:5px; font-size:18px; }
 .contact-links a { display:inline-flex; align-items:center; }
 .contact-links a+a:before { content:'|'; display:inline-block; color:var(--divider); font-size:15px; font-weight:300; line-height:1; margin-right:5px; }
-.intro { display:grid; grid-template-columns:194px minmax(0,1fr); gap:31px; align-items:center; padding:27px 0; min-height:250px; border-bottom:1px solid var(--rule); }
+.intro { display:grid; grid-template-columns:171px minmax(0,1fr); gap:31px; align-items:center; padding:27px 0; min-height:250px; border-bottom:1px solid var(--rule); }
 .intro-copy { min-width:0; }
 .intro-copy h2 { margin-bottom:19px; }
 .intro-copy p+p { margin-top:21px; }
 .text-link,.underline { text-decoration:underline; text-underline-offset:3px; }
-.portrait-panel { position:relative; width:194px; height:200px; padding-right:31px; border-right:1px solid var(--rule); }
-#portrait { display:block; width:162px; height:200px; }
-#portrait-fallback { position:absolute; left:0; top:0; width:162px; height:100%; object-fit:cover; object-position:50% 0; }
+/* The portrait spans the intro text from its cap height to its last baseline. */
+.portrait-panel { position:relative; width:171px; height:171px; padding-right:31px; border-right:1px solid var(--rule); }
+#portrait { display:block; width:139px; height:171px; }
+#portrait-fallback { position:absolute; left:0; top:0; width:139px; height:100%; object-fit:cover; object-position:50% 0; }
 .content-section { padding:25px 0 28px; border-bottom:1px solid var(--rule); scroll-margin-top:24px; }
 .content-section>h2 { margin-bottom:20px; }
 .boxed { display:flow-root; margin:0 0 10px; font-size:14px; line-height:1.45; min-height:42px; }
@@ -124,7 +125,7 @@ html.eclipse-reveal::view-transition-group(root) { animation:none; }
 html.eclipse-reveal::view-transition-image-pair(root) { isolation:auto; }
 html.eclipse-reveal::view-transition-old(root),html.eclipse-reveal::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
 html.eclipse-reveal::view-transition-old(root) { z-index:1; }
-html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--eclipse-from); animation:eclipse-grow 1360ms both; }
+html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--eclipse-from); animation:eclipse-grow 1088ms both; }
 /* The eclipse eases into a near pause at a fifth of its size, then accelerates away to fill the page. */
 @keyframes eclipse-grow {
   from { clip-path:var(--eclipse-from); animation-timing-function:cubic-bezier(.15,.7,.35,1); }
