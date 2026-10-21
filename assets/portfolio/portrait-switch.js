@@ -122,7 +122,7 @@ function applyMode(next, hash) {
   initialized = true;
   document.body.dataset.mode = mode;
   document.querySelector('#intro').hidden = art;
-  document.querySelector('#art-stage').hidden = !art;
+  document.querySelector('#art').hidden = !art;
   document.querySelector('#research-panel').hidden = art;
   document.querySelector('#art-panel').hidden = !art;
   document.querySelector(art ? '#art-portrait-slot' : '#research-portrait-slot').append(panel);

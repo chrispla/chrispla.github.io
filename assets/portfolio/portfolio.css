@@ -3,7 +3,7 @@
 @media (prefers-color-scheme:dark) {
   :root { --ink:#c4c6ca; --heading:#eceef0; --rule:#ffffff1f; --entry-rule:#ffffff40; --accent:#ef8f86; --surface:#16171a; --muted:#8b8d93; --divider:#5d6066; --focus:#b996cb; }
 }
-html:has(body[data-mode=art]) { color-scheme:dark; }
+html:has(body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target))),html:has(body:not([data-mode]) :is(#art,#albums,#compositions,#performances):target) { color-scheme:dark; }
 * { box-sizing:border-box; }
 html { scroll-behavior:auto; }
 body { margin:0; background:var(--surface); color:var(--ink); font-family:var(--body); font-size:15px; font-weight:400; line-height:1.55; }
@@ -20,6 +20,15 @@ h3 { font-size:16px; font-weight:600; line-height:1.35; }
 h4 { font-size:15px; font-weight:600; margin:18px 0 10px; }
 strong,b { color:var(--heading); font-weight:600; }
 [hidden] { display:none!important; }
+/* Without JavaScript (no data-mode yet), the address picks the view: music sections show the music page. */
+body:not([data-mode]):not(:has(#art:target,#albums:target,#compositions:target,#performances:target)) :is(#art,#art-panel) { display:none; }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) :is(#intro,#research-panel) { display:none; }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=research]:not(:hover,:focus-visible) { opacity:.65; }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=research]::after { transform:scaleX(0); }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=art] { opacity:1; }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=art]::after { transform:scaleX(1); }
+.art-portrait-static { display:block; width:100%; height:100%; object-fit:contain; }
+#art { scroll-margin-top:100vh; } /* Opening #art lands at the top of the page, header included. */
 .page-shell { max-width:884px; margin:24px auto 0; padding:0 68px 0 56px; }
 .site-header { display:grid; grid-template-columns:auto minmax(0,1fr) auto; column-gap:18px; align-items:center; padding-bottom:23px; border-bottom:1px solid var(--rule); }
 .name-row { display:contents; align-items:center; justify-content:space-between; gap:25px; }
@@ -88,16 +97,16 @@ strong,b { color:var(--heading); font-weight:600; }
 .music-entry a:hover { text-decoration:underline; text-underline-offset:3px; }
 footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 30px; font-size:12px; color:var(--muted); }
 /* The art page uses one image and a still, dark surrounding surface. */
-body[data-mode=art] { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
-body[data-mode=art] .site-header { padding-bottom:24px; border-bottom:0; }
-body[data-mode=art] a:focus-visible,body[data-mode=art] button:focus-visible { outline-color:#d9ff60; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .site-header { padding-bottom:24px; border-bottom:0; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) a:focus-visible,body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) button:focus-visible { outline-color:#d9ff60; }
 .art-stage { --spill:32px; position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr); align-items:center; gap:44px; width:100%; margin:8px 0 0; overflow:visible; }
 /* Inset by the spill so the moving strips stay within the shared content width. */
 .art-portrait { position:relative; width:calc(100% - var(--spill)); margin-left:var(--spill); aspect-ratio:1073/1405; }
 #art-portrait-slot { width:100%; height:100%; }
-body[data-mode=art] .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
-body[data-mode=art] #portrait { width:100%; height:100%; }
-body[data-mode=art] #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) #portrait { width:100%; height:100%; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
 .prelude-excerpt { min-width:0; padding-inline:20px; color:#e1d9e8; }
 .prelude-notation { display:block; width:100%; height:auto; overflow:visible; }
 .prelude-excerpt figcaption { margin-top:26px; text-align:right; }
@@ -107,10 +116,10 @@ body[data-mode=art] #portrait-fallback { left:var(--spill); top:0; width:calc(10
 .stage-caption { position:absolute; left:12px; bottom:18px; font-family:var(--body); font-size:9px; color:#d9ff60; letter-spacing:.2px; }
 #motion-toggle { position:absolute; z-index:3; right:calc(var(--spill) + 10px); bottom:13px; border:0; background:#15101dba; color:#e5dde9; font-family:var(--body); font-size:9px; font-weight:500; padding:6px 9px; }
 #motion-toggle span { margin-left:9px; }
-body[data-mode=art] .content-section { padding-top:30px; padding-bottom:30px; }
-body[data-mode=art] .album>p { color:#a99fb5; }
-body[data-mode=art] .music-entry p { color:#b1a8bb; }
-body[data-mode=art] footer { color:#9f94aa; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .content-section { padding-top:30px; padding-bottom:30px; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .album>p { color:#a99fb5; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .music-entry p { color:#b1a8bb; }
+body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) footer { color:#9f94aa; }
 html.eclipse-reveal::view-transition-group(root) { animation:none; }
 html.eclipse-reveal::view-transition-image-pair(root) { isolation:auto; }
 html.eclipse-reveal::view-transition-old(root),html.eclipse-reveal::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
@@ -170,7 +179,7 @@ html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--ecli
   .art-stage { --spill:16px; grid-template-columns:1fr; gap:24px; }
   .art-portrait { width:80%; max-width:368px; margin-left:0; justify-self:center; }
   .prelude-excerpt { width:100%; max-width:420px; justify-self:center; margin:16px 0 8px; padding-inline:12px; }
-  body[data-mode=art] .portrait-panel { margin-top:0; }
+  body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .portrait-panel { margin-top:0; }
   .stage-caption { left:10px; bottom:46px; font-size:8px; }
   #motion-toggle { right:calc(var(--spill) + 7px); bottom:13px; font-size:8px; }
   footer { font-size:11px; flex-wrap:wrap; gap:10px; }
