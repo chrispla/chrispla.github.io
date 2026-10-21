@@ -10,7 +10,8 @@ const normalBuffer = document.createElement('canvas');
 const noiseBuffer = document.createElement('canvas');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const motionButton = document.querySelector('#motion-toggle');
-const modeButton = document.querySelector('#mode-toggle');
+const modeNav = document.querySelector('.mode-nav');
+const modeLinks = [...modeNav.querySelectorAll('[data-mode]')];
 const fallback = document.querySelector('#portrait-fallback');
 let mode = 'research';
 let paused = reducedMotion.matches;
@@ -91,11 +92,10 @@ function finishCrossing() {
   delete document.body.dataset.crossing;
   pageShell.inert = false;
   transitionLab.inert = false;
-  modeButton.disabled = false;
   document.querySelector('#main').removeAttribute('aria-busy');
   const focus = completed.focus;
   if (focus && focus !== document.body) {
-    (focus.isConnected && focus.getClientRects().length ? focus : modeButton).focus({preventScroll:true});
+    (focus.isConnected && focus.getClientRects().length ? focus : modeLinks.find(link => link.dataset.mode === mode)).focus({preventScroll:true});
   }
   refresh();
 }
@@ -123,7 +123,10 @@ function applyMode(next, hash) {
   document.querySelector('#research-panel').hidden = art;
   document.querySelector('#art-panel').hidden = !art;
   document.querySelector(art ? '#art-portrait-slot' : '#research-portrait-slot').append(panel);
-  modeButton.setAttribute('aria-checked', String(art));
+  modeLinks.forEach(link => {
+    if (link.dataset.mode === mode) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
   motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
   fallback.src = art ? artSource : `${asset}real-profile.png`;
@@ -131,9 +134,9 @@ function applyMode(next, hash) {
   history.replaceState(null, '', `${location.pathname}${location.search}${targetHash}`);
   window.scrollTo({top:0, behavior:'instant'});
   if (hash && hash !== '#art') document.querySelector(hash)?.scrollIntoView();
-  transitionPlay.textContent = `Play → ${art ? 'research' : 'art'}`;
+  transitionPlay.textContent = `Play → ${art ? 'research' : 'music'}`;
   sizePortrait();
-  document.querySelector('#mode-status').textContent = `${art ? 'Art' : 'Research'} view`;
+  document.querySelector('#mode-status').textContent = `${art ? 'Music' : 'Research'} view`;
   refresh();
 }
 function switchMode(next, animate = true, hash) {
@@ -146,7 +149,6 @@ function switchMode(next, animate = true, hash) {
   crossing = {next, hash, focus:document.activeElement};
   document.body.dataset.crossing = 'true';
   const origin = (portrait.hidden ? fallback : portrait).getBoundingClientRect();
-  modeButton.disabled = true;
   pageShell.inert = true;
   transitionLab.inert = true;
   document.querySelector('#main').setAttribute('aria-busy', 'true');
@@ -187,11 +189,14 @@ document.addEventListener('keydown', event => {
   if (event.key === 'Escape') finishCrossing();
   if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key)) event.preventDefault();
 });
-modeButton.addEventListener('click', () => switchMode(mode === 'research' ? 'art' : 'research'));
-modeButton.addEventListener('keydown', event => {
-  if (!['ArrowLeft','ArrowRight'].includes(event.key)) return;
-  event.preventDefault();
-  switchMode(event.key === 'ArrowRight' ? 'art' : 'research');
+modeLinks.forEach(link => {
+  link.addEventListener('click', event => {
+    // Preserve native new-tab and modifier-click behavior for these real links.
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    if (link.dataset.mode === mode && !crossing) window.scrollTo({top:0, behavior:'instant'});
+    else switchMode(link.dataset.mode);
+  });
 });
 motionButton.addEventListener('click', () => { paused = !paused; refresh(); });
 reducedMotion.addEventListener('change', event => {

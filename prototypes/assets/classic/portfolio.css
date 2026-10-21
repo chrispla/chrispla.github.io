@@ -19,15 +19,13 @@ strong,b { color:var(--heading); font-weight:600; }
 .site-header { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); column-gap:18px; align-items:center; padding-bottom:23px; border-bottom:1px solid var(--rule); }
 .name-row { display:contents; align-items:center; justify-content:space-between; gap:25px; }
 .name-row h1 { white-space:nowrap; }
-.mode-switch { grid-column:2; grid-row:1; justify-self:center; display:flex; align-items:center; justify-content:center; gap:12px; flex-shrink:0; border:1px solid #c5c6ca; border-radius:0; padding:10px 16px; background:#f6f6f7; font-family:var(--body); font-size:12px; font-weight:500; min-height:45px; }
-.switch-track { position:relative; display:block; width:42px; height:24px; border-radius:0; background:#38363e; }
-.switch-knob { position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:0; background:#fff; }
-.art-label { opacity:.45; }
-body[data-mode=art] .research-label { opacity:.5; }
-body[data-mode=art] .art-label { opacity:1; }
-body[data-mode=art] .switch-knob { transform:translateX(18px); background:#d9ff60; }
-.mode-switch:disabled { cursor:default; }
-body[data-crossing=true] .switch-knob { transition:transform .7s cubic-bezier(.4,0,.2,1),background-color .7s; }
+.mode-nav { grid-column:2; grid-row:1; justify-self:center; display:flex; align-items:center; gap:13px; flex-shrink:0; font-family:var(--display); font-size:20px; letter-spacing:-.3px; }
+.mode-link { position:relative; display:flex; align-items:center; min-height:44px; padding:5px 0; color:var(--heading); opacity:.65; }
+.mode-link[data-mode=art] { font-style:italic; }
+.mode-link::after { content:""; position:absolute; left:0; right:0; bottom:3px; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; }
+.mode-link[aria-current=page],.mode-link:hover,.mode-link:focus-visible { opacity:1; color:var(--heading); }
+.mode-link[aria-current=page]::after { transform:scaleX(1); }
+.mode-divider { font-size:28px; font-style:italic; font-weight:400; line-height:1; opacity:.27; }
 .links-row { display:contents; }
 .contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:5px; font-size:18px; }
 .contact-links a { display:inline-flex; align-items:center; }
@@ -86,8 +84,6 @@ footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 3
 .studies-link { font-size:10px; font-family:var(--body); white-space:nowrap; }
 /* The art page uses one image and a still, dark surrounding surface. */
 body[data-mode=art] { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
-body[data-mode=art] .mode-switch { color:#eee9f1; background:#211b2b; border-color:#655a70; }
-body[data-mode=art] .switch-track { background:#453a53; }
 body[data-mode=art] .site-header { padding-bottom:24px; border-bottom:0; }
 body[data-mode=art] a:focus-visible,body[data-mode=art] button:focus-visible { outline-color:#d9ff60; }
 .art-stage { --spill:32px; position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr); align-items:center; gap:44px; width:100%; margin:8px 0 0; overflow:visible; }
@@ -136,7 +132,7 @@ body.has-transition-lab { padding-bottom:100px; }
   body { font-size:15px; }
   .page-shell { padding:0 35px; }
   h1 { font-size:29px; }
-  .mode-switch { font-size:12px; padding:9px 12px; gap:9px; }
+  .mode-nav { font-size:19px; gap:12px; }
   .intro { gap:25px; grid-template-columns:180px minmax(0,1fr); }
   .portrait-panel { width:180px; padding-right:17px; }
   #portrait-fallback { left:0; }
@@ -155,7 +151,7 @@ body.has-transition-lab { padding-bottom:100px; }
   .name-row { flex-wrap:wrap; gap:15px; }
   h1 { font-size:25px; letter-spacing:-.5px; }
   h2 { font-size:22px; }
-  .mode-switch { padding:8px 14px; min-height:42px; }
+  .mode-nav { font-size:19px; gap:12px; }
   .site-header { padding-bottom:19px; }
   .links-row { margin-top:14px; }
   .contact-links { font-size:16px; }
@@ -193,7 +189,4 @@ body.has-transition-lab { padding-bottom:100px; }
   .portrait-panel { width:96px; height:140px; padding-right:10px; }
   #portrait { width:86px; height:140px; }
   #portrait-fallback { width:86px; left:0; }
-}
-@media(prefers-reduced-motion:reduce) {
-  body[data-crossing=true] .switch-knob { transition:none; }
 }
