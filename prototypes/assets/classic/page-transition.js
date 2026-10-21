@@ -1,9 +1,9 @@
-// Two full-page studies. The layout changes only while the veil is opaque.
+// Eclipse reveals the new page directly; Ink tide retains its opaque veil.
 const pageTransition = (() => {
   const canvas = document.querySelector('#page-transition');
   const ctx = canvas.getContext('2d');
   const requested = new URLSearchParams(location.search).get('transition');
-  let style = requested === 'eclipse' ? 'eclipse' : 'ink';
+  let style = requested === 'ink' ? 'ink' : 'eclipse';
   let animation = null;
   let frame = 0;
   const clampProgress = value => Math.max(0, Math.min(1, value));
@@ -24,19 +24,39 @@ const pageTransition = (() => {
     ctx.fill();
   }
 
-  function bloom(radius, color) {
-    const {origin} = animation;
-    ctx.beginPath();
-    for (let i = 0; i <= 128; i++) {
-      const angle = i / 128 * Math.PI * 2;
+  function eclipsePolygon(radius, origin) {
+    const points = [];
+    for (let i = 0; i < 96; i++) {
+      const angle = i / 96 * Math.PI * 2;
       const r = radius * (1 + Math.sin(angle * 3 + .8) * .045 + Math.sin(angle * 7 - .4) * .025);
-      const x = origin.x + Math.cos(angle) * r;
-      const y = origin.y + Math.sin(angle) * r;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      points.push(`${(origin.x + Math.cos(angle) * r).toFixed(2)}px ${(origin.y + Math.sin(angle) * r).toFixed(2)}px`);
     }
-    ctx.closePath();
-    ctx.fillStyle = color;
-    ctx.fill();
+    return `polygon(${points.join(',')})`;
+  }
+
+  function startEclipse(a) {
+    // Native page snapshots preserve text, SVG, and canvas pixels on both sides.
+    // The new snapshot grows over the old one in one uninterrupted motion.
+    if (!document.startViewTransition) {
+      a.onChange();
+      a.onComplete();
+      return;
+    }
+    const root = document.documentElement;
+    root.style.setProperty('--eclipse-from', eclipsePolygon(0, a.origin));
+    root.style.setProperty('--eclipse-to', eclipsePolygon(a.radius, a.origin));
+    root.classList.add('eclipse-reveal');
+    a.transition = document.startViewTransition(() => {
+      if (a.cancelled) return;
+      a.swapped = true;
+      a.onChange();
+    });
+    a.transition.ready.catch(() => {}); // Escape/resize can skip a pending snapshot.
+    const complete = () => {
+      if (animation !== a) return;
+      a.onComplete();
+    };
+    a.transition.finished.then(complete, complete);
   }
 
   function paint(phase, progress) {
@@ -47,7 +67,7 @@ const pageTransition = (() => {
     if (phase === 'covered') {
       ctx.fillStyle = a.color;
       ctx.fillRect(0, 0, a.width, a.height);
-    } else if (a.style === 'ink') {
+    } else {
       const right = phase === 'cover';
       const direction = right ? -1 : 1;
       // A restrained plum edge, then the opaque tide; no photo displacement.
@@ -57,21 +77,6 @@ const pageTransition = (() => {
       wave(p, right, direction * 12, a.fringe);
       ctx.shadowBlur = 0;
       wave(p, right, 0, a.color);
-      ctx.restore();
-    } else if (phase === 'cover') {
-      ctx.save();
-      ctx.shadowColor = a.fringe;
-      ctx.shadowBlur = 30;
-      bloom(p * a.radius, a.color);
-      ctx.restore();
-    } else {
-      ctx.fillStyle = a.color;
-      ctx.fillRect(0, 0, a.width, a.height);
-      ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.shadowColor = '#000';
-      ctx.shadowBlur = 38;
-      bloom(p * a.radius, '#000');
       ctx.restore();
     }
   }
@@ -88,7 +93,7 @@ const pageTransition = (() => {
       if (!a.swapped) {
         paint('covered', 1);
         a.swapped = true;
-        a.onCovered();
+        a.onChange();
       }
       if (elapsed < a.cover + a.hold) paint('covered', 1);
       else paint('reveal', (elapsed - a.cover - a.hold) / a.reveal);
@@ -102,7 +107,7 @@ const pageTransition = (() => {
     available: !!ctx,
     get style() { return style; },
     setStyle(next) { if (['ink', 'eclipse'].includes(next) && !animation) style = next; },
-    start({art, origin, onCovered, onComplete}) {
+    start({art, origin, onChange, onComplete}) {
       const width = document.documentElement.clientWidth;
       const height = innerHeight;
       const dpr = Math.min(devicePixelRatio || 1, 2);
@@ -117,15 +122,24 @@ const pageTransition = (() => {
       animation = {
         style, width, height, origin:point, radius:farthest * 1.18 + 50,
         color:art ? '#15101d' : '#ffffff', fringe:art ? '#38243e' : '#e8e2ed',
-        cover:style === 'ink' ? 820 : 780, hold:80, reveal:style === 'ink' ? 900 : 1080,
-        started:performance.now(), swapped:false, onCovered, onComplete,
+        cover:820, hold:80, reveal:900,
+        started:performance.now(), swapped:false, onChange, onComplete,
       };
-      canvas.hidden = false;
-      tick(animation.started);
+      if (style === 'eclipse') startEclipse(animation);
+      else {
+        canvas.hidden = false;
+        tick(animation.started);
+      }
     },
     cancel() {
       cancelAnimationFrame(frame);
+      const active = animation;
       animation = null;
+      if (active) active.cancelled = true;
+      active?.transition?.skipTransition();
+      document.documentElement.classList.remove('eclipse-reveal');
+      document.documentElement.style.removeProperty('--eclipse-from');
+      document.documentElement.style.removeProperty('--eclipse-to');
       canvas.hidden = true;
       delete canvas.dataset.phase;
       ctx?.clearRect(0, 0, canvas.width, canvas.height);

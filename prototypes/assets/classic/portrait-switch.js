@@ -152,7 +152,7 @@ function switchMode(next, animate = true, hash) {
   document.querySelector('#main').setAttribute('aria-busy', 'true');
   pageTransition.start({
     art:next === 'art', origin,
-    onCovered:() => applyMode(next, hash),
+    onChange:() => applyMode(next, hash),
     onComplete:finishCrossing,
   });
 }
@@ -168,7 +168,7 @@ function updateStudy() {
     button.setAttribute('aria-pressed', String(button.dataset.transition === pageTransition.style));
   });
   document.querySelector('#transition-note').textContent = pageTransition.style === 'ink'
-    ? 'a dark tide crosses the page' : 'a shadow blooms from the switch';
+    ? 'a dark tide crosses the page' : 'the next page grows from the switch';
 }
 transitionLab.querySelectorAll('[data-transition]').forEach(button => {
   button.addEventListener('click', () => {

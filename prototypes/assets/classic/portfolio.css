@@ -109,6 +109,12 @@ body[data-mode=art] .content-section { padding-top:30px; padding-bottom:30px; }
 body[data-mode=art] .album>p { color:#a99fb5; }
 body[data-mode=art] .music-entry p { color:#b1a8bb; }
 body[data-mode=art] footer { color:#9f94aa; }
+html.eclipse-reveal::view-transition-group(root) { animation:none; }
+html.eclipse-reveal::view-transition-image-pair(root) { isolation:auto; }
+html.eclipse-reveal::view-transition-old(root),html.eclipse-reveal::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
+html.eclipse-reveal::view-transition-old(root) { z-index:1; }
+html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--eclipse-from); animation:eclipse-grow 1350ms cubic-bezier(.45,0,.2,1) both; }
+@keyframes eclipse-grow { from { clip-path:var(--eclipse-from); } to { clip-path:var(--eclipse-to); } }
 #page-transition { position:fixed; inset:0; z-index:100; width:100%; height:100%; touch-action:none; }
 .transition-lab { position:fixed; z-index:35; bottom:16px; right:20px; width:368px; padding:12px; border:1px solid var(--rule); background:#fff; box-shadow:0 4px 28px #0001; }
 body[data-mode=art] .transition-lab { background:#1d1725; }
