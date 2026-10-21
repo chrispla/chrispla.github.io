@@ -7,11 +7,11 @@ const noiseImage = new Image();
 const normalBuffer = document.createElement('canvas');
 const noiseBuffer = document.createElement('canvas');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-const motionButton = document.querySelector('#motion-toggle');
 const modeNav = document.querySelector('.mode-nav');
 const modeLinks = [...modeNav.querySelectorAll('[data-mode]')];
 const fallback = document.querySelector('#portrait-fallback');
 let mode = 'research';
+// Only the reduced-motion preference holds the portrait still.
 let paused = reducedMotion.matches;
 let ready = false;
 let initialized = false;
@@ -24,7 +24,15 @@ let height = 0;
 let spill = 0;
 // While leaving the music page, a live copy of it covers the incoming page and an eclipse opens through it.
 let ghost = null;
-const displacement = 0.4;
+// How the music portrait moves: strip offset amount, number of strips, speed, edge fade width in px,
+// and how far each strip strays from the shared wave toward its own motion.
+const motion = {displacement:.26, strips:68, speed:2.55, fade:160, randomness:.4};
+// Fixed per-strip random values, so strips stray the same way every time and move smoothly rather than flicker.
+const hash = n => { const value = Math.sin(n * 12.9898) * 43758.5453; return value - Math.floor(value); };
+function wander(index, time) {
+  const slow = .35 + hash(index + .1) * .5, fast = .8 + hash(index + .7) * .9;
+  return (Math.sin(time * slow + hash(index + .3) * 6.283) + .6 * Math.sin(time * fast + hash(index + .9) * 6.283)) / 1.6;
+}
 // Where the face sits in each source image, as fractions of its width and height.
 const faces = {research:{x:.505, y:.37}, art:{x:.447, y:.455}};
 const ratio = () => Math.min(devicePixelRatio || 1, 2);
@@ -63,7 +71,7 @@ function preparePortraits() {
   const imageLeft = (width - imageWidth) / 2;
   // Preserve the full portrait and let its feathered strips move through transparent gutters.
   noise.drawImage(noiseImage, imageLeft, (height - imageHeight) / 2, imageWidth, imageHeight);
-  const feather = Math.min(32, imageWidth * .07) / imageWidth;
+  const feather = Math.min(motion.fade, imageWidth * .45) / imageWidth;
   const edgeFade = noise.createLinearGradient(imageLeft, 0, imageLeft + imageWidth, 0);
   edgeFade.addColorStop(0, 'transparent');
   edgeFade.addColorStop(feather * .45, 'rgba(0,0,0,.35)');
@@ -78,12 +86,16 @@ function preparePortraits() {
 }
 function drawStrips(target, buffer, stripWidth, stripHeight, gutter) {
   const scale = buffer.height / stripHeight;
-  const strip = stripHeight / 44;
-  for (let index = 0; index < 44; index++) {
-    const y = index * strip;
-    const h = Math.min(strip + 1, stripHeight - y);
-    const offset = Math.sin(index * 1.49 + phase) * Math.sin(index * .21 - phase * .36) * displacement * (stripWidth - gutter * 2) * .12;
-    target.drawImage(buffer, 0, y * scale, buffer.width, h * scale, offset, y, stripWidth, h);
+  const strip = buffer.height / motion.strips;
+  for (let index = 0; index < motion.strips; index++) {
+    // Strips meet on whole buffer rows: overlapping them shows as bright seams wherever the edge fade is see-through.
+    const top = Math.round(index * strip);
+    const rows = Math.round((index + 1) * strip) - top;
+    const y = top / scale;
+    const h = rows / scale;
+    const wave = Math.sin(index * 1.49 + phase) * Math.sin(index * .21 - phase * .36);
+    const offset = (wave + (wander(index, phase) - wave) * motion.randomness) * motion.displacement * (stripWidth - gutter * 2) * .12;
+    target.drawImage(buffer, 0, top, buffer.width, rows, offset, y, stripWidth, h);
   }
 }
 function drawPortrait() {
@@ -166,7 +178,7 @@ function finishCrossing() {
 function render(time) {
   if (document.hidden) return;
   const moving = mode === 'art' || ghost;
-  if (!paused && lastTime && moving) phase += Math.min(time - lastTime, 100) / 1800;
+  if (!paused && lastTime && moving) phase += Math.min(time - lastTime, 100) / 1800 * motion.speed;
   lastTime = time;
   drawPortrait();
   if (moving && !paused) frame = requestAnimationFrame(render);
@@ -175,8 +187,6 @@ function refresh() {
   cancelAnimationFrame(frame);
   // Keep the clock running mid-transition so the moving portrait doesn't hitch.
   if (!crossing) lastTime = 0;
-  motionButton.innerHTML = paused ? 'resume motion <span aria-hidden="true">▷</span>' : 'pause motion <span aria-hidden="true">Ⅱ</span>';
-  motionButton.setAttribute('aria-pressed', String(paused));
   if (ready) render(performance.now());
 }
 function applyMode(next, hash) {
@@ -193,7 +203,6 @@ function applyMode(next, hash) {
     if (link.dataset.mode === mode) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
-  motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
   fallback.src = art ? artSource : `${asset}profile.jpg?v=4`;
   const targetHash = hash ?? (art ? '#art' : '');
@@ -249,7 +258,6 @@ modeLinks.forEach(link => {
     else switchMode(link.dataset.mode);
   });
 });
-motionButton.addEventListener('click', () => { paused = !paused; refresh(); });
 reducedMotion.addEventListener('change', event => {
   paused = event.matches;
   if (event.matches && crossing) finishCrossing();

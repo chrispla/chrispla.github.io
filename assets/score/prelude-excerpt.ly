@@ -8,8 +8,8 @@
 #(set-global-staff-size 20)
 \paper {
   indent = 0\mm
-  line-width = 104\mm
-  paper-width = 108\mm
+  line-width = 96.7\mm
+  paper-width = 100.7\mm
   paper-height = 125\mm
   top-margin = 5\mm
   bottom-margin = 5\mm
