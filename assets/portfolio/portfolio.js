@@ -2,6 +2,7 @@ const asset = 'assets/portfolio/';
 const artSource = 'assets/portfolio/corrupted-portrait.jpg';
 document.querySelector('#background').innerHTML = classicContent.background;
 document.querySelector('#research').innerHTML = classicContent.research;
+document.querySelector('#publications').innerHTML = classicContent.publications;
 document.querySelectorAll('#research-panel a[target="_blank"]').forEach(link => { link.rel = 'noopener noreferrer'; if (!link.textContent.trim() && link.title) link.setAttribute('aria-label', link.title); });
 document.querySelectorAll('#background img').forEach(image => { image.alt = image.closest('.boxed').querySelector('strong')?.textContent || ''; });
 const compositions = [
