@@ -116,7 +116,7 @@ const pageTransition = (() => {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const point = {
         x: Math.max(0, Math.min(width, origin.left + origin.width / 2)),
-        y: origin.bottom > 0 && origin.top < height ? origin.top + origin.height / 2 : height * .25,
+        y: origin.bottom > 0 && origin.top < height ? Math.max(0, Math.min(height, origin.top + origin.height / 2)) : height * .25,
       };
       const farthest = Math.hypot(Math.max(point.x, width - point.x), Math.max(point.y, height - point.y));
       animation = {

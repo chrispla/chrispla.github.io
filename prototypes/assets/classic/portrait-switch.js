@@ -145,7 +145,7 @@ function switchMode(next, animate = true, hash) {
   cancelAnimationFrame(frame);
   crossing = {next, hash, focus:document.activeElement};
   document.body.dataset.crossing = 'true';
-  const origin = modeButton.getBoundingClientRect();
+  const origin = (portrait.hidden ? fallback : portrait).getBoundingClientRect();
   modeButton.disabled = true;
   pageShell.inert = true;
   transitionLab.inert = true;
@@ -168,7 +168,7 @@ function updateStudy() {
     button.setAttribute('aria-pressed', String(button.dataset.transition === pageTransition.style));
   });
   document.querySelector('#transition-note').textContent = pageTransition.style === 'ink'
-    ? 'a dark tide crosses the page' : 'the next page grows from the switch';
+    ? 'a dark tide crosses the page' : 'the next page grows from the portrait';
 }
 transitionLab.querySelectorAll('[data-transition]').forEach(button => {
   button.addEventListener('click', () => {
