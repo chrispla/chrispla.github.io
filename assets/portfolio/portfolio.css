@@ -3,7 +3,7 @@
 @media (prefers-color-scheme:dark) {
   :root { --ink:#c4c6ca; --heading:#eceef0; --rule:#ffffff1f; --entry-rule:#ffffff40; --accent:#ef8f86; --surface:#16171a; --muted:#8b8d93; --divider:#5d6066; --focus:#b996cb; }
 }
-html:has(body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target))),html:has(body:not([data-mode]) :is(#art,#albums,#compositions,#performances):target) { color-scheme:dark; }
+html:has(body[data-mode=art]),html:has(body:not([data-mode]) :is(#art,#albums,#compositions,#performances):target),html:has(.art-cover) { color-scheme:dark; }
 * { box-sizing:border-box; }
 html { scroll-behavior:auto; }
 body { margin:0; background:var(--surface); color:var(--ink); font-family:var(--body); font-size:15px; font-weight:400; line-height:1.55; }
@@ -97,17 +97,17 @@ body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#perfo
 .music-entry a:hover { text-decoration:underline; text-underline-offset:3px; }
 footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 30px; font-size:12px; color:var(--muted); }
 /* The art page uses one image and a still, dark surrounding surface. */
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .site-header { padding-bottom:24px; border-bottom:0; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) a:focus-visible,body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) button:focus-visible { outline-color:#d9ff60; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .site-header { padding-bottom:24px; border-bottom:0; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) a:focus-visible,:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) button:focus-visible { outline-color:#d9ff60; }
 .art-stage { --spill:32px; position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr); align-items:center; gap:44px; width:100%; margin:8px 0 0; overflow:visible; }
-/* Inset by the spill so the moving strips stay within the shared content width. */
-.art-portrait { position:relative; width:calc(100% - var(--spill)); margin-left:var(--spill); aspect-ratio:1073/1405; }
+/* The portrait's resting edges sit on the content edges; moving strips leak slightly past them. */
+.art-portrait { position:relative; width:100%; aspect-ratio:1073/1405; }
 #art-portrait-slot { width:100%; height:100%; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) #portrait { width:100%; height:100%; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
-.prelude-excerpt { min-width:0; padding-inline:20px; color:#e1d9e8; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) #portrait { width:100%; height:100%; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
+.prelude-excerpt { min-width:0; color:#e1d9e8; }
 .prelude-notation { display:block; width:100%; height:auto; overflow:visible; }
 .prelude-excerpt figcaption { margin-top:26px; text-align:right; }
 .prelude-excerpt h2 { font-size:19px; letter-spacing:-.2px; }
@@ -116,16 +116,23 @@ body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compos
 .stage-caption { position:absolute; left:12px; bottom:18px; font-family:var(--body); font-size:9px; color:#d9ff60; letter-spacing:.2px; }
 #motion-toggle { position:absolute; z-index:3; right:calc(var(--spill) + 10px); bottom:13px; border:0; background:#15101dba; color:#e5dde9; font-family:var(--body); font-size:9px; font-weight:500; padding:6px 9px; }
 #motion-toggle span { margin-left:9px; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .content-section { padding-top:30px; padding-bottom:30px; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .album>p { color:#a99fb5; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .music-entry p { color:#b1a8bb; }
-body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) footer { color:#9f94aa; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .content-section { padding-top:30px; padding-bottom:30px; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .album>p { color:#a99fb5; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .music-entry p { color:#b1a8bb; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) footer { color:#9f94aa; }
 html.eclipse-reveal::view-transition-group(root) { animation:none; }
 html.eclipse-reveal::view-transition-image-pair(root) { isolation:auto; }
 html.eclipse-reveal::view-transition-old(root),html.eclipse-reveal::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
 html.eclipse-reveal::view-transition-old(root) { z-index:1; }
-html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--eclipse-from); animation:eclipse-grow 1350ms cubic-bezier(.45,0,.2,1) both; }
-@keyframes eclipse-grow { from { clip-path:var(--eclipse-from); } to { clip-path:var(--eclipse-to); } }
+html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--eclipse-from); animation:eclipse-grow 1360ms both; }
+/* The eclipse eases into a near pause at a fifth of its size, then accelerates away to fill the page. */
+@keyframes eclipse-grow {
+  from { clip-path:var(--eclipse-from); animation-timing-function:cubic-bezier(.15,.7,.35,1); }
+  50% { clip-path:var(--eclipse-mid); animation-timing-function:cubic-bezier(.65,0,.85,.3); }
+  to { clip-path:var(--eclipse-to); }
+}
+/* A live copy of the music page covers the research page while the eclipse opens through it. */
+.art-cover { position:fixed; inset:0; z-index:60; overflow:hidden; pointer-events:none; color:var(--ink); }
 .skip-link { position:fixed; z-index:40; top:8px; left:8px; transform:translateY(-150%); padding:10px 15px; background:var(--surface); color:var(--heading); border:1px solid; }
 .skip-link:focus { transform:none; }
 #main:focus { outline:none; }
@@ -177,9 +184,9 @@ html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--ecli
   .music-entry { --work-thumb:104px; gap:12px; }
   .music-entry p { font-size:12px; }
   .art-stage { --spill:16px; grid-template-columns:1fr; gap:24px; }
-  .art-portrait { width:80%; max-width:368px; margin-left:0; justify-self:center; }
-  .prelude-excerpt { width:100%; max-width:420px; justify-self:center; margin:16px 0 8px; padding-inline:12px; }
-  body:is([data-mode=art],:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target)) .portrait-panel { margin-top:0; }
+  .art-portrait { width:80%; max-width:368px; justify-self:center; }
+  .prelude-excerpt { width:100%; max-width:420px; justify-self:center; margin:16px 0 8px; }
+  :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .portrait-panel { margin-top:0; }
   .stage-caption { left:10px; bottom:46px; font-size:8px; }
   #motion-toggle { right:calc(var(--spill) + 7px); bottom:13px; font-size:8px; }
   footer { font-size:11px; flex-wrap:wrap; gap:10px; }

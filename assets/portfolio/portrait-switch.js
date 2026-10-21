@@ -22,6 +22,8 @@ let crossing = null;
 let width = 0;
 let height = 0;
 let spill = 0;
+// While leaving the music page, a live copy of it covers the incoming page and an eclipse opens through it.
+let ghost = null;
 const displacement = 0.4;
 const ratio = () => Math.min(devicePixelRatio || 1, 2);
 
@@ -72,20 +74,51 @@ function preparePortraits() {
   noise.fillRect(0, 0, width, height);
   noise.globalCompositeOperation = 'source-over';
 }
+function drawStrips(target, buffer, stripWidth, stripHeight, gutter) {
+  const scale = buffer.height / stripHeight;
+  const strip = stripHeight / 44;
+  for (let index = 0; index < 44; index++) {
+    const y = index * strip;
+    const h = Math.min(strip + 1, stripHeight - y);
+    const offset = Math.sin(index * 1.49 + phase) * Math.sin(index * .21 - phase * .36) * displacement * (stripWidth - gutter * 2) * .12;
+    target.drawImage(buffer, 0, y * scale, buffer.width, h * scale, offset, y, stripWidth, h);
+  }
+}
 function drawPortrait() {
   if (!ready || !context || !width || !height) return;
+  if (ghost) {
+    ghost.context.clearRect(0, 0, ghost.width, ghost.height);
+    drawStrips(ghost.context, ghost.buffer, ghost.width, ghost.height, ghost.spill);
+  }
   context.clearRect(0, 0, width, height);
   if (mode === 'research') {
     context.drawImage(normalBuffer, 0, 0, width, height);
     return;
   }
-  const strip = height / 44;
-  for (let index = 0; index < 44; index++) {
-    const y = index * strip;
-    const h = Math.min(strip + 1, height - y);
-    const offset = Math.sin(index * 1.49 + phase) * Math.sin(index * .21 - phase * .36) * displacement * (width - spill * 2) * .12;
-    context.drawImage(noiseBuffer, 0, y * ratio(), noiseBuffer.width, h * ratio(), offset, y, width, h);
-  }
+  drawStrips(context, noiseBuffer, width, height, spill);
+}
+function createCover() {
+  const layer = document.createElement('div');
+  layer.className = 'art-cover';
+  layer.setAttribute('aria-hidden', 'true');
+  layer.inert = true;
+  const copy = pageShell.cloneNode(true);
+  copy.style.transform = `translateY(${-scrollY}px)`;
+  layer.append(copy);
+  const canvas = copy.querySelector('#portrait');
+  const coverContext = canvas.getContext('2d');
+  coverContext.setTransform(ratio(), 0, 0, ratio(), 0, 0);
+  // The music buffer is rebuilt at research size once the page switches, so the copy keeps its own.
+  const buffer = document.createElement('canvas');
+  buffer.width = noiseBuffer.width;
+  buffer.height = noiseBuffer.height;
+  buffer.getContext('2d').drawImage(noiseBuffer, 0, 0);
+  ghost = {layer, context:coverContext, buffer, width, height, spill};
+  return layer;
+}
+function removeCover() {
+  ghost?.layer.remove();
+  ghost = null;
 }
 function finishCrossing() {
   if (!crossing) return;
@@ -93,6 +126,7 @@ function finishCrossing() {
   if (mode !== completed.next) applyMode(completed.next, completed.hash);
   crossing = null;
   pageTransition.cancel();
+  removeCover();
   delete document.body.dataset.crossing;
   pageShell.inert = false;
   document.querySelector('#main').removeAttribute('aria-busy');
@@ -104,14 +138,16 @@ function finishCrossing() {
 }
 function render(time) {
   if (document.hidden) return;
-  if (!paused && lastTime && mode === 'art' && !crossing) phase += Math.min(time - lastTime, 100) / 1800;
+  const moving = mode === 'art' || ghost;
+  if (!paused && lastTime && moving) phase += Math.min(time - lastTime, 100) / 1800;
   lastTime = time;
   drawPortrait();
-  if (mode === 'art' && !paused) frame = requestAnimationFrame(render);
+  if (moving && !paused) frame = requestAnimationFrame(render);
 }
 function refresh() {
   cancelAnimationFrame(frame);
-  lastTime = 0;
+  // Keep the clock running mid-transition so the moving portrait doesn't hitch.
+  if (!crossing) lastTime = 0;
   motionButton.innerHTML = paused ? 'resume motion <span aria-hidden="true">▷</span>' : 'pause motion <span aria-hidden="true">Ⅱ</span>';
   motionButton.setAttribute('aria-pressed', String(paused));
   if (ready) render(performance.now());
@@ -132,7 +168,7 @@ function applyMode(next, hash) {
   });
   motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
-  fallback.src = art ? artSource : `${asset}profile.jpg`;
+  fallback.src = art ? artSource : `${asset}profile.jpg?v=3`;
   const targetHash = hash ?? (art ? '#art' : '');
   history.replaceState(null, '', `${location.pathname}${location.search}${targetHash}`);
   window.scrollTo({top:0, behavior:'instant'});
@@ -147,12 +183,24 @@ function switchMode(next, animate = true, hash) {
     applyMode(next, hash);
     return;
   }
-  cancelAnimationFrame(frame);
   crossing = {next, hash, focus:document.activeElement};
   document.body.dataset.crossing = 'true';
   const origin = (portrait.hidden ? fallback : portrait).getBoundingClientRect();
   pageShell.inert = true;
   document.querySelector('#main').setAttribute('aria-busy', 'true');
+  if (mode === 'art' && ready && !portrait.hidden) {
+    // A live copy keeps the music page moving, where a view-transition snapshot would freeze it.
+    const layer = createCover();
+    const images = [...layer.querySelectorAll('img')].map(image => image.decode().catch(() => {}));
+    Promise.race([Promise.all(images), new Promise(resolve => setTimeout(resolve, 150))]).then(() => {
+      if (crossing?.next !== next || ghost?.layer !== layer) return;
+      document.body.append(layer);
+      drawPortrait();
+      applyMode(next, hash);
+      pageTransition.cover({origin, layer, onComplete:finishCrossing});
+    });
+    return;
+  }
   pageTransition.start({
     origin,
     onChange:() => applyMode(next, hash),
@@ -202,7 +250,7 @@ if (!['','#art','#intro','#home'].includes(initialHash)) {
 }
 if (context) {
   Promise.all([
-    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}profile.jpg`; }),
+    new Promise((resolve,reject) => { normalImage.onload=resolve; normalImage.onerror=reject; normalImage.src=`${asset}profile.jpg?v=3`; }),
     new Promise((resolve,reject) => { noiseImage.onload=resolve; noiseImage.onerror=reject; noiseImage.src=artSource; })
   ]).then(() => { ready=true; fallback.hidden=true; sizePortrait(); refresh(); }).catch(() => { portrait.hidden=true; fallback.hidden=false; });
 }
