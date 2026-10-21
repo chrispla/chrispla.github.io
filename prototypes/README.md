@@ -6,9 +6,11 @@ Three standalone directions for Christos Plachouras's website. Open `index.html`
 
 - **Signal / Noise:** editorial research, an immersive pink/purple image field, and a circular transition.
 - **Out of Order:** a typeset reading room, floating gallery fragments, and a folding shutter.
-- **Research / Art (revised Soft Errors):** the current site's compact research scale, full intro/background/research, and a prominent toggle. The portrait expands and blends into the full-height art image, with moving slices that fade at their ends. Uppercase “MUSIC” runs vertically down the right edge beside the portrait on desktop; it is hidden on mobile. Art has a still dark background and fixed 40% portrait displacement. Large album covers come first, including the sunset cover for **Songs of Adelina — Coming soon**, followed by compositions and performances. Section navigation links are omitted.
+- **Research / Art (revised Soft Errors):** the current site's compact research scale, full intro/background/research, and a prominent toggle. The portrait expands and blends into the full-height art image, with moving slices that fade at their ends. The art portrait is 20% smaller, with the opening three measures of Prelude in A♭ engraved alongside it, one measure per line. On mobile, the notation sits below the portrait. Art has a still dark background and fixed 40% portrait displacement. Large album covers come first, including the sunset cover for **Songs of Adelina — Coming soon**, followed by compositions and performances. Section navigation links are omitted.
 
-The revised direction uses Lora for headings and the vertical MUSIC lettering, with Manrope for text and controls.
+The revised direction uses Lora for headings, with Manrope for text and controls. The prelude uses LilyPond’s music engraving, matching the supplied single-stave score. Both original voices, accidentals, slurs, and the opening dynamic are preserved in an external SVG referenced by inline SVG markup. There is no notation library to load at runtime.
+
+To regenerate the excerpt after editing `assets/score/prelude-excerpt.ly`, install LilyPond 2.26 and run `node prototypes/assets/score/render-prelude.mjs` from the repository root. Set `LILYPOND_BIN` if the executable is outside PATH. The helper also updates the inline SVG viewBox.
 
 The research views have no continuous animation or canvas loop. Art motion has a pause control and respects `prefers-reduced-motion`. Canvas work also stops when the tab is hidden. Artwork and research links come from the existing website. The source portrait is the user's supplied corrupted image; its pixels are preserved.
 
