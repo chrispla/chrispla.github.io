@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-  <link rel="stylesheet" href="../assets/classic/portfolio.css">
-  <script src="../assets/classic/content.js" defer></script><script src="../assets/classic/portfolio.js" defer></script><script src="../assets/classic/portrait-switch.js" defer></script>
+  <link rel="stylesheet" href="../assets/classic/portfolio.css?v=transition-studies-2">
+  <script src="../assets/classic/content.js" defer></script><script src="../assets/classic/portfolio.js" defer></script><script src="../assets/classic/page-transition.js?v=transition-studies-2" defer></script><script src="../assets/classic/portrait-switch.js?v=transition-studies-2" defer></script>
 </head>
 <body data-mode="research">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -41,7 +41,7 @@
       </div>
     </main>
     <footer><p>© Christos Plachouras. All rights reserved.</p><a href="../" class="studies-link">← other studies</a></footer>
-  </div><canvas id="crossing-portrait" aria-hidden="true" hidden></canvas><p class="sr-only" id="mode-status" role="status"></p>
+  </div><canvas id="page-transition" aria-hidden="true" hidden></canvas><aside class="transition-lab" aria-label="Transition studies" hidden><div class="transition-lab-heading"><span>transition studies</span><span id="transition-note">a dark tide crosses the page</span></div><div class="transition-lab-controls"><div role="group" aria-label="Choose a transition"><button type="button" data-transition="ink" aria-pressed="true">01 Ink tide</button><button type="button" data-transition="eclipse" aria-pressed="false">02 Eclipse</button></div><button type="button" id="transition-play">Play → art</button></div></aside><p class="sr-only" id="mode-status" role="status"></p>
   <noscript><p>JavaScript is needed to switch between research and art. <a href="https://chrispla.github.io/">Visit the current website.</a></p></noscript>
 </body>
 </html>

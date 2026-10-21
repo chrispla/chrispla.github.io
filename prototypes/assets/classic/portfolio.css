@@ -27,7 +27,6 @@ body[data-mode=art] .research-label { opacity:.5; }
 body[data-mode=art] .art-label { opacity:1; }
 body[data-mode=art] .switch-knob { transform:translateX(18px); background:#d9ff60; }
 .mode-switch:disabled { cursor:default; }
-body[data-crossing=true],body[data-crossing=true] .site-header,body[data-crossing=true] footer { transition:background-color 1s ease,color 1s ease; }
 body[data-crossing=true] .switch-knob { transition:transform .7s cubic-bezier(.4,0,.2,1),background-color .7s; }
 .links-row { display:contents; }
 .contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:5px; font-size:18px; }
@@ -103,8 +102,6 @@ body[data-mode=art] #portrait-fallback { left:var(--spill); top:0; width:calc(10
 .prelude-excerpt h2 { font-size:19px; letter-spacing:-.2px; }
 .prelude-excerpt figcaption p { margin-top:4px; font-size:12px; color:#a99fb5; }
 .prelude-excerpt figcaption .prelude-year { margin-top:6px; font-size:11px; }
-body[data-crossing=true][data-mode=art] .prelude-excerpt { animation:score-arrive 1050ms ease both; }
-@keyframes score-arrive { 0%,35% { opacity:0; } 100% { opacity:1; } }
 .stage-caption { position:absolute; left:12px; bottom:18px; font-family:var(--body); font-size:9px; color:#d9ff60; letter-spacing:.2px; }
 #motion-toggle { position:absolute; z-index:3; right:calc(var(--spill) + 10px); bottom:13px; border:0; background:#15101dba; color:#e5dde9; font-family:var(--body); font-size:9px; font-weight:500; padding:6px 9px; }
 #motion-toggle span { margin-left:9px; }
@@ -112,7 +109,19 @@ body[data-mode=art] .content-section { padding-top:30px; padding-bottom:30px; }
 body[data-mode=art] .album>p { color:#a99fb5; }
 body[data-mode=art] .music-entry p { color:#b1a8bb; }
 body[data-mode=art] footer { color:#9f94aa; }
-#crossing-portrait { position:fixed; z-index:30; pointer-events:none; }
+#page-transition { position:fixed; inset:0; z-index:100; width:100%; height:100%; touch-action:none; }
+.transition-lab { position:fixed; z-index:35; bottom:16px; right:20px; width:368px; padding:12px; border:1px solid var(--rule); background:#fff; box-shadow:0 4px 28px #0001; }
+body[data-mode=art] .transition-lab { background:#1d1725; }
+.transition-lab-heading { display:flex; justify-content:space-between; gap:10px; margin-bottom:9px; font-size:9px; }
+.transition-lab-heading>span:first-child { letter-spacing:.7px; text-transform:uppercase; opacity:.65; }
+#transition-note { font-size:9px; opacity:.7; }
+.transition-lab-controls { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+.transition-lab-controls>div { display:flex; gap:5px; }
+.transition-lab button { border:1px solid var(--rule); padding:7px 10px; font-size:11px; background:transparent; }
+.transition-lab button[aria-pressed=true] { border-color:var(--ink); background:#8881; }
+#transition-play { background:var(--heading); color:#fff; border-color:var(--heading); min-width:90px; }
+body[data-mode=art] #transition-play { background:#d9ff60; color:#15101d; border-color:#d9ff60; }
+body.has-transition-lab { padding-bottom:100px; }
 .skip-link { position:fixed; z-index:40; top:8px; left:8px; transform:translateY(-150%); padding:10px 15px; background:#fff; color:#27292b; border:1px solid; }
 .skip-link:focus { transform:none; }
 #main:focus { outline:none; }
@@ -171,6 +180,7 @@ body[data-mode=art] footer { color:#9f94aa; }
   #motion-toggle { right:calc(var(--spill) + 7px); bottom:13px; font-size:8px; }
   footer { font-size:11px; flex-wrap:wrap; gap:10px; }
   .studies-link { font-size:8px; }
+  .transition-lab { left:12px; right:12px; bottom:12px; width:auto; max-width:368px; margin-left:auto; }
 }
 @media(max-width:370px) {
   .intro { grid-template-columns:minmax(0,1fr) 96px; gap:14px; }
@@ -179,6 +189,5 @@ body[data-mode=art] footer { color:#9f94aa; }
   #portrait-fallback { width:86px; left:10px; }
 }
 @media(prefers-reduced-motion:reduce) {
-  body[data-crossing=true],body[data-crossing=true] .site-header,body[data-crossing=true] .switch-knob { transition:none; }
-  body[data-crossing=true] .prelude-excerpt { animation:none; }
+  body[data-crossing=true] .switch-knob { transition:none; }
 }

@@ -1,8 +1,9 @@
 const portrait = document.querySelector('#portrait');
 const context = portrait.getContext('2d');
 const panel = document.querySelector('#portrait-panel');
-const crossingCanvas = document.querySelector('#crossing-portrait');
-const crossingContext = crossingCanvas.getContext('2d');
+const pageShell = document.querySelector('.page-shell');
+const transitionLab = document.querySelector('.transition-lab');
+const transitionPlay = document.querySelector('#transition-play');
 const normalImage = new Image();
 const noiseImage = new Image();
 const normalBuffer = document.createElement('canvas');
@@ -14,6 +15,7 @@ const fallback = document.querySelector('#portrait-fallback');
 let mode = 'research';
 let paused = reducedMotion.matches;
 let ready = false;
+let initialized = false;
 let frame = 0;
 let phase = 1.7;
 let lastTime = 0;
@@ -23,9 +25,6 @@ let height = 0;
 let spill = 0;
 const displacement = 0.4;
 const ratio = () => Math.min(devicePixelRatio || 1, 2);
-const clamp = value => Math.max(0, Math.min(1, value));
-const smooth = value => { const x = clamp(value); return x * x * (3 - 2 * x); };
-const lerp = (a, b, t) => a + (b - a) * t;
 
 function sizePortrait() {
   const rect = portrait.getBoundingClientRect();
@@ -83,61 +82,29 @@ function drawPortrait() {
     context.drawImage(noiseBuffer, 0, y, width, h, offset, y, width, h);
   }
 }
-function snapshot() {
-  const copy = document.createElement('canvas');
-  copy.width = portrait.width;
-  copy.height = portrait.height;
-  const snapshotContext = copy.getContext('2d');
-  snapshotContext.drawImage(portrait, 0, 0);
-  return copy;
-}
-function drawCrossing(time) {
-  if (!crossing) return;
-  const raw = clamp((time - crossing.started) / 1050);
-  const t = smooth(raw);
-  const rect = {
-    left: lerp(crossing.from.left, crossing.to.left, t),
-    top: lerp(crossing.from.top, crossing.to.top, t),
-    width: lerp(crossing.from.width, crossing.to.width, t),
-    height: lerp(crossing.from.height, crossing.to.height, t)
-  };
-  Object.assign(crossingCanvas.style, {left:`${rect.left}px`, top:`${rect.top}px`, width:`${rect.width}px`, height:`${rect.height}px`});
-  crossingCanvas.width = Math.max(1, Math.round(rect.width * ratio()));
-  crossingCanvas.height = Math.max(1, Math.round(rect.height * ratio()));
-  crossingContext.setTransform(ratio(), 0, 0, ratio(), 0, 0);
-  const strips = 44;
-  for (let index = 0; index < strips; index++) {
-    const syA = index * crossing.before.height / strips;
-    const syB = index * crossing.after.height / strips;
-    const dy = index * rect.height / strips;
-    const dh = rect.height / strips + 1;
-    const blend = smooth((t - index / strips * .18) / .82);
-    const shift = Math.sin(raw * Math.PI) * Math.sin(index * .7 + phase) * rect.width * .045;
-    crossingContext.globalAlpha = 1 - blend;
-    crossingContext.drawImage(crossing.before, 0, syA, crossing.before.width, crossing.before.height / strips, shift, dy, rect.width, dh);
-    crossingContext.globalAlpha = blend;
-    crossingContext.drawImage(crossing.after, 0, syB, crossing.after.width, crossing.after.height / strips, -shift, dy, rect.width, dh);
-  }
-  crossingContext.globalAlpha = 1;
-  if (raw >= 1) finishCrossing();
-}
 function finishCrossing() {
-  const returnFocus = crossing?.returnFocus;
+  if (!crossing) return;
+  const completed = crossing;
+  if (mode !== completed.next) applyMode(completed.next, completed.hash);
   crossing = null;
-  crossingCanvas.hidden = true;
-  portrait.style.visibility = '';
+  pageTransition.cancel();
   delete document.body.dataset.crossing;
+  pageShell.inert = false;
+  transitionLab.inert = false;
   modeButton.disabled = false;
-  if (returnFocus && document.activeElement === document.body) modeButton.focus({preventScroll:true});
-  lastTime = 0;
+  document.querySelector('#main').removeAttribute('aria-busy');
+  const focus = completed.focus;
+  if (focus && focus !== document.body) {
+    (focus.isConnected && focus.getClientRects().length ? focus : modeButton).focus({preventScroll:true});
+  }
+  refresh();
 }
 function render(time) {
   if (document.hidden) return;
   if (!paused && lastTime && mode === 'art' && !crossing) phase += Math.min(time - lastTime, 100) / 1800;
   lastTime = time;
   drawPortrait();
-  drawCrossing(time);
-  if (crossing || (mode === 'art' && !paused)) frame = requestAnimationFrame(render);
+  if (mode === 'art' && !paused) frame = requestAnimationFrame(render);
 }
 function refresh() {
   cancelAnimationFrame(frame);
@@ -146,15 +113,10 @@ function refresh() {
   motionButton.setAttribute('aria-pressed', String(paused));
   if (ready) render(performance.now());
 }
-function switchMode(next, animate = true) {
-  if (crossing || (next === mode && ready)) return;
-  cancelAnimationFrame(frame);
-  const shouldAnimate = animate && ready && !reducedMotion.matches && crossingContext;
-  const before = shouldAnimate ? snapshot() : null;
-  const from = shouldAnimate ? portrait.getBoundingClientRect() : null;
+function applyMode(next, hash) {
   const art = next === 'art';
   mode = next;
-  if (shouldAnimate) document.body.dataset.crossing = 'true';
+  initialized = true;
   document.body.dataset.mode = mode;
   document.querySelector('#intro').hidden = art;
   document.querySelector('#art-stage').hidden = !art;
@@ -165,20 +127,66 @@ function switchMode(next, animate = true) {
   motionButton.hidden = !art;
   portrait.setAttribute('aria-label', art ? 'Animated corrupted pink and blue portrait' : 'Portrait of Christos Plachouras');
   fallback.src = art ? artSource : `${asset}real-profile.png`;
-  history.replaceState(null, '', `${location.pathname}${art ? '#art' : ''}`);
+  const targetHash = hash ?? (art ? '#art' : '');
+  history.replaceState(null, '', `${location.pathname}${location.search}${targetHash}`);
   window.scrollTo({top:0, behavior:'instant'});
+  if (hash && hash !== '#art') document.querySelector(hash)?.scrollIntoView();
+  transitionPlay.textContent = `Play → ${art ? 'research' : 'art'}`;
   sizePortrait();
-  drawPortrait();
-  if (shouldAnimate) {
-    const to = portrait.getBoundingClientRect();
-    crossing = {before, after:snapshot(), from, to, art, returnFocus:document.activeElement === modeButton, started:performance.now()};
-    portrait.style.visibility = 'hidden';
-    crossingCanvas.hidden = false;
-    modeButton.disabled = true;
-  }
   document.querySelector('#mode-status').textContent = `${art ? 'Art' : 'Research'} view`;
   refresh();
 }
+function switchMode(next, animate = true, hash) {
+  if (crossing || (next === mode && initialized)) return;
+  if (!animate || reducedMotion.matches || !pageTransition.available) {
+    applyMode(next, hash);
+    return;
+  }
+  cancelAnimationFrame(frame);
+  crossing = {next, hash, focus:document.activeElement};
+  document.body.dataset.crossing = 'true';
+  const origin = modeButton.getBoundingClientRect();
+  modeButton.disabled = true;
+  pageShell.inert = true;
+  transitionLab.inert = true;
+  document.querySelector('#main').setAttribute('aria-busy', 'true');
+  pageTransition.start({
+    art:next === 'art', origin,
+    onCovered:() => applyMode(next, hash),
+    onComplete:finishCrossing,
+  });
+}
+
+// The comparison controls appear only on the two study URLs.
+const transitionQuery = new URLSearchParams(location.search).get('transition');
+if (['ink', 'eclipse'].includes(transitionQuery)) {
+  transitionLab.hidden = false;
+  document.body.classList.add('has-transition-lab');
+}
+function updateStudy() {
+  transitionLab.querySelectorAll('[data-transition]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.transition === pageTransition.style));
+  });
+  document.querySelector('#transition-note').textContent = pageTransition.style === 'ink'
+    ? 'a dark tide crosses the page' : 'a shadow blooms from the switch';
+}
+transitionLab.querySelectorAll('[data-transition]').forEach(button => {
+  button.addEventListener('click', () => {
+    pageTransition.setStyle(button.dataset.transition);
+    const url = new URL(location.href);
+    url.searchParams.set('transition', pageTransition.style);
+    history.replaceState(null, '', url);
+    updateStudy();
+  });
+});
+transitionPlay.addEventListener('click', () => switchMode(mode === 'research' ? 'art' : 'research'));
+updateStudy();
+document.querySelector('#page-transition').addEventListener('wheel', event => event.preventDefault(), {passive:false});
+document.addEventListener('keydown', event => {
+  if (!crossing) return;
+  if (event.key === 'Escape') finishCrossing();
+  if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' '].includes(event.key)) event.preventDefault();
+});
 modeButton.addEventListener('click', () => switchMode(mode === 'research' ? 'art' : 'research'));
 modeButton.addEventListener('keydown', event => {
   if (!['ArrowLeft','ArrowRight'].includes(event.key)) return;
@@ -201,15 +209,13 @@ window.addEventListener('hashchange', () => {
   if (hash === '#home' || hash === '#intro') { window.scrollTo({top:0, behavior:'instant'}); return; }
   const target = ['#art','#albums','#compositions','#performances'].includes(hash) ? 'art' : ['#background','#research'].includes(hash) ? 'research' : null;
   if (target && target !== mode) {
-    switchMode(target);
-    history.replaceState(null, '', `${location.pathname}${hash}`);
-    if (hash !== '#art') document.querySelector(hash)?.scrollIntoView();
+    switchMode(target, true, hash);
   }
 });
 const initialHash = location.hash;
 switchMode(['#art','#albums','#compositions','#performances'].includes(initialHash) ? 'art' : 'research', false);
 if (!['','#art','#intro','#home'].includes(initialHash)) {
-  history.replaceState(null, '', `${location.pathname}${initialHash}`);
+  history.replaceState(null, '', `${location.pathname}${location.search}${initialHash}`);
   requestAnimationFrame(() => document.querySelector(initialHash)?.scrollIntoView());
 }
 if (context) {
