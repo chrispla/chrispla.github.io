@@ -1,5 +1,12 @@
 const asset = 'assets/portfolio/';
 const artSource = 'assets/portfolio/corrupted-portrait.jpg';
+// Email links are assembled only when someone reaches for them, so the address never sits whole in the page.
+const reversed = text => [...text].reverse().join('');
+document.querySelectorAll('.email-link').forEach(link => {
+  const reveal = () => { link.href = `mailto:${reversed(link.dataset.user)}@${reversed(link.dataset.domain)}`; };
+  ['pointerenter', 'focus', 'pointerdown', 'click'].forEach(type => link.addEventListener(type, reveal));
+});
+
 const albumHover = window.matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
 document.querySelectorAll('.album-cover').forEach(cover => {
   function resetCover() {

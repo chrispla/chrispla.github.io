@@ -14,8 +14,8 @@
     href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-  <link rel="stylesheet" href="assets/portfolio/portfolio.css?v=research-music-39">
-  <script src="assets/portfolio/portfolio.js?v=research-music-12" defer></script>
+  <link rel="stylesheet" href="assets/portfolio/portfolio.css?v=research-music-41">
+  <script src="assets/portfolio/portfolio.js?v=research-music-42" defer></script>
   <script src="assets/portfolio/page-transition.js?v=research-music-28" defer></script>
   <script src="assets/portfolio/portrait-switch.js?v=research-music-36" defer></script>
 </head>
@@ -33,7 +33,8 @@
       </div>
       <div class="links-row">
         <nav class="contact-links" aria-label="Contact and profiles">
-          <a href="mailto:cplachouras@nyu.edu" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+          <a class="email-link" href="#email" data-user="saruohcalp.c" data-domain="ku.ca.lumq" aria-label="Email"><i
+              class="fas fa-envelope" aria-hidden="true"></i></a>
           <a href="https://github.com/chrispla" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i
               class="fab fa-github" aria-hidden="true"></i></a>
           <a href="https://scholar.google.com/citations?user=bVSgD4MAAAAJ" target="_blank" rel="noopener noreferrer"
@@ -65,9 +66,12 @@
               target="_blank" rel="noopener noreferrer">Google PhD Fellow</a> in Machine Perception.
             <br><br>I'm currently based in London.
           </p>
-          <p><a class="text-link" href="https://chrispla.github.io/CV_Christos_Plachouras_Summer_2026.pdf"
+          <p id="email"><a class="text-link" href="https://chrispla.github.io/CV_Christos_Plachouras_Summer_2026.pdf"
               target="_blank" rel="noopener noreferrer">my CV <i class="fa-regular fa-file-lines"
-                aria-hidden="true"></i></a></p>
+                aria-hidden="true"></i></a> &nbsp;&nbsp;&&nbsp; <a class="text-link email-link" href="#email"
+              data-user="saruohcalp.c" data-domain="ku.ca.lumq">my email <i class="fa-regular fa-envelope"
+                aria-hidden="true"></i></a><noscript>
+              (c.plachouras [at] qmul.ac.uk)</noscript></p>
         </div>
       </section>
       <section class="art-stage" id="art" aria-label="Portrait and prelude">
@@ -95,12 +99,16 @@
         <section id="research" class="content-section">
           <h2>research</h2>
 
-          <p>My research is focused on <b>making machines able to understand audio and music</b>. Within that
-            scope, I investigate:<br>
-            &nbsp;&nbsp;1. how to develop better audio representations<br>
-            &nbsp;&nbsp;2. how to make better multimodal LLMs, and<br>
-            &nbsp;&nbsp;3. how to best evaluate multimodal models and ensure their usefulness in real-world
-            applications.</p>
+          <p>I'm currently working on <b>improving how machines perceive and explain audio</b>. This involves:<br>
+            &nbsp;&nbsp;&nbsp;1. designing better <b>audio representations</b>,<br>
+            &nbsp;&nbsp;&nbsp;2. developing better <b>multimodal LLMs</b>, and<br>
+            &nbsp;&nbsp;&nbsp;3. devising novel <b>evaluations</b>.</p><br>
+
+          My recent work is primarily in <b>music</b> and <b>bioacoustics</b>.<br><br>
+
+          Previously, I've worked on various topic in music information retrieval, including structure analysis,
+          fingerprinting, representation learning, rearrangement, evaluation, and ethnomusicology.
+
         </section>
         <section id="background" class="content-section">
           <h2>background</h2>
@@ -177,8 +185,8 @@
           </div>
 
           <div class="boxed odd">
-            <span class="image entry"><img src="assets/portfolio/steinhardt.jpeg" alt="NYU Steinhardt"></span>
-            <p><strong>NYU Steinhardt</strong> - Research Student<br>
+            <span class="image entry"><img src="assets/portfolio/nyu-cds.jpeg" alt="NYU Center for Data Science"></span>
+            <p><strong>NYU Center for Data Science</strong> - Research Student<br>
               Hierarchical music structure analysis and structure similarity<br>
               <i>Sep 2019 - May 2019</i>
             </p>
@@ -215,16 +223,6 @@
             </p>
           </div>
           <div class="boxed odd">
-            <p><strong>Finetuning Strategies for Querying Sounds by Vocal
-                Imitation</strong>&nbsp;|
-              <a href="https://arxiv.org/abs/2608.19174" title="Paper" aria-label="Paper" target="_blank"
-                rel="noopener noreferrer"><i class="fa-regular fa-file-lines"></i></a>
-              <br>
-              A. Bhattacharjee, <u>C. Plachouras</u>, S. Chang, E. Benetos<br>
-              1st place, QVIM Challenge, AES AIMLA 2025; arXiv, <b>2026</b>
-            </p>
-          </div>
-          <div class="boxed odd">
             <p><strong>OmniVideoBench: Towards Audio-Visual Understanding Evaluation for
                 Omni MLLMs</strong>&nbsp;|
               <a href="https://arxiv.org/abs/2510.10689" title="Paper" aria-label="Paper" target="_blank"
@@ -234,6 +232,16 @@
               <br>
               Li et al.<br>
               International Conference on Learning Representations, <b>ICLR 2026</b>
+            </p>
+          </div>
+          <div class="boxed odd">
+            <p><strong>Finetuning Strategies for Querying Sounds by Vocal
+                Imitation</strong>&nbsp;|
+              <a href="https://arxiv.org/abs/2608.19174" title="Paper" aria-label="Paper" target="_blank"
+                rel="noopener noreferrer"><i class="fa-regular fa-file-lines"></i></a>
+              <br>
+              A. Bhattacharjee, <u>C. Plachouras</u>, S. Chang, E. Benetos<br>
+              1st place, QVIM Challenge, <b>AES AIMLA 2025</b>
             </p>
           </div>
           <div class="boxed odd">
@@ -270,7 +278,7 @@
               <a href="https://github.com/nicolaus625/FM4Music" title="Code" aria-label="Code" target="_blank"
                 rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a><br>
               Ma, Y. et al<br>
-              arXiv, [Under review], <b>2024</b>
+              arXiv, <b>2024</b>
             </p>
           </div>
           <div class="boxed odd">
@@ -340,7 +348,7 @@
             </p>
             K. Trochidis, B. Russell, A. J. Eisenberg, K. Ganguli, O. Gonez, <u>C. Plachouras</u>,
             C. Guedes, & V. Danielson<br>
-            TROMPA presentation, Digital Libraries for Musicology (ISMIR 2019), <b>2019</b>
+            TROMPA presentation, Digital Libraries for Musicology (ISMIR 2019), <b>DLfM 2019</b>
           </div>
         </section>
       </div>
