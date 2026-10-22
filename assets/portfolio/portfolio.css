@@ -16,7 +16,7 @@ img { display:block; max-width:100%; }
 h1,h2,h3,h4,p,figure { margin:0; }
 h1,h2 { font-family:var(--display); font-weight:400; color:var(--heading); }
 h1 { font-size:31px; line-height:1.3; letter-spacing:-.7px; }
-h2 { font-size:25px; line-height:1.3; letter-spacing:-.4px; }
+h2 { font-size:24px; line-height:1.3; letter-spacing:-.4px; }
 h3 { font-size:16px; font-weight:600; line-height:1.35; }
 h4 { font-size:15px; font-weight:600; margin:18px 0 10px; }
 strong,b { color:var(--heading); font-weight:600; }
@@ -24,27 +24,25 @@ strong,b { color:var(--heading); font-weight:600; }
 /* Without JavaScript (no data-mode yet), the address picks the view: music sections show the music page. */
 body:not([data-mode]):not(:has(#art:target,#albums:target,#compositions:target,#performances:target)) :is(#art,#art-panel) { display:none; }
 body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) :is(#intro,#research-panel) { display:none; }
-body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=research]:not(:hover,:focus-visible) { opacity:.65; }
+body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=research]:not(:hover,:focus-visible) { opacity:.6; }
 body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=research]::after { transform:scaleX(0); }
 body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=art] { opacity:1; }
 body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target) .mode-link[data-mode=art]::after { transform:scaleX(1); }
 .art-portrait-static { display:block; width:100%; height:100%; object-fit:contain; }
 #art { scroll-margin-top:100vh; } /* Opening #art lands at the top of the page, header included. */
 .page-shell { max-width:884px; margin:24px auto 0; padding:0 68px 0 56px; }
-.site-header { display:grid; grid-template-columns:auto minmax(0,1fr) auto; column-gap:18px; align-items:center; padding-bottom:23px; border-bottom:1px solid var(--rule); }
-.name-row { display:contents; align-items:center; justify-content:space-between; gap:25px; }
-.name-row h1 { white-space:nowrap; }
-.mode-nav { grid-column:2; grid-row:1; justify-self:center; display:flex; align-items:center; gap:13px; flex-shrink:0; font-family:var(--display); font-size:20px; letter-spacing:-.3px; }
-.mode-link { position:relative; display:flex; align-items:center; min-height:44px; padding:5px 0; color:var(--heading); opacity:.65; }
-.mode-link[data-mode=art] { font-style:italic; }
-.mode-link::after { content:""; position:absolute; left:0; right:0; bottom:3px; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; }
+.site-header { display:flex; align-items:baseline; padding-bottom:23px; border-bottom:1px solid var(--rule); }
+/* Everything shares one baseline; the mode switch is centred in the space between the name and the icons. */
+.name-row { flex:1; display:flex; align-items:baseline; }
+.name-row h1 { font-size:27px; letter-spacing:-.6px; white-space:nowrap; }
+.mode-nav { margin:0 auto; padding:0 24px; display:flex; align-items:baseline; gap:10px; flex-shrink:0; font-family:var(--display); font-size:22px; font-style:italic; letter-spacing:-.3px; }
+.mode-link { position:relative; display:inline-block; padding:10px 0; line-height:24px; color:var(--heading); opacity:.6; }
+.mode-link::after { content:""; position:absolute; left:0; right:0; bottom:7px; height:1px; background:var(--accent); transform:scaleX(0); transform-origin:left; }
 .mode-link[aria-current=page],.mode-link:hover,.mode-link:focus-visible { opacity:1; color:var(--heading); }
 .mode-link[aria-current=page]::after { transform:scaleX(1); }
-.mode-divider { font-size:28px; font-style:italic; font-weight:400; line-height:1; opacity:.27; }
-.links-row { display:contents; }
-.contact-links { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:5px; font-size:18px; }
-.contact-links a { display:inline-flex; align-items:center; }
-.contact-links a+a:before { content:'|'; display:inline-block; color:var(--divider); font-size:15px; font-weight:300; line-height:1; margin-right:5px; }
+.mode-divider { font-weight:400; opacity:.3; }
+.contact-links { display:flex; align-items:baseline; gap:15px; font-size:18px; }
+.contact-links a:not(:hover) { color:var(--heading); }
 /* No divider below the intro, so the research section follows at a normal gap rather than a divider's worth. */
 .intro { display:grid; grid-template-columns:171px minmax(0,1fr); gap:31px; align-items:center; padding:34px 0 0; }
 .intro-copy { min-width:0; }
@@ -147,8 +145,8 @@ html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--ecli
 @media(max-width:800px) {
   body { font-size:15px; }
   .page-shell { padding:0 35px; }
-  h1 { font-size:29px; }
-  .mode-nav { font-size:19px; gap:12px; }
+  .name-row h1 { font-size:26px; }
+  .mode-nav { font-size:20px; }
   .intro { gap:17px; grid-template-columns:180px minmax(0,1fr); }
   .portrait-panel { width:180px; padding-right:17px; }
   #portrait-fallback { left:0; }
@@ -159,15 +157,16 @@ html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--ecli
 }
 @media(max-width:760px) {
   .site-header { display:block; }
-  .name-row { display:flex; }
-  .links-row { display:block; margin-top:12px; }
+  .name-row { gap:36px; }
+  .mode-nav { margin:0; padding:0; }
+  .links-row { margin-top:12px; }
 }
 @media(max-width:600px) {
   .page-shell { margin-top:20px; padding:0 20px; }
-  .name-row { flex-wrap:wrap; gap:15px; }
-  h1 { font-size:25px; letter-spacing:-.5px; }
+  .name-row { flex-wrap:wrap; column-gap:24px; row-gap:0; }
+  h1,.name-row h1 { font-size:25px; letter-spacing:-.5px; }
   h2 { font-size:22px; }
-  .mode-nav { font-size:19px; gap:12px; }
+  .mode-nav { font-size:20px; }
   .site-header { padding-bottom:19px; }
   .links-row { margin-top:14px; }
   .contact-links { font-size:16px; }
