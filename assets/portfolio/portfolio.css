@@ -76,7 +76,7 @@ body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#perfo
 .album-cover img { display:block; width:100%; height:100%; object-fit:cover; }
 /* cos(0.5°) + sin(0.5°) is the minimum scale that fills the rotated square. */
 .album-upcoming .album-cover img { transform:rotate(0.5deg) scale(1.008689); }
-.album-cover img[src$="songs-of-adelina.jpg"] { filter:grayscale(.3); }
+.album-cover img[src$="songs-of-adelina.jpg"] { filter:grayscale(1); }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   .album-cover { transform:perspective(900px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg)); transition:transform 320ms ease-out,box-shadow 320ms ease-out; }
   .album-cover::after { content:""; position:absolute; inset:-50%; pointer-events:none; opacity:0; background:linear-gradient(var(--shine-angle,125deg),transparent 0%,#ffffff02 20%,#ffffff0a 40%,#ffffff20 54%,#ffffff0c 68%,#ffffff02 84%,transparent 100%); transform:translate(var(--shine-x,0%),var(--shine-y,0%)); transition:opacity 250ms ease-out,transform 160ms ease-out; }
@@ -101,9 +101,11 @@ body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#perfo
 .music-entry a:hover { text-decoration:underline; text-underline-offset:3px; }
 footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 30px; font-size:12px; color:var(--muted); }
 /* The art page uses one image and a still, dark surrounding surface. */
-:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) { --ink:#d1cbd7; --heading:#f1edf4; --rule:#ffffff21; --accent:#d9ff60; background:#15101d; }
+/* Music page palette: graphite with a lavender accent, so the portrait is the only strong colour. */
+:root { --m-bg:#131315; --m-head:#ecebf0; --m-ink:#cfcdd6; --m-soft:#dedce4; --m-muted:#8f8c99; --m-muted2:#9a97a4; --m-faint:#85828e; --m-accent:#b9a8ff; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) { --ink:var(--m-ink); --heading:var(--m-head); --rule:#ffffff21; --accent:var(--m-accent); background:var(--m-bg); }
 :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .site-header { padding-bottom:24px; border-bottom:0; }
-:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) a:focus-visible,:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) button:focus-visible { outline-color:#d9ff60; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) a:focus-visible,:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) button:focus-visible { outline-color:var(--m-accent); }
 .art-stage { --spill:32px; position:relative; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr); align-items:center; gap:44px; width:100%; margin:8px 0 0; overflow:visible; }
 /* The portrait's resting edges sit on the content edges; moving strips leak slightly past them. */
 /* Shifted left: the wide edge fade makes the visible edge read as further in than the box. */
@@ -112,18 +114,18 @@ footer { display:flex; justify-content:space-between; gap:20px; padding:22px 0 3
 :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .portrait-panel { width:calc(100% + var(--spill) * 2); height:100%; margin-left:calc(-1 * var(--spill)); padding:0; border:0; }
 :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) #portrait { width:100%; height:100%; }
 :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) #portrait-fallback { left:var(--spill); top:0; width:calc(100% - var(--spill) * 2); height:100%; transform:none; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent); }
-.prelude-excerpt { min-width:0; color:#e1d9e8; }
+.prelude-excerpt { min-width:0; color:var(--m-soft); }
 /* Engraved 7% tighter; shown at the matching width so the glyphs keep their size. */
 .prelude-notation { display:block; width:93%; height:auto; margin-left:auto; overflow:visible; }
 .prelude-excerpt figcaption { margin-top:26px; text-align:right; }
 .prelude-excerpt h2 { font-size:19px; letter-spacing:-.2px; }
-.prelude-excerpt figcaption p { margin-top:4px; font-size:13px; color:#a99fb5; }
+.prelude-excerpt figcaption p { margin-top:4px; font-size:13px; color:var(--m-muted); }
 .prelude-excerpt figcaption .prelude-year { margin-top:6px; font-size:12px; }
-.stage-caption { position:absolute; left:12px; bottom:18px; font-family:var(--body); font-size:11px; color:#d9ff60; letter-spacing:.2px; }
+.stage-caption { position:absolute; left:12px; bottom:11px; font-family:var(--body); font-size:11px; color:#fff; letter-spacing:.2px; }
 :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .content-section { padding-top:30px; padding-bottom:30px; }
-:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .album>p { color:#a99fb5; }
-:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .music-entry p { color:#b1a8bb; }
-:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) footer { color:#9f94aa; }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .album>p { color:var(--m-muted); }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .music-entry p { color:var(--m-muted2); }
+:is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) footer { color:var(--m-faint); }
 html.eclipse-reveal::view-transition-group(root) { animation:none; }
 html.eclipse-reveal::view-transition-image-pair(root) { isolation:auto; }
 html.eclipse-reveal::view-transition-old(root),html.eclipse-reveal::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
@@ -191,7 +193,7 @@ html.eclipse-reveal::view-transition-new(root) { z-index:2; clip-path:var(--ecli
   .art-portrait { width:80%; max-width:368px; margin-left:0; justify-self:center; }
   .prelude-excerpt { width:100%; max-width:420px; justify-self:center; margin:16px 0 8px; }
   :is(body[data-mode=art],body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#performances:target),.art-cover) .portrait-panel { margin-top:0; }
-  .stage-caption { left:10px; bottom:46px; font-size:10px; }
+  .stage-caption { left:10px; bottom:39px; font-size:10px; }
   footer { font-size:11px; flex-wrap:wrap; gap:10px; }
 }
 @media(max-width:370px) {
