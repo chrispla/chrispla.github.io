@@ -86,7 +86,11 @@ body:not([data-mode]):has(#art:target,#albums:target,#compositions:target,#perfo
 .album h3 { font-size:16px; font-weight:600; margin-top:14px; min-height:46px; }
 .album>p { font-size:13px; margin-bottom:8px; }
 .work-links { display:flex; flex-wrap:wrap; gap:4px 12px; font-size:12px; }
-.work-links a { text-decoration:underline; text-underline-offset:3px; }
+/* Outbound links end with a thin drawn arrow (the ↗ glyph is a speck at this size). The line under them is drawn
+   as a background so it runs unbroken beneath text and arrow, which a text underline won't do. */
+.work-links a,.music-entry h3 a { --arrow:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E"); }
+.work-links a::after,.music-entry h3 a::after { content:""; display:inline-block; width:.9em; height:.9em; margin-left:.12em; vertical-align:-.08em; background:currentColor; -webkit-mask:var(--arrow) center/contain no-repeat; mask:var(--arrow) center/contain no-repeat; }
+.work-links a,.music-entry h3 a:hover { text-decoration:none; background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat; }
 .music-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px; }
 .music-entry { --work-thumb:128px; display:grid; grid-template-columns:var(--work-thumb) minmax(0,1fr); align-items:start; gap:14px; }
 /* YouTube's own 16:9 thumbnails, shown whole. */
